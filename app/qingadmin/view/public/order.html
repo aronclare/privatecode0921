@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>排序Demo</title>
+    <script src="http://www.tp6.com/public/static/admin/lib/jquery/1.9.1/jquery.min.js"></script>
+</head>
+<body>
+
+    <style>
+        .prev,.next{
+            cursor: pointer;
+            color: #f00;
+        }
+    </style>
+
+    <div class="box">
+        <p>夏天终于来了1 <span class="prev">上</span><span class="next">下</span></p>
+        <p>夏天终于来了2 <span class="prev">上</span><span class="next">下</span></p>
+        <p>夏天终于来了3 <span class="prev">上</span><span class="next">下</span></p>
+        <p>夏天终于来了4 <span class="prev">上</span><span class="next">下</span></p>
+        <p>夏天终于来了5 <span class="prev">上</span><span class="next">下</span></p>
+    </div>
+
+    <script>
+        $(".prev").click(function(){
+            //当前点击2
+            var prev=$(this).parent().prev();//1
+            $(this).parent().after(prev);
+        });
+
+
+        $(".next").click(function(){
+            //当前点击2
+            var next=$(this).parent().next();//3
+            $(this).parent().before(next);
+        });
+
+      
+    </script>
+    
+</body>
+</html>

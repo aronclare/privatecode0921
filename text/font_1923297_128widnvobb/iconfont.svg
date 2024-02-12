@@ -1,0 +1,29 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" >
+<!--
+2013-9-30: Created.
+-->
+<svg>
+<metadata>
+Created by iconfont
+</metadata>
+<defs>
+
+<font id="iconfont" horiz-adv-x="1024" >
+  <font-face
+    font-family="iconfont"
+    font-weight="500"
+    font-stretch="normal"
+    units-per-em="1024"
+    ascent="896"
+    descent="-128"
+  />
+    <missing-glyph />
+    
+    <glyph glyph-name="telephone" unicode="&#58949;" d="M789.855 170.58c-56.891 21.755-110.775 49.748-173.239-8.56-38.553-35.986-66.43-32.047-91.638-18.649-25.192 13.396-180.396 171.85-201.584 223.686-21.187 51.836-9.743 58.841 0 74.554 9.729 15.735 77.311 52.437 36.653 167.766-40.672 115.332-72.605 202.184-238.25 0-17.183-20.97 0-111.843 0-111.843s116.799-381.795 513.138-540.567c61.527-24.641 200.481 14.383 256.572 111.845 27.493 47.764-12.381 67.633-101.651 101.768z"  horiz-adv-x="1024" />
+
+    
+
+
+  </font>
+</defs></svg>

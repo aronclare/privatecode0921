@@ -1,0 +1,167 @@
+
+
+<!--包含头部文件-->
+
+{include file="public/head" /}
+
+<div class="cl pd-5 bg-1 bk-gray mt-20"> 修改</div>
+
+<article class="page-container">
+
+
+    <style>
+        .formControls label{
+            display: block;
+        }
+
+        .inline{
+            display: inline-block;
+        }
+
+        .block{
+            display: block;
+        }
+    </style>
+    <form class="form form-horizontal" id="form-article-add" method="post" action="" enctype="multipart/form-data" >
+
+        <div class="row cl">
+
+            <label class="form-label col-xs-4 col-sm-2">信息审核：</label>
+
+            <div class="formControls col-xs-8 col-sm-6">
+                <input type="hidden" class="input-text" value="{$userData.id}" placeholder="" id="" name="id">
+
+
+
+
+                <p class="form-label col-xs-6"><label for="">姓名：<input type="text" class="input-text " value="{$userData.real_name}" required="required" name="id_front_pic">
+                </label></p>
+                <p class="form-label col-xs-6"><label for="">ID正面：<input type="text" class="input-text" value="{$userData.id_front_pic}" required="required" name="id_front_pic">
+                </label></p>
+                <p class="form-label col-xs-6">ID反面：<input type="text" class="input-text" value="{$userData.id_back_pic}" required="required" name="id_back_pic">
+                </p>
+                <p class="form-label col-xs-6">ID号码：<input type="text" class="input-text" value="{$userData.id_number}" required="required" name="id_number">
+                </p>
+                <p class="form-label col-xs-6">个人图片：<input type="text" class="input-text" value="{$userData.self_pic}" required="required" name="self_pic">
+                </p>
+                <p class="form-label col-xs-6">审核状态(0待审核1审核通过2审核未通过)：<input type="text" class="input-text" value="{$userData.check_status}" required="required" name="check_status">
+                </p>
+                <p class="form-label col-xs-6">审核意见：<input type="text" class="input-text" value="{$userData.remark}" required="required" name="remark">
+                </p>
+
+
+                <label class="form-label col-xs-6"></label>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="row cl">
+
+            <!-- <label class="form-label col-xs-4 col-sm-2">对应数据表：</label>
+             <div class="formControls col-xs-8 col-sm-6">
+               <input type="text" class="input-text" value="{$userData.table_name}" required="required" name="table_name">
+             </div>-->
+
+        </div>
+
+
+        <div class="row cl">
+
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+
+                <button onClick="article_save_submit();" class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 提交</button>
+
+            </div>
+
+        </div>
+
+    </form>
+
+</article>
+
+<script>
+
+    /**定义页面全局变量**/
+
+    var SCOPE = {};
+
+
+
+</script>
+
+<!--包含头部文件-->
+
+{include file="public/foot" /}
+
+
+
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+<div class="cl pd-5 bg-1 bk-gray mt-20"> 收货信息</div>
+
+<div class="row cl">
+
+    <label class="form-label col-xs-4 col-sm-2">收货人姓名：</label>
+
+    <div class="formControls col-xs-8 col-sm-6">
+
+        {$addressData.shou_name}
+
+    </div>
+
+</div>
+
+<div class="row cl">
+
+    <label class="form-label col-xs-4 col-sm-2">收货人电话：</label>
+
+    <div class="formControls col-xs-8 col-sm-6">
+
+        {$addressData.shou_mobile}
+
+    </div>
+
+</div>
+
+<div class="row cl">
+
+    <label class="form-label col-xs-4 col-sm-2">收货人地址：</label>
+
+    <div class="formControls col-xs-8 col-sm-6">
+
+        {$addressData.shou_address}
+
+    </div>
+
+</div>
+
+<div class="cl pd-5 bg-1 bk-gray mt-20"> 商品信息</div>
+
+{volist name="orderGoods" id="vo" key="k" }
+<div class="row cl">
+
+    <label class="form-label col-xs-4 col-sm-2">商品{$k}：</label>
+
+    <div class="formControls col-xs-8 col-sm-6">
+
+        <div style="display: inline-block;"><img src="{$vo.goods_thumb}" style="width: 100px;height: 100px;margin-right: 15px;"></div>
+        <div style="display: inline-block;">{$vo.goods_name} <br>规格：&nbsp;&nbsp;{$vo.sku}&nbsp;&nbsp;价钱：{$vo.goods_price}&nbsp;&nbsp;数量：{$vo.amount}&nbsp;&nbsp;邮费：{$vo.post_money}</div>
+
+    </div>
+
+</div>
+{/volist}

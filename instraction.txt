@@ -1,0 +1,30 @@
+thinkphp6.0.3
+该版本不支持php8
+6.0.6之后支持php8
+php version   7.1.9
+server nginx
+mysql 5.7
+伪静态
+location ~* (runtime|application)/{
+	return 403;
+}
+location / {
+	if (!-e $request_filename){
+		rewrite  ^(.*)$  /index.php?s=$1  last;   break;
+	}
+}
+前台pc、mobile
+后台登录
+xxxxx.com/qingadmin
+
+username
+root_qing
+pwd
+1234567
+//////////////////////////////////////////
+admin
+admin
+
+
+https://github.com/swoole-inc/webrtc
+

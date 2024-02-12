@@ -1,0 +1,64 @@
+
+<link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_1646840_wwuv2y1aefe.css"/>
+<div class="top">
+
+    <div class="wrap top_box">
+
+        <div class="top_left">
+            {if condition="$sessionUserData"}
+            <a href="{:url('index/user/index')}">{$sessionUserData.username}</a>
+            {else/}
+            <a href="{:url('index/user/login')}">登录</a>
+            <a href="{:url('index/user/register')}">注册</a>
+            {/if}
+           
+        </div>
+
+        <div class="top_right">
+
+            <a href="/index/">首页</a>
+
+            <a href="{:url('index/user/index')}">会员中心</a>
+            <a href="{:url('index/user/notice')}">通知消息</a>
+
+            <a href="#">联系客服</a>
+
+            <a href="{:url('index/cart/index')}" class="cart"><i class="icongouwuche iconfont"></i> 购物车( {$cartCount|default='0'} )</a>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="header" >
+
+    <div class="wrap header_box">
+
+        <div class="logo"><a href="/"><img src="/public/static/index/images/shop_logo.jpg"></a></div>
+        <div class="nav">
+            <div class="item"><a href="/">首页</a></div>
+            <div class="item"><a href="{:url('index/lists/index',array('cate_id'=>18))}">手机</a></div>
+            <div class="item"><a href="{:url('index/lists/index',array('cate_id'=>155))}">电视</a></div>
+            <div class="item"><a href="{:url('index/lists/index',array('cate_id'=>1))}">女装</a></div>
+            <div class="item"><a href="{:url('index/lists/index',array('cate_id'=>63))}">精选上装</a></div>
+        </div>
+
+        <form class="search_box" method="post" action="{:url('index/lists/search')}">
+
+            <input type="text" placeholder="输入搜索关键字" name="keywords" class="input" autocomplete="off">
+
+            <button type="submit" class="btn"><i class="icontubiao1 iconfont"></i></button>
+
+            <div class="search_key_box">
+                {volist name="$searchData" id="vo"}
+                <a href="{:url('index/lists/search',array('keywords'=>$vo.name))}" class="item">{$vo.name}</a>
+                {/volist}
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+

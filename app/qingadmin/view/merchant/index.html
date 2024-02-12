@@ -1,0 +1,125 @@
+<!--包含头部文件-->
+
+{include file="public/head" /}
+
+<body>
+
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i>商户列表 </nav>
+
+<div class="page-container">
+
+
+
+	<form acction="{:url('user/index')}" method="get">
+
+		<div class="text-c">
+
+
+			<a href="{:url('merchant/add')}"><button type="button" class="btn btn-success radius" style="float: left;">添加</button></a>
+
+			<input type="text" class="input-text" style="width:20%" placeholder="{$search_key|default='输入商户名关键字查询'}" name="search_key">
+
+			<button type="submit" class="btn btn-success radius"><i class="Hui-iconfont">&#xe665;</i>搜索</button>
+
+		</div>
+
+	</form>
+
+
+	<div class="mt-20">
+
+			<table class="table table-border table-bordered table-bg table-hover table-sort mt-20">
+
+				<thead>
+
+					<tr class="text-c">
+
+						<th width="50">ID</th>
+
+						<th width="250">商户名称</th>
+
+						<th width="250">商户图片</th>
+
+						<th width="250">商户地址</th>
+
+						<th width="250">商户姓名</th>
+
+						<th width="250">所属行业</th>
+
+						<th width="250">收款码</th>
+
+						<th width="250">ip</th>
+
+						<th width="250">状态</th>
+
+						<th width="250">操作</th>
+
+					</tr>
+
+				</thead>
+
+				<tbody>
+
+					{volist name="mer_Data" id="vo"}
+
+					<tr class="text-c">
+
+						<td>{$vo.id}</td>
+
+						<td>{$vo.store_name}</td>
+
+						<td><img src="{$vo.store_pic}" style="width: 100px;height: 100px;margin-right: 15px;"></td>
+
+
+						<td>{$vo.address}</td>
+
+						<td>{$vo.name}</td>
+						<td>{$vo.store_type}</td>
+						<td><img src="{$vo.payment_code_pic}" style="width: 100px;height: 100px;margin-right: 15px;"></td>
+						<td>{$vo.submit_ip}</td>
+						<td>
+
+							{if condition="$vo.status eq 1"}
+
+							<a href="{:url('base/status',array('id'=>$vo.id,'status'=>-1,'dbname'=>'merchant'))}" style="text-decoration: none">
+
+							<span class="label label-success radius">正常</span></a>
+
+							{else/}<a href="{:url('base/status',array('id'=>$vo.id,'status'=>1,'dbname'=>'merchant'))}" style="text-decoration: none"><span class="label label-danger radius">禁用</span>{/if}</a>
+
+						</td>
+
+						<td>
+
+							<a href="{:url('merchant/edit',array('id'=>$vo.id))}" style="text-decoration: none">
+
+								<span class="label label-success radius">编辑</span></a>
+
+							<a href="{:url('merchant/delete',array('id'=>$vo.id))}" style="text-decoration: none"><span class="label label-danger radius">删除</span></a>
+
+						</td>
+
+						
+
+					</tr>
+
+					{/volist}
+
+					
+
+				</tbody>
+
+			</table>
+
+
+
+			{$mer_Data|raw}
+
+	</div>
+
+</div>
+
+<!--包含头部文件-->
+
+{include file="public/foot" /}
+

@@ -1,0 +1,116 @@
+<!--包含头部文件-->
+
+{include file="public/head" /}
+
+<body>
+
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i>汽车列表 </nav>
+
+<div class="page-container">
+
+
+
+	<form acction="{:url('user/index')}" method="get">
+
+		<div class="text-c">
+			<a href="{:url('merchant/car_add')}"><button type="button" class="btn btn-success radius" style="float: left;">添加</button></a>
+
+			<input type="text" class="input-text" style="width:20%" placeholder="{$search_key|default='输入车牌号码查询'}" name="search_key">
+
+			<button type="submit" class="btn btn-success radius"><i class="Hui-iconfont">&#xe665;</i>搜索</button>
+
+		</div>
+
+	</form>
+
+
+	<div class="mt-20">
+
+			<table class="table table-border table-bordered table-bg table-hover table-sort mt-20">
+
+				<thead>
+
+					<tr class="text-c">
+
+						<th width="50">ID</th>
+
+						<th width="250">汽车名称</th>
+
+						<th width="250">车牌号</th>
+
+						<th width="250">汽车图片</th>
+
+						<th width="250">获取地点</th>
+
+						<th width="250">ip</th>
+
+						<th width="250">状态</th>
+
+						<th width="250">操作</th>
+
+					</tr>
+
+				</thead>
+
+				<tbody>
+
+					{volist name="car_Data" id="vo"}
+
+					<tr class="text-c">
+
+						<td>{$vo.id}</td>
+
+						<td>{$vo.car_name}</td>
+
+						<td>{$vo.car_number}</td>
+
+						<td><img src="{$vo.car_pic}" style="width: 100px;height: 100px;margin-right: 15px;"></td>
+						<td>{$vo.address}</td>
+						<td>{$vo.submit_ip}</td>
+						<td>
+
+							{if condition="$vo.status eq 1"}
+
+							<a href="{:url('base/status',array('id'=>$vo.id,'status'=>-1,'dbname'=>'merchant'))}" style="text-decoration: none">
+
+							<span class="label label-success radius">正常</span></a>
+
+							{else/}<a href="{:url('base/status',array('id'=>$vo.id,'status'=>1,'dbname'=>'merchant'))}" style="text-decoration: none"><span class="label label-danger radius">禁用</span>{/if}</a>
+
+						</td>
+
+						<td>
+
+
+							<a href="{:url('merchant/car_edit',array('id'=>$vo.id))}" style="text-decoration: none">
+
+								<span class="label label-success radius">编辑</span></a>
+
+							<a href="{:url('merchant/car_delete',array('id'=>$vo.id))}" style="text-decoration: none"><span class="label label-danger radius">删除</span></a>
+
+						</td>
+
+						
+
+					</tr>
+
+					{/volist}
+
+					
+
+				</tbody>
+
+			</table>
+
+
+
+			{$car_Data|raw}
+
+	</div>
+
+</div>
+
+<!--包含头部文件-->
+
+{include file="public/foot" /}
+
