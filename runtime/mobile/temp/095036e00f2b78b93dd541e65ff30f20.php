@@ -1,3 +1,4 @@
+<?php /*a:2:{s:67:"D:\phpstudy_pro\WWW\privatecode0921\app\mobile\view\user\index.html";i:1707754343;s:72:"D:\phpstudy_pro\WWW\privatecode0921\app\mobile\view\public\foot_bar.html";i:1707738454;}*/ ?>
 <!DOCTYPE html>
 
 <html>
@@ -23,7 +24,7 @@
 
     <script src="/public/static/index/js/common.js"></script>
 
-    <title>会员中心-{$web_title}</title>
+    <title>会员中心-<?php echo htmlentities($web_title); ?></title>
     <meta name="keywords" content="">
     <meta name="description" content="">
 
@@ -37,9 +38,9 @@
 
         <div class="nav_bar">我的</div>
         <div class="user_head">
-            <div class="title"><label>用户名:</label>{$sessionUserData.username}</div>
-            <div class="description">上次登录:{$sessionUserData.last_login_time|date="Y-m-d H:s:i"}</div>
-                <a href="{:url('user/login_out')}">
+            <div class="title"><label>用户名:</label><?php echo htmlentities($sessionUserData['username']); ?></div>
+            <div class="description">上次登录:<?php echo htmlentities(date("Y-m-d H:s:i",!is_numeric($sessionUserData['last_login_time'])? strtotime($sessionUserData['last_login_time']) : $sessionUserData['last_login_time'])); ?></div>
+                <a href="<?php echo url('user/login_out'); ?>">
                     <button class="exit_btn">退出</button>
                 </a>
                 <a href="#">
@@ -88,7 +89,7 @@
         <div id="mer_control" class="mer_control active">
             <h2>商户信息</h2>
 
-            <form action="{:url('user/merchant_add')}" method="post" >
+            <form action="<?php echo url('user/merchant_add'); ?>" method="post" >
 
                 <label>商户名称</label><br>
 
@@ -129,24 +130,24 @@
                     </thead>
 
                     <tbody>
-                    {volist name="mer_Data" id="vo"}
+                    <?php if(is_array($mer_Data) || $mer_Data instanceof \think\Collection || $mer_Data instanceof \think\Paginator): $i = 0; $__LIST__ = $mer_Data;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
 
                     <tr>
-                        <td>{$vo.id}</td>
-                        <td>{$vo.store_name}</td>
-                        <td>{$vo.address}</td>
-                        <td>{$vo.name}</td>
-                        <td><img src="{$vo.store_pic}" alt=""></td>
-                        <td>{$vo.store_type}</td>
-                        <td><img src="{$vo.payment_code_pic}" alt=""></td>
+                        <td><?php echo htmlentities($vo['id']); ?></td>
+                        <td><?php echo htmlentities($vo['store_name']); ?></td>
+                        <td><?php echo htmlentities($vo['address']); ?></td>
+                        <td><?php echo htmlentities($vo['name']); ?></td>
+                        <td><img src="<?php echo htmlentities($vo['store_pic']); ?>" alt=""></td>
+                        <td><?php echo htmlentities($vo['store_type']); ?></td>
+                        <td><img src="<?php echo htmlentities($vo['payment_code_pic']); ?>" alt=""></td>
                         <td>
-                            <a href="{:url('user/merchant_edit',array('id'=>$vo.id))}" style="text-decoration: none">
+                            <a href="<?php echo url('user/merchant_edit',array('id'=>$vo['id'])); ?>" style="text-decoration: none">
 
                                 <span>修改</span></a>
 
                         </td>
                     </tr>
-                    {/volist}
+                    <?php endforeach; endif; else: echo "" ;endif; ?>
                     </tbody>
 
                 </table>
@@ -156,7 +157,7 @@
 <!--汽车信息-->
         <div id="car_control" class="car_control">
             <h3>汽车信息</h3>
-            <form action="{:url('user/merchant_add')}" method="post">
+            <form action="<?php echo url('user/merchant_add'); ?>" method="post">
 
 
                 <label>汽车名称</label><br>
@@ -190,23 +191,23 @@
                     </thead>
 
                     <tbody>
-                    {volist name="mer_Data" id="vo"}
+                    <?php if(is_array($mer_Data) || $mer_Data instanceof \think\Collection || $mer_Data instanceof \think\Paginator): $i = 0; $__LIST__ = $mer_Data;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
 
                     <tr>
-                        <td>{$vo.id}</td>
-                        <td>{$vo.car_name}</td>
-                        <td>{$vo.car_number}</td>
-                        <td>{$vo.address}</td>
+                        <td><?php echo htmlentities($vo['id']); ?></td>
+                        <td><?php echo htmlentities($vo['car_name']); ?></td>
+                        <td><?php echo htmlentities($vo['car_number']); ?></td>
+                        <td><?php echo htmlentities($vo['address']); ?></td>
 
-                        <td><img src="{$vo.car_pic}" alt=""></td>
+                        <td><img src="<?php echo htmlentities($vo['car_pic']); ?>" alt=""></td>
                         <td>
-                            <a href="{:url('user/car_edit',array('id'=>$vo.id))}" style="text-decoration: none">
+                            <a href="<?php echo url('user/car_edit',array('id'=>$vo['id'])); ?>" style="text-decoration: none">
 
                                 <span>修改</span></a>
 
                         </td>
                     </tr>
-                    {/volist}
+                    <?php endforeach; endif; else: echo "" ;endif; ?>
                     </tbody>
 
                 </table>
@@ -360,7 +361,25 @@
 
 
 
-{include file="public/foot_bar"}
+<div class="footer_bar_t"></div>
+<div class="footer_bar">
+    <a href="/mobile/" class="item">
+      <div class="icon iconfont icon31shouye"></div>
+      <div class="title">首页</div>
+    </a>
+    <a href="/mobile/lists/index" class="item">
+      <div class="icon iconfont iconfenlei"></div>
+      <div class="title">分类</div>
+    </a>
+    <a href="/mobile/cart/index" class="item">
+      <div class="icon iconfont icongouwuche"></div>
+      <div class="title">购物车</div>
+    </a>
+    <a href="/mobile/user/index" class="item">
+      <div class="icon iconfont iconwo"></div>
+      <div class="title">我的</div>
+    </a>
+</div>
 
 
 
@@ -371,7 +390,7 @@
 
             <div class="user_position">
 
-                当前位置：<a href="/">首页</a> > <a href="{:url('user/index')}">会员中心</a> >
+                当前位置：<a href="/">首页</a> > <a href="<?php echo url('user/index'); ?>">会员中心</a> >
 
             </div>
 
@@ -382,20 +401,20 @@
 
                    <div class="user_index_content1">
                         <div class="left_content">
-                            <div class="pic"><img src="{$sessionUserData.face|default='/public/static/index/images/face.jpg'}" class="img"></div>
+                            <div class="pic"><img src="<?php echo htmlentities((isset($sessionUserData['face']) && ($sessionUserData['face'] !== '')?$sessionUserData['face']:'/public/static/index/images/face.jpg')); ?>" class="img"></div>
                         
                             <div class="info">
-                                <div class="title">{$sessionUserData.username}</div>
-                                <div class="description">上次登录：{$sessionUserData.last_login_time|date="Y-m-d H:s:i"}</div>
-                                <div class="description1"><a href="{:url('sign')}" class="color1">签到赚取积分</a></div>
+                                <div class="title"><?php echo htmlentities($sessionUserData['username']); ?></div>
+                                <div class="description">上次登录：<?php echo htmlentities(date("Y-m-d H:s:i",!is_numeric($sessionUserData['last_login_time'])? strtotime($sessionUserData['last_login_time']) : $sessionUserData['last_login_time'])); ?></div>
+                                <div class="description1"><a href="<?php echo url('sign'); ?>" class="color1">签到赚取积分</a></div>
                             </div>
                         </div>
                         <div class="left_content">
                         
                             <div class="info">
-                                <div class="description1"><a href="{:url('user/info')}" class="colorblue">修改资料 ></a></div>
-                                <div class="description2">绑定手机：{$sessionUserData.mobile}</div>
-                                <div class="description2">绑定邮箱：{$sessionUserData.email|default='未绑定'}</div>
+                                <div class="description1"><a href="<?php echo url('user/info'); ?>" class="colorblue">修改资料 ></a></div>
+                                <div class="description2">绑定手机：<?php echo htmlentities($sessionUserData['mobile']); ?></div>
+                                <div class="description2">绑定邮箱：<?php echo htmlentities((isset($sessionUserData['email']) && ($sessionUserData['email'] !== '')?$sessionUserData['email']:'未绑定')); ?></div>
                             </div>
                         </div>
                    </div>
@@ -437,7 +456,7 @@
                                     <span class="span1">查看收藏商品：</span>
 
                                 </div>
-                                <div class="description"><a href="{:url('index/user/collect')}" >查看收藏商品 <i class="iconchevron-copy-copy-copy-copy-copy iconfont"></i></a></div>
+                                <div class="description"><a href="<?php echo url('index/user/collect'); ?>" >查看收藏商品 <i class="iconchevron-copy-copy-copy-copy-copy iconfont"></i></a></div>
                             </div>
                         </div>
                    </div>

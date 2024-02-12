@@ -13,6 +13,9 @@ class Index extends  Base{
 
         $goodsData5=Db::name('goods')->where('ishot',1)->limit(8)->order('goods_id desc')->order('listorder asc')->where('goods_status',1)->select();
 
+
+
+        //var_dump($goodsData5);die;
         $category_model=new CategoryModel();
         $indexCate=$category_model->getNavCateData();
 

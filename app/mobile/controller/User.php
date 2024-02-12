@@ -14,7 +14,30 @@ class User extends  Base
 {
         //会员主页
         public function index(){
+
+
             $userSessionData = $this->isLogin();
+
+          $user_id =  $userSessionData['id'];
+
+
+        //  var_dump($userSessionData);die;
+            //获取有没有搜索关键字，用于填充
+            $search_key=input('request.search_key');
+
+            $mer_Data=Db::name('merchant')->alias('a')->where('a.store_name','like','%'.$search_key.'%')->where('user_id','=',"$user_id")->order('add_time desc')->paginate(10);
+
+
+
+
+       //    var_dump($mer_Data);die;
+            return view('', [
+
+                'mer_Data' => $mer_Data,
+
+                'search_key'=>$search_key
+
+            ]);
 
 
             //显示商户列表或者汽车列表
@@ -26,6 +49,9 @@ class User extends  Base
 
 
     public function merchant_add(){
+
+        $userSessionData = $this->isLogin();
+
 
         if(request()->isPost()){
 
@@ -49,7 +75,8 @@ class User extends  Base
             }*/
 
            $data['submit_ip'] = $this->request->ip();
-           
+
+            $data['user_id'] = $userSessionData['id'];
 
             $res=Db::name('merchant')->insert($data);
 
@@ -77,15 +104,36 @@ class User extends  Base
 
         //先取出填充的数据
 
-        $id=Request::instance()->param('id');
+        $id  =input('request.id');
 
-        $couponsData=Db::name('merchant')->find($id);
+
+
+        $mer_Data=Db::name('merchant')->find($id);
+
+      //  var_dump($mer_Data);die;
+
+
+        return view('',[
+
+            'merdd_Data'=>$mer_Data,
+
+        ]);
+    }
+
+    public function car_edit(){
+
+        //先取出填充的数据
+
+        $id  =input('request.id');
+
+
+        $car_Data=Db::name('merchant')->find($id);
 
 
 
         return view('',[
 
-            'merchantData'=>$couponsData,
+            'cardd_Data'=>$car_Data,
 
         ]);
     }
