@@ -1,4 +1,4 @@
-<?php /*a:2:{s:67:"D:\phpstudy_pro\WWW\privatecode0921\app\mobile\view\user\index.html";i:1707754343;s:72:"D:\phpstudy_pro\WWW\privatecode0921\app\mobile\view\public\foot_bar.html";i:1707738454;}*/ ?>
+<?php /*a:2:{s:67:"D:\phpstudy_pro\WWW\privatecode0921\app\mobile\view\user\index.html";i:1707818766;s:72:"D:\phpstudy_pro\WWW\privatecode0921\app\mobile\view\public\foot_bar.html";i:1707797701;}*/ ?>
 <!DOCTYPE html>
 
 <html>
@@ -89,26 +89,30 @@
         <div id="mer_control" class="mer_control active">
             <h2>商户信息</h2>
 
-            <form action="<?php echo url('user/merchant_add'); ?>" method="post" >
+            <form action="<?php echo url('user/merchant_add'); ?>" method="post" enctype="multipart/form-data">
 
                 <label>商户名称</label><br>
-
                 <label><input type="text" name="store_name"></label><br>
+
                 <label>商户地址</label><br>
-
                 <label><input type="text" name="address"></label><br>
+
                 <label>商家姓名</label><br>
-
-                <label><input type="text" name="store_pic"></label><br>
-                <label>行业</label><br>
-
                 <label><input type="text" name="name"></label><br>
+
+                <label>行业</label><br>
+                <label><input type="" name="store_type"></label><br>
+
                 <label>门户照片</label><br>
+                <label><input type="file" name="store_pic"></label><br>
 
-                <label><input type="text" name="store_type"></label><br>
                 <label>收款码</label><br>
+                <label><input type="file" name="payment_code_pic"></label><br>
 
-                <label><input type="text" name="payment_code_pic"></label><br>
+
+
+
+
                 <button type="submit">提交</button>
 
             </form>
@@ -243,7 +247,7 @@
             }
 
             th {
-                background-color: #4CAF50;
+                background-color: lightgoldenrodyellow;
                 color: white;
             }
 
@@ -253,7 +257,7 @@
 
 
             .mer_control{
-                background-color: #00b62f;
+                background-color: lightgoldenrodyellow;
                 display: none;
             }
             .car_control{

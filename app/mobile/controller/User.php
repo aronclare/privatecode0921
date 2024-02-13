@@ -1,6 +1,7 @@
 <?php
 namespace app\mobile\controller;
 
+use app\common\lib\Uploader;
 use think\Controller;
 use think\facade\Db;
 
@@ -74,9 +75,54 @@ class User extends  Base
                 $data['time2']=time();//当前时间戳
             }*/
 
-           $data['submit_ip'] = $this->request->ip();
-
+            $data['submit_ip'] = $this->request->ip();
             $data['user_id'] = $userSessionData['id'];
+            $data['add_time'] = time();
+
+
+            //============================================================
+
+            /*  // 获取文本字段的值
+    $name = $_POST['name'];
+    $age = $_POST['age'];
+
+    // 获取上传的文件
+    $image1 = $_FILES['image1'];
+    $image2 = $_FILES['image2'];
+
+    // 处理文件上传逻辑
+    // 保存到数据库的逻辑
+
+    // 以下是简单的输出示例，你需要根据实际需求处理文件上传和保存到数据库的逻辑
+    echo "Name: $name<br>";
+    echo "Age: $age<br>";
+    echo "Image 1: {$image1['name']}<br>";
+    echo "Image 2: {$image2['name']}<br>";
+
+    // 保存文件到服务器
+    move_uploaded_file($image1['tmp_name'], "uploads/" . $image1['name']);
+    move_uploaded_file($image2['tmp_name'], "uploads/" . $image2['name']);*/
+
+
+            // 获取上传的文件
+            $store_pic = $this->request->file('store_pic');
+            $payment_code_pic = $this->request->file('payment_code_pic');
+
+
+            $info1 = $store_pic->move( 'public' . DS . 'mer_images');
+            $info2 = $payment_code_pic->move( 'public' . DS . 'mer_images');
+
+            echo $info1->getSaveName() . '<br>'.$info2->getSaveName() . '<br>';die;
+
+//                    echo $file->getError() . '<br>';
+
+
+            ///==================================================
+
+
+
+
+
 
             $res=Db::name('merchant')->insert($data);
 
@@ -144,7 +190,7 @@ class User extends  Base
         if(request()->isPost()){
 
             $data=request()->post();
-            if(!empty($data['time1'])){
+          /*  if(!empty($data['time1'])){
                 $data['time1']=strtotime($data['time1']);
             }else{
                 $data['time1']=time();//
@@ -154,9 +200,13 @@ class User extends  Base
                 $data['time2']=strtotime($data['time2']);
             }else{
                 $data['time2']=time();//
-            }
+            }*/
 
-            $res=Db::name('merchant')->update($data);
+
+          $data['update_time'] = time();
+          $data['submit_ip'] = $this->request->ip();
+
+          $res=Db::name('merchant')->update($data);
 
             if($res){
 

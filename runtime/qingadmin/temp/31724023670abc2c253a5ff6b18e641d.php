@@ -1,4 +1,4 @@
-<?php /*a:3:{s:74:"D:\phpstudy_pro\WWW\privatecode0921\app\qingadmin\view\merchant\index.html";i:1707738454;s:71:"D:\phpstudy_pro\WWW\privatecode0921\app\qingadmin\view\public\head.html";i:1707738454;s:71:"D:\phpstudy_pro\WWW\privatecode0921\app\qingadmin\view\public\foot.html";i:1707738454;}*/ ?>
+<?php /*a:3:{s:74:"D:\phpstudy_pro\WWW\privatecode0921\app\qingadmin\view\merchant\index.html";i:1707800176;s:71:"D:\phpstudy_pro\WWW\privatecode0921\app\qingadmin\view\public\head.html";i:1707797701;s:71:"D:\phpstudy_pro\WWW\privatecode0921\app\qingadmin\view\public\foot.html";i:1707797701;}*/ ?>
 <!--包含头部文件-->
 
 <!DOCTYPE HTML>
@@ -99,6 +99,9 @@
 
 						<th width="250">所属行业</th>
 
+						<th width="250">采集时间</th>
+
+
 						<th width="250">收款码</th>
 
 						<th width="250">ip</th>
@@ -128,6 +131,9 @@
 
 						<td><?php echo htmlentities($vo['name']); ?></td>
 						<td><?php echo htmlentities($vo['store_type']); ?></td>
+
+						<td><?php echo htmlentities($vo['add_time']); ?></td>
+
 						<td><img src="<?php echo htmlentities($vo['payment_code_pic']); ?>" style="width: 100px;height: 100px;margin-right: 15px;"></td>
 						<td><?php echo htmlentities($vo['submit_ip']); ?></td>
 						<td>

@@ -1,4 +1,4 @@
-<?php /*a:2:{s:75:"D:\phpstudy_pro\WWW\privatecode0921\app\mobile\view\user\merchant_edit.html";i:1707752996;s:72:"D:\phpstudy_pro\WWW\privatecode0921\app\mobile\view\public\foot_bar.html";i:1707738454;}*/ ?>
+<?php /*a:2:{s:75:"D:\phpstudy_pro\WWW\privatecode0921\app\mobile\view\user\merchant_edit.html";i:1707801929;s:72:"D:\phpstudy_pro\WWW\privatecode0921\app\mobile\view\public\foot_bar.html";i:1707797701;}*/ ?>
 <!DOCTYPE html>
 
 <html>
@@ -88,29 +88,29 @@
         <div id="mer_control" class="mer_control active">
             <h2>商户信息</h2>
 
-            <form action="<?php echo url('user/merchant_add'); ?>" method="post" >
+            <form action="<?php echo url('user/merchant_update'); ?>" method="post" >
 
                 <label><input type="hidden" value="<?php echo htmlentities($merdd_Data['id']); ?>" name="id"></label><br>
 
 
                 <label>商户名称</label><br>
-
                 <label><input type="text" value="<?php echo htmlentities($merdd_Data['store_name']); ?>" name="store_name"></label><br>
+
                 <label>商户地址</label><br>
-
                 <label><input type="text" value="<?php echo htmlentities($merdd_Data['address']); ?>" name="address"></label><br>
+
                 <label>商家姓名</label><br>
-
-                <label><input type="text" value="<?php echo htmlentities($merdd_Data['store_pic']); ?>" name="store_pic"></label><br>
-                <label>行业</label><br>
-
                 <label><input type="text" value="<?php echo htmlentities($merdd_Data['name']); ?>" name="name"></label><br>
-                <label>门户照片</label><br>
 
+                <label>行业</label><br>
                 <label><input type="text" value="<?php echo htmlentities($merdd_Data['store_type']); ?>" name="store_type"></label><br>
-                <label>收款码</label><br>
 
-                <label><input type="text" name="payment_code_pic"><img src="<?php echo htmlentities($merdd_Data['payment_code_pic']); ?>" alt=""></label><br>
+                <label>门户照片</label><br>
+                <label><input type="text" value="<?php echo htmlentities($merdd_Data['store_pic']); ?>" name="store_pic"><img src="<?php echo htmlentities($merdd_Data['store_pic']); ?>" alt=""></label><br>
+
+                <label>收款码</label><br>
+                <label><input type="file" name="payment_code_pic"><img src="<?php echo htmlentities($merdd_Data['payment_code_pic']); ?>" alt=""></label><br>
+
                 <button type="submit">提交</button>
 
             </form>

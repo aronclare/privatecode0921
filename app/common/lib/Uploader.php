@@ -33,9 +33,29 @@ class Uploader
         }
         exit(json_encode($return));
     }
-   
 
-  
+
+    public function uploadimg($upload_path='upload'){
+
+        $file = request()->file('file');
+
+        //$info = $file->move(Env::get('root_path') . 'public' . DIRECTORY_SEPARATOR . 'upload'. DIRECTORY_SEPARATOR);
+        $savename = '\public\\'.\think\facade\Filesystem::putFile( $upload_path, $file);
+        //获取当前的域名
+        //$domian =db('config')->field('value')->where('id',9)->find();
+
+        if($savename){
+            $return['path'] =$savename;
+        }else{
+            // 上传失败获取错误信息
+            $return['error']   = 1;
+            $return['success'] = 0;
+            $return['message'] = '上传出错'.$file->getError();
+        }
+        exit(json_encode($return));
+    }
+
+
 
     //公共删除图片
     public function remove_goods_pic(){
