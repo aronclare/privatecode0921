@@ -1,0 +1,38 @@
+// out:false
+//三角形状的匹配
+.triangle(top,@w:10px,@c:red){
+  border-width: @w;
+  border-color:@c transparent transparent transparent;
+  border-style: solid;
+}
+
+.triangle(left,@w:10px,@c:red){
+  border-width:@w;
+  border-color:transparent transparent transparent @c;
+  border-style:solid;
+}
+.triangle(right,@w:10px,@c:red){
+  border-width: @w;
+  border-color:transparent @c transparent transparent;
+  border-style: solid;
+}
+.triangle(bottom,@w:10px,@c:red){
+  border-width: @w;
+  border-color:transparent transparent @c transparent;
+  border-style: solid;
+}
+.triangle(@_,@w:10px,@c:red){
+  display:inline-block;
+  width:0;
+  height: 0;
+  overflow:hidden;
+}
+
+
+// 溢出显示...
+.ellipsis(@line:2){
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: @line;
+  overflow: hidden;
+}

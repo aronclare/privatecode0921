@@ -1,0 +1,172 @@
+
+
+
+
+
+
+.cart_title{
+
+    border-bottom: 2px solid #ff6709;
+
+    margin-top: 15px;
+
+}
+
+
+.cart_pic{
+  width: 150px;
+  margin: 0 auto;
+}
+
+
+.gouwuche {
+
+    width: 100%;
+
+    padding: 50px 0;
+
+    box-sizing: border-box;
+
+  }
+
+  .gouwuche .cart_table{
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+    border-spacing: 0;
+
+  }
+
+  .gouwuche tr td {
+
+    text-align: center;
+
+    color: #888;
+
+    border-width: 1px;
+
+    border-style: solid;
+
+    border-color: #e6e6e6;
+
+    padding: 10px;
+
+  }
+
+  .gouwuche tr:first-child {
+
+    background: #f5f5f5;
+
+    color: #474747;
+
+  }
+
+
+
+  .gouwuche .dingdanhao {
+
+    padding: 5px 10px;
+
+  }
+
+
+
+  .gouwuche .number {
+
+    width: 45px;
+
+    display: inline-block;
+
+    border: 1px solid #ddd;
+
+    line-height: 20px;
+
+    margin-left: 5px;
+
+    padding-left: 5px;
+
+  }
+
+  .gouwuche .pay_box {
+
+    background: #f5f5f5;
+
+    padding: 0 0 0 32px;
+
+    line-height: 44px;
+
+    display: inline-block;
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    margin-top: 10px;
+
+  }
+
+  .gouwuche .pay_box .pay_box_left {
+
+    float: left;
+
+  }
+
+  .gouwuche .pay_box .pay_box_left .delete_all {
+
+    border-radius: 3px;
+
+    padding: 0 10px;
+
+    line-height: 22px;
+
+    text-align: center;
+
+    color: #aaa;
+
+    border: none;
+
+    cursor: pointer;
+
+    display: inline-block;
+
+    border: 1px solid #aaa;
+
+    font-size: 12px;
+
+    margin-left: 10px;
+
+  }
+
+  .gouwuche .pay_box .pay_box_right {
+
+    float: right;
+
+  }
+
+  .gouwuche .pay_box .pay_box_right .btn_pay {
+
+    line-height: 44px;
+
+    text-align: center;
+
+    cursor: pointer;
+
+    display: inline-block;
+
+    background: #df0f0f;
+
+    padding: 0 35px;
+
+    float: right;
+
+    margin-left: 20px;
+
+    color: #fff;
+
+  }
+
+
+
+  

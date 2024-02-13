@@ -1,0 +1,55 @@
+
+li label{cursor: pointer;}
+.Father_Item0 li{float: left;}
+.Father_Item1 li{float: left;}
+.Father_Item2 li{float: left;}
+.Father_Item3 li{float: left;}
+
+/*表格样式*/
+table#process {
+    font-size:11px;
+    color:#333333;
+    border-width: 1px;
+    border-color: #666666;
+    border-collapse: collapse;
+}
+table#process th {
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #666666;
+    background-color: #dedede;
+}
+table#process td {
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #666666;
+    background-color: #ffffff;
+}
+
+.div_contentlist li{
+    margin-top: 5px;
+    width: 20%;
+}
+
+.div_contentlist li .chcBox_Width{
+    margin-right: 3px;
+}
+
+.div_contentlist .Father_Title{
+    font-weight: bold;
+    margin-top: 10px;
+    display: inline-block;
+    width: 100%;
+}
+
+#navtab1{
+    display: none;
+}
+
+.div_contentlist2{
+    margin-top: 15px;
+    display: inline-block;
+    width: 100%;
+}

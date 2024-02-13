@@ -1,0 +1,258 @@
+.pay_box{
+
+    border: 1px solid #ddd;
+
+    margin-top: 20px;
+
+    border-top: none;
+
+}
+
+.title_box{
+
+    background: #f7f8f8;
+
+    padding: 0 10px;
+
+    line-height: 36px;
+
+    border-top: 2px solid #ff6709;
+
+}
+
+
+
+.info_box{
+
+    padding: 15px;
+
+}
+
+
+
+.pay_public_title{
+
+    padding: 10px 0 10px 0;
+
+    width: 100%;
+
+}
+
+.addrss{
+
+    border-bottom: 1px dashed #ddd;
+
+    padding-bottom: 10px;
+
+    display: flex;
+
+}
+
+
+
+.address .item{
+
+    width: 100%;
+
+    margin: 15px 0;
+
+}
+
+
+
+.goods .goods_box{
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+}
+
+.goods .goods_box .item{
+
+    display: flex;
+
+    width: 100%;
+
+    border-bottom: 1px dashed #ddd;
+
+    align-items: center;
+
+    padding: 10px 0;
+
+}
+
+
+
+
+
+.goods .goods_box .name1{
+
+    flex: 1;
+
+    text-align: center;
+
+}
+
+.goods .goods_box .name11{
+
+    flex: 1;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+}
+
+.goods .goods_box .name11 .pic{
+
+    width: 100px;
+    margin-right: 10px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+
+}
+
+    
+
+.goods .goods_box .name3{
+
+    width: 130px;
+
+    text-align: center;
+
+}
+
+
+
+.goods .goods_box .name3 input{
+
+    width: 45px;
+
+    display: inline-block;
+
+    border: 1px solid #ddd;
+
+    line-height: 20px;
+
+    margin-left: 5px;
+
+    padding-left: 5px;
+
+}
+
+
+
+
+
+
+
+
+
+.goods .goods_box .xiang_title{
+
+    background: #eee;
+
+    line-height: 36px;
+
+    color: #888;
+
+    border: none;
+
+    padding: 0;
+
+}
+
+
+
+
+
+.pay_method{
+
+    margin-top: 15px;
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+}
+
+
+
+.pay_method .item{
+
+    border: 2px solid #ddd;
+
+    margin: 15px;
+
+    margin-left: 0;
+
+    padding: 5px;
+
+}
+
+.pay_method .current_method{
+
+    border: 2px solid #d80c0c;
+
+}
+
+
+
+.total_box{
+
+    background: #f5f5f5;
+
+    padding: 10px 0;
+
+    display: flex;
+
+    justify-content:flex-end;
+
+    align-items: center;
+
+}
+
+.total_box .price{
+
+    font-weight: bold;
+
+    font-size: 16px;
+
+}
+
+.pay_button{
+
+    background: #b40000;
+
+    border: none;
+
+    border-radius: 5px;
+
+    color: #fff;
+
+    color: #fff;
+
+    width: 80px;
+
+    text-align: center;
+
+    line-height: 34px;
+
+    margin-left: 15px;
+
+    margin-right: 15px;
+    cursor: pointer;
+
+}
+
+.order_content{
+    margin-top: 10px;
+}
+.order_content .order_content_textarea{
+    border: 1px solid #ddd;
+    width: 100%;
+    height: 60px;
+    padding:5px;
+}
