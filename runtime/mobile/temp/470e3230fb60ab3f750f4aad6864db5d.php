@@ -1,4 +1,4 @@
-<?php /*a:1:{s:67:"D:\phpstudy_pro\WWW\privatecode0921\app\mobile\view\user\login.html";i:1707928208;}*/ ?>
+<?php /*a:1:{s:76:"D:\phpstudy_pro\WWW\privatecode0921\app\mobile\view\user\login_username.html";i:1707928977;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,7 +36,7 @@
     <form method="post" action="">
 
         <div class="user_input_box">
-            <input type="text" name="mobile" placeholder="请输入用户名" class="input">
+            <input type="text" name="username" placeholder="请输入用户名" class="input">
         </div>
         <div class="password_input_box">
             <div class="left_content"><input type="password" name="password" placeholder="请输入密码" class="input"></div>

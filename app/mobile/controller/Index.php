@@ -22,6 +22,7 @@ class Index extends  Base{
       //  print_r($goodsData5);die;
 
 
+
         return view('',[
             'goodsData5'=>$goodsData5,
             'indexCate'=>$indexCate,

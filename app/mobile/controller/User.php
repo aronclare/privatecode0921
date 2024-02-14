@@ -29,14 +29,86 @@ class User extends  Base
             $mer_Data=Db::name('merchant')->alias('a')->where('a.store_name','like','%'.$search_key.'%')->where('user_id','=',"$user_id")->order('add_time desc')->paginate(10);
 
 
+            $domain =   $this->request->domain();
+            //http://code0921.com/index/user/register?code=YJ1596269352
+
+            $recommend_link = $domain.'/mobile/user/register?code='.$userSessionData['code'];
+
+          //链接生成二维码并在新窗口打开
+         /*echo "<!DOCTYPE html>
+<html lang=\"en\">
+<head>
+    <meta charset=\"UTF-8\">
+    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
+    <title>QR Code Generator</title>
+    <!-- 在<head>标签中引入qrcode.js -->
+    <script src=\"https://cdn.jsdelivr.net/npm/qrcode@1.4.4\"></script>
+</head>
+<body>
+
+    <div id=\"qrcode\"></div>
+
+    <script>
+        // 要生成二维码的链接
+        var targetUrl = '{$recommend_link}';
+
+        // 创建二维码
+        var qrcode = new QRCode(document.getElementById(\"qrcode\"), {
+            text: targetUrl,
+            width: 128,
+            height: 128
+        });
+
+        // 在扫码后在新窗口打开链接
+        function openLinkInNewWindow() {
+            window.open(targetUrl, \"_blank\");
+        }
+    </script>
+
+</body>
+</html>";*/
 
 
-       //    var_dump($mer_Data);die;
+         //点击按钮复制按钮内容
+            /*<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copy Link Example</title>
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.10/dist/clipboard.min.js"></script>
+</head>
+<body>
+
+    <input type="text" value="https://example.com" id="copyInput" readonly>
+    <button id="copyButton" data-clipboard-target="#copyInput">复制链接</button>
+
+    <script>
+        // 初始化 Clipboard.js
+        var clipboard = new ClipboardJS('#copyButton');
+
+        // 复制成功时的回调函数
+        clipboard.on('success', function(e) {
+            console.log('复制成功');
+            e.clearSelection();  // 清除选中状态
+        });
+
+        // 复制失败时的回调函数
+        clipboard.on('error', function(e) {
+            console.error('复制失败');
+        });
+    </script>
+
+</body>
+</html>*/
+
+
+
             return view('', [
 
                 'mer_Data' => $mer_Data,
-
-                'search_key'=>$search_key
+                'search_key'=>$search_key,
+                'recommend_link'=>$recommend_link
 
             ]);
 
@@ -160,6 +232,9 @@ class User extends  Base
     public function user_edit(){
 
         $userSessionData = $this->isLogin();
+
+
+      //  var_dump($userSessionData);die;
 
 
         $user_Data=Db::name('user')->find($userSessionData['id']);
@@ -289,19 +364,22 @@ class User extends  Base
                 // mobile 15100000002   password 1234567
                 //  var_dump($this->password_salt($data['password']));die;//admin123456    a8a5c404e3927315ccb6e028d4372ac8
 
-                try {
+            /*    try {
                     validate(UserValidate::class)
                         ->scene('login')
                         ->check($data);
                 } catch (ValidateException $e) {
                     // 验证失败 输出错误信息
                     return alert($e->getError(),'login',5);
-                }
+                }*/
 
+
+
+          //  var_dump($data);die;
                 //验证码用户名
-                $userData=Db::name('user')->where('mobile',$data['mobile'])->find();
+                $userData=Db::name('user')->where('username',$data['username'])->find();
                 if(!$userData){
-                    return alert('手机号不存在或者错误','login',5);
+                    return alert('用户名不存在或者错误','login',5);
                 }
 
                 //如果管理员有状态，status=1合法  0禁止
@@ -320,7 +398,7 @@ class User extends  Base
                 return alert('登录成功','index',6);
 
             }else{
-                return view();
+                return view('login_username');
             }
         }
 
@@ -359,7 +437,106 @@ class User extends  Base
             halt($userData);
         }
 
+        public function register(){
 
+
+           /* if(request()->isPost()) {
+                $data=input('post.');
+                if (empty($data['username'])){
+                    return alert('用户名不能为空，请输入用户名!','register',5);
+                }
+                if (empty($data['password'])){
+                    return alert('密码不能为空,请输入密码！!','register',5);
+                }
+                $data['add_time'] = time();
+                $data['submit_ip'] = $this->request->ip();
+                $res=Db::name('user')->insert($data);
+            }*/
+
+
+            if(request()->isPost()){
+                $data=input('post.');
+                $code=input('get.code');//推荐码
+
+                //判断该手机号状态
+                $userData=Db::name('user')->where('username',$data['username'])->find();
+                if($userData['status']==1){
+                    return alert('该用户名已经注册过了，请登录','login',5);
+                }
+                if($userData['status']==-1){
+                    return alert('该账户已经封号，请更换其他账号','register',5);
+                }
+                if (empty($data['username'])){
+                    return alert('用户名不能为空，请输入用户名!','register',5);
+                }
+                if (empty($data['password'])){
+                    return alert('密码不能为空,请输入密码！!','register',5);
+                }
+
+                //密码加密
+                $data['password']=$this->password_salt($data['password']);
+                $data['add_time']=time();
+                $data['time']=time();
+
+
+
+                $data['code']='YJ'.time();
+
+
+
+                if ($code){
+                    $data['recommender'] = $code;
+                }
+
+
+              //  var_dump($data);die;
+
+                $newUserId =   Db::name('user')->insertGetId($data);
+
+
+
+                if ($newUserId){
+                    return alert('注册成功，请登录','login',6);
+
+                }else{
+                    return alert('注册失败','register',5);
+
+                }
+
+            }else{
+                return view();
+            }
+
+         }
+
+    public function fenyongScore($newUserId,$code){
+        //推荐人数据
+        $userDataT=Db::name('user')->where('code',$code)->find();
+
+        //更新新用户的parent_id
+        Db::name('user')->where('id',$newUserId)->update(['parent_id'=>$userDataT['id']]);
+
+        //添加新用户积分
+        Db::name('score')->insert([
+            'user_id'=>$newUserId,
+            'score'=>200,
+            'time'=>time(),
+            'source'=>2,
+            'info'=>'新用户奖励'
+        ]);
+
+        //推荐人积分
+        Db::name('score')->insert([
+            'user_id'=>$userDataT['id'],
+            'score'=>100,
+            'source'=>2,
+            'time'=>time(),
+            'info'=>'推荐返佣'
+        ]);
+
+        return true;
+
+    }
 
 
         public  function login_out(){

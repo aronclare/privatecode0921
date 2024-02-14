@@ -1,4 +1,4 @@
-<?php /*a:2:{s:67:"D:\phpstudy_pro\WWW\privatecode0921\app\mobile\view\user\index.html";i:1707905871;s:72:"D:\phpstudy_pro\WWW\privatecode0921\app\mobile\view\public\foot_bar.html";i:1707797701;}*/ ?>
+<?php /*a:2:{s:67:"D:\phpstudy_pro\WWW\privatecode0921\app\mobile\view\user\index.html";i:1707930136;s:72:"D:\phpstudy_pro\WWW\privatecode0921\app\mobile\view\public\foot_bar.html";i:1707738454;}*/ ?>
 <!DOCTYPE html>
 
 <html>
@@ -46,6 +46,11 @@
                 <a href="<?php echo url('user/user_edit'); ?>">
                     <button class="exit_btn">编辑个人资料</button>
                 </a>
+
+                <a href="<?php echo url('user/register'); ?>">
+                    <button class="exit_btn">注册</button>
+                </a>
+
                 <a href="#">
                     <button class="exit_btn">提现</button>
                 </a>
@@ -109,9 +114,7 @@
                 <label>收款码</label><br>
                 <label><input type="file" name="payment_code_pic"></label><br>
 
-
-
-
+                
 
                 <button type="submit">提交</button>
 
@@ -119,7 +122,7 @@
 
             <div class="inner_box2">
                 <p><span class="ad">推广链接:</span></p>
-                <p>http://xxxxxx.com/ad?code=20240214skfdjskfjs<span class="copy">点击复制</span></p>
+                <p><?php echo htmlentities($recommend_link); ?><span class="copy">点击复制</span></p>
 
             </div>
 

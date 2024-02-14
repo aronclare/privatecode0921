@@ -1,4 +1,4 @@
-<?php /*a:3:{s:74:"D:\phpstudy_pro\WWW\privatecode0921\app\qingadmin\view\merchant\index.html";i:1707921087;s:71:"D:\phpstudy_pro\WWW\privatecode0921\app\qingadmin\view\public\head.html";i:1707738454;s:71:"D:\phpstudy_pro\WWW\privatecode0921\app\qingadmin\view\public\foot.html";i:1707738454;}*/ ?>
+<?php /*a:3:{s:73:"D:\phpstudy_pro\WWW\privatecode0921\app\qingadmin\view\comment\index.html";i:1707738454;s:71:"D:\phpstudy_pro\WWW\privatecode0921\app\qingadmin\view\public\head.html";i:1707738454;s:71:"D:\phpstudy_pro\WWW\privatecode0921\app\qingadmin\view\public\foot.html";i:1707738454;}*/ ?>
 <!--包含头部文件-->
 
 <!DOCTYPE HTML>
@@ -57,26 +57,24 @@
 
 <body>
 
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i>商户列表 </nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i>列表 </nav>
 
 <div class="page-container">
 
 
 
-	<form acction="<?php echo url('user/index'); ?>" method="get">
+	<form acction="" method="get">
 
 		<div class="text-c">
 
-
-			<a href="<?php echo url('merchant/add'); ?>"><button type="button" class="btn btn-success radius" style="float: left;">添加</button></a>
-
-			<input type="text" class="input-text" style="width:20%" placeholder="<?php echo htmlentities((isset($search_key) && ($search_key !== '')?$search_key:'输入商户名关键字查询')); ?>" name="search_key">
+			<input type="text" class="input-text" style="width:20%" placeholder="<?php echo htmlentities((isset($search_key) && ($search_key !== '')?$search_key:'输入手机号查询')); ?>" name="search_key">
 
 			<button type="submit" class="btn btn-success radius"><i class="Hui-iconfont">&#xe665;</i>搜索</button>
 
 		</div>
 
 	</form>
+
 
 
 	<div class="mt-20">
@@ -89,26 +87,18 @@
 
 						<th width="50">ID</th>
 
-						<th width="250">商户名称</th>
+						<th width="150">商品</th>
 
-						<th width="250">商户图片</th>
+						<th width="250">用户名</th>	
 
-						<th width="250">商户地址</th>
+						<th width="250">手机号</th>	
 
-						<th width="250">商户姓名</th>
+						<th width="550">评论内容</th>	
+						<th width="250">评分</th>	
 
-						<th width="250">所属行业</th>
+						<th width="250">时间</th>
 
-						<th width="250">采集时间</th>
-
-
-						<th width="250">收款码</th>
-
-						<th width="250">ip</th>
-
-						<th width="250">状态</th>
-
-						<th width="250">操作</th>
+						<th width="50">操作</th>						
 
 					</tr>
 
@@ -116,45 +106,27 @@
 
 				<tbody>
 
-					<?php if(is_array($mer_Data) || $mer_Data instanceof \think\Collection || $mer_Data instanceof \think\Paginator): $i = 0; $__LIST__ = $mer_Data;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
+					<?php if(is_array($commentData) || $commentData instanceof \think\Collection || $commentData instanceof \think\Paginator): $i = 0; $__LIST__ = $commentData;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
 
 					<tr class="text-c">
 
 						<td><?php echo htmlentities($vo['id']); ?></td>
 
-						<td><?php echo htmlentities($vo['store_name']); ?></td>
+						<td><a href="<?php echo url('mobile/goods/index',array('goods_id'=>$vo['goods_id'])); ?>" target="_blank"><img src="<?php echo htmlentities($vo['goods_thumb']); ?>" width="100"></a></td>
 
-						<td><img src="<?php echo htmlentities($vo['store_pic']); ?>" style="width: 100px;height: 100px;margin-right: 15px;"></td>
+						<td><?php echo htmlentities($vo['username']); ?></td>
 
+						<td><?php echo htmlentities($vo['mobile']); ?></td>
 
-						<td><?php echo htmlentities($vo['address']); ?></td>
+						<td><?php echo htmlentities($vo['content']); ?></td>
+						<td><?php echo htmlentities($vo['star']); ?></td>
 
-						<td><?php echo htmlentities($vo['name']); ?></td>
-						<td><?php echo htmlentities($vo['store_type']); ?></td>
-
-						<td><?php echo htmlentities($vo['add_time']); ?></td>
-
-						<td><img src="<?php echo htmlentities($vo['payment_code_pic']); ?>" style="width: 100px;height: 100px;margin-right: 15px;"></td>
-						<td><?php echo htmlentities($vo['submit_ip']); ?></td>
-						<td>
-
-							<?php if($vo['status'] == 1): ?>
-
-							<a href="<?php echo url('base/status',array('id'=>$vo['id'],'status'=>-1,'dbname'=>'merchant')); ?>" style="text-decoration: none">
-
-							<span class="label label-success radius">正常</span></a>
-
-							<?php else: ?><a href="<?php echo url('base/status',array('id'=>$vo['id'],'status'=>1,'dbname'=>'merchant')); ?>" style="text-decoration: none"><span class="label label-danger radius">禁用</span><?php endif; ?></a>
-
-						</td>
+						<td><?php echo htmlentities(date("Y-m-d H:s",!is_numeric($vo['time'])? strtotime($vo['time']) : $vo['time'])); ?></td>
 
 						<td>
 
-							<a href="<?php echo url('merchant/edit',array('id'=>$vo['id'])); ?>" style="text-decoration: none">
+							<a style="text-decoration:none" class="ml-5" onclick="delete_confirm('<?php echo url('base/del',array('id'=>$vo['id'],'dbname'=>'comment')); ?>')" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a>
 
-								<span class="label label-success radius">编辑</span></a>
-
-							<a href="<?php echo url('merchant/delete',array('id'=>$vo['id'])); ?>" style="text-decoration: none"><span class="label label-danger radius">删除</span></a>
 
 						</td>
 
@@ -172,7 +144,7 @@
 
 
 
-			<?php echo $mer_Data; ?>
+			<?php echo $commentData; ?>
 
 	</div>
 

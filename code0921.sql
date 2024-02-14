@@ -3,14 +3,14 @@ Navicat MySQL Data Transfer
 
 Source Server         : users
 Source Server Version : 50726
-Source Host           : localhost:3306
+Source Host           : 127.0.0.1:3306
 Source Database       : code0921
 
 Target Server Type    : MYSQL
 Target Server Version : 50726
 File Encoding         : 65001
 
-Date: 2024-02-12 18:54:21
+Date: 2024-02-15 01:29:57
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -81,7 +81,7 @@ CREATE TABLE `qing_admin` (
 INSERT INTO `qing_admin` VALUES ('1', 'root_qing', '0d734ea736e18b582050e3b990636001', '1703605203', '1', '1');
 INSERT INTO `qing_admin` VALUES ('2', 'goods_admin', '0d734ea736e18b582050e3b990636001', '1590197437', '2', '1');
 INSERT INTO `qing_admin` VALUES ('4', 'order_admin', '0d734ea736e18b582050e3b990636001', '1597276611', '4', '1');
-INSERT INTO `qing_admin` VALUES ('5', 'admin', '3b10490bad11d7fc64d7ab10c2d96919', '1707727055', '1', '1');
+INSERT INTO `qing_admin` VALUES ('5', 'admin', '3b10490bad11d7fc64d7ab10c2d96919', '1707923142', '1', '1');
 
 -- ----------------------------
 -- Table structure for qing_ad_type
@@ -833,15 +833,17 @@ CREATE TABLE `qing_merchant` (
   `car_pic` varchar(255) DEFAULT NULL,
   `remark` varchar(100) DEFAULT NULL,
   `status` char(4) DEFAULT NULL,
+  `add_time` int(10) DEFAULT NULL,
+  `update_time` int(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of qing_merchant
 -- ----------------------------
-INSERT INTO `qing_merchant` VALUES ('1', '2', '螺蛳粉总店', '北京市', '老王', '/upload/ddd.jpg', '/upload/ddd.jpg', '餐饮', '127.0.0.1', '本机', null, null, null, '审核待确认中，身份信息不明。', '1');
-INSERT INTO `qing_merchant` VALUES ('4', null, null, '浙江省义乌市', null, null, null, null, '127.0.0.1', null, '迈巴赫90', 'E50457BA', '/car.jpg', null, null);
-INSERT INTO `qing_merchant` VALUES ('5', null, null, '湖南长沙市', null, null, null, null, '127.0.0.1', null, '宝马A3', 'E50457VN', '/car.jpg', null, '-1');
+INSERT INTO `qing_merchant` VALUES ('1', '2', '螺蛳粉总店', '北京市', '老王', '/upload/ddd.jpg', '/upload/ddd.jpg', '餐饮', '127.0.0.1', '本机', null, null, null, '审核待确认中，身份信息不明。', '1', null, null);
+INSERT INTO `qing_merchant` VALUES ('4', null, null, '浙江省义乌市', null, null, null, null, '127.0.0.1', null, '迈巴赫90', 'E50457BA', '/car.jpg', null, null, null, null);
+INSERT INTO `qing_merchant` VALUES ('5', null, null, '湖南长沙市', null, null, null, null, '127.0.0.1', null, '宝马A3', 'E50457VN', '/car.jpg', null, '-1', null, null);
 
 -- ----------------------------
 -- Table structure for qing_message
@@ -1538,7 +1540,7 @@ CREATE TABLE `qing_user` (
   `username` varchar(20) NOT NULL DEFAULT 'qing',
   `password` char(32) NOT NULL DEFAULT '',
   `last_login_time` int(10) unsigned NOT NULL DEFAULT '0',
-  `mobile` varchar(20) NOT NULL DEFAULT '',
+  `mobile` varchar(20) DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '默认是1，不合格-1',
   `time` int(10) unsigned NOT NULL COMMENT '昵称',
   `face` varchar(200) DEFAULT NULL,
@@ -1550,33 +1552,38 @@ CREATE TABLE `qing_user` (
   `code` varchar(50) NOT NULL COMMENT '分佣推荐码',
   `nicname` varchar(20) DEFAULT NULL COMMENT '昵称',
   `real_name` varchar(20) DEFAULT NULL,
-  `id_front_pic` varchar(50) DEFAULT NULL,
-  `id_back_pic` varchar(50) DEFAULT NULL,
-  `self_pic` varchar(50) DEFAULT NULL,
+  `id_front_pic` varchar(200) DEFAULT NULL,
+  `id_back_pic` varchar(200) DEFAULT NULL,
+  `self_pic` varchar(200) DEFAULT NULL,
   `add_time` int(10) DEFAULT NULL,
   `update_time` int(10) DEFAULT NULL,
   `check_status` tinyint(1) DEFAULT '0' COMMENT '0待审核1审核通过2审核不通过',
   `referral_code` varchar(50) DEFAULT NULL COMMENT '推荐人码',
   `id_number` varchar(50) DEFAULT NULL,
   `remark` varchar(200) DEFAULT NULL,
+  `cash_address` varchar(150) DEFAULT '',
+  `submit_ip` varchar(50) DEFAULT NULL,
+  `recommender` varchar(50) DEFAULT NULL COMMENT '推荐人',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
-  UNIQUE KEY `mobile` (`mobile`),
   UNIQUE KEY `username_2` (`username`),
   UNIQUE KEY `code` (`code`),
+  UNIQUE KEY `mobile` (`mobile`),
   KEY `code_2` (`code`)
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of qing_user
 -- ----------------------------
-INSERT INTO `qing_user` VALUES ('2', '15100000001', 'a8a5c404e3927315ccb6e028d4372ac8', '1707732840', '15100000001', '1', '1596269352', null, null, null, '3', null, '0', 'YJ1596269352', null, null, null, null, null, null, null, '0', null, null, null);
-INSERT INTO `qing_user` VALUES ('30', '15100000009', 'a8a5c404e3927315ccb6e028d4372ac8', '1596436540', '15100000009', '1', '1596275329', null, null, null, '3', null, '0', 'YJ1596275329', null, null, null, null, null, null, null, '0', null, null, null);
-INSERT INTO `qing_user` VALUES ('33', '15100000011', 'a8a5c404e3927315ccb6e028d4372ac8', '1705160257', '15100000011', '1', '1596275434', null, null, null, '3', null, '1', 'YJ1596275434', null, null, null, null, null, null, null, '0', null, null, null);
-INSERT INTO `qing_user` VALUES ('34', '17615342771', 'a8a5c404e3927315ccb6e028d4372ac8', '1598255654', '17615342771', '1', '1598255643', null, null, null, '3', null, '1', 'YJ1598255643', null, null, null, null, null, null, null, '0', null, null, null);
-INSERT INTO `qing_user` VALUES ('36', '15100000010', 'a8a5c404e3927315ccb6e028d4372ac8', '1598344289', '15100000010', '1', '1598344219', null, null, null, '3', null, '1', 'YJ1598344219', null, null, null, null, null, null, null, '0', null, null, null);
-INSERT INTO `qing_user` VALUES ('37', '15100000012', 'a8a5c404e3927315ccb6e028d4372ac8', '1598345048', '15100000012', '1', '1598345040', null, null, null, '3', null, '1', 'YJ1598345040', null, null, null, null, null, null, null, '0', null, null, null);
-INSERT INTO `qing_user` VALUES ('38', '15100000013', 'admin123456', '1598345659', '15100000013', '1', '1598345648', null, null, null, '3', null, '1', 'YJ1598345648', null, null, null, null, null, null, null, '0', null, null, null);
+INSERT INTO `qing_user` VALUES ('2', '15100000001', 'a8a5c404e3927315ccb6e028d4372ac8', '1707927798', '15100000001', '1', '1596269352', null, null, 'admin@qq.com', '3', null, '0', 'YJ1596269352', null, '老九', '\\public\\upload/20240214\\0058c29ba46c6169a912ab91d5a553a9.jpg', '\\public\\upload/20240214\\bf8e5c7d415a027a7f52a9dc92458869.jpg', '\\public\\upload/20240214\\21b6e9fdb0d4380c0a58beac85ce6bcb.jpg', null, '1707922915', '0', null, '513232198710160820', null, 'usdtqwrqrqqrqrqrqrqwrqwsfsfs', '127.0.0.1', null);
+INSERT INTO `qing_user` VALUES ('30', '15100000009', 'a8a5c404e3927315ccb6e028d4372ac8', '1596436540', '15100000009', '1', '1596275329', null, null, null, '3', null, '0', 'YJ1596275329', null, null, null, null, null, null, null, '0', null, null, null, null, null, null);
+INSERT INTO `qing_user` VALUES ('33', '15100000011', 'a8a5c404e3927315ccb6e028d4372ac8', '1705160257', '15100000011', '1', '1596275434', null, null, null, '3', null, '1', 'YJ1596275434', null, null, null, null, null, null, null, '0', null, null, null, null, null, null);
+INSERT INTO `qing_user` VALUES ('34', '17615342771', 'a8a5c404e3927315ccb6e028d4372ac8', '1598255654', '17615342771', '1', '1598255643', null, null, null, '3', null, '1', 'YJ1598255643', null, null, null, null, null, null, null, '0', null, null, null, null, null, null);
+INSERT INTO `qing_user` VALUES ('36', '15100000010', 'a8a5c404e3927315ccb6e028d4372ac8', '1598344289', '15100000010', '1', '1598344219', null, null, null, '3', null, '1', 'YJ1598344219', null, null, null, null, null, null, null, '0', null, null, null, null, null, null);
+INSERT INTO `qing_user` VALUES ('37', '15100000012', 'a8a5c404e3927315ccb6e028d4372ac8', '1598345048', '15100000012', '1', '1598345040', null, null, null, '3', null, '1', 'YJ1598345040', null, null, null, null, null, null, null, '0', null, null, null, null, null, null);
+INSERT INTO `qing_user` VALUES ('38', '15100000013', 'admin123456', '1598345659', '15100000013', '1', '1598345648', null, null, null, '3', null, '1', 'YJ1598345648', null, null, null, null, null, null, null, '0', null, null, null, null, null, null);
+INSERT INTO `qing_user` VALUES ('39', 'admin', 'ae71b36a06b355ec6e4967afc57be73d', '0', '', '1', '1707927651', null, null, null, '3', null, '0', 'YJ1707927651', null, null, null, null, null, '1707927651', null, '0', null, null, null, '', null, null);
+INSERT INTO `qing_user` VALUES ('43', 'admintest', 'ae71b36a06b355ec6e4967afc57be73d', '1707929221', null, '1', '1707928648', null, null, null, '3', null, '0', 'YJ1707928648', null, null, null, null, null, '1707928648', null, '0', null, null, null, '', null, 'YJ1596269352');
 
 -- ----------------------------
 -- Table structure for qing_user_trace
