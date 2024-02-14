@@ -53,12 +53,9 @@ class User extends  Base
 
         $userSessionData = $this->isLogin();
 
-
         if(request()->isPost()){
 
             $data=request()->post();
-
-           // var_dump($data);die;
 
             //时间戳插件 添加入库的是需要把2020-05-20 12：12：12 转成时间戳入库 strtotime
             //编辑的时候，把时间戳转成时间格式 2020-05-20 12：12：12
@@ -79,67 +76,32 @@ class User extends  Base
             $data['user_id'] = $userSessionData['id'];
             $data['add_time'] = time();
 
-
-            //============================================================
-
-            /*  // 获取文本字段的值
-    $name = $_POST['name'];
-    $age = $_POST['age'];
-
-    // 获取上传的文件
-    $image1 = $_FILES['image1'];
-    $image2 = $_FILES['image2'];
-
-    // 处理文件上传逻辑
-    // 保存到数据库的逻辑
-
-    // 以下是简单的输出示例，你需要根据实际需求处理文件上传和保存到数据库的逻辑
-    echo "Name: $name<br>";
-    echo "Age: $age<br>";
-    echo "Image 1: {$image1['name']}<br>";
-    echo "Image 2: {$image2['name']}<br>";
-
-    // 保存文件到服务器
-    move_uploaded_file($image1['tmp_name'], "uploads/" . $image1['name']);
-    move_uploaded_file($image2['tmp_name'], "uploads/" . $image2['name']);*/
-
-
-            // 获取上传的文件
+            // 上传图片
             $store_pic = $this->request->file('store_pic');
             $payment_code_pic = $this->request->file('payment_code_pic');
 
+            if (empty($store_pic) || empty($payment_code_pic)){
 
-            $info1 = $store_pic->move( 'public' . DS . 'mer_images');
-            $info2 = $payment_code_pic->move( 'public' . DS . 'mer_images');
+                 return alert('图片不能为空!','index',5);
+            }
+            $upload = new Uploader();
+            $store_pic_path = $upload->uploadimg($store_pic);
+            $payment_path = $upload->uploadimg2($payment_code_pic);
 
-            echo $info1->getSaveName() . '<br>'.$info2->getSaveName() . '<br>';die;
-
-//                    echo $file->getError() . '<br>';
-
-
-            ///==================================================
-
-
-
-
-
+            $path1 = json_decode($store_pic_path,true);
+            $path2 = json_decode($payment_path,true);
+             //获取图片路径
+            $data['store_pic'] = $path1['path'];
+            $data['payment_code_pic'] = $path2['path'];
 
             $res=Db::name('merchant')->insert($data);
-
             if($res){
-
                 return alert('操作成功','index',6);
-
             }else{
-
                 return alert('操作失败','index',5);
-
             }
-
         }
-
         return view();
-
     }
 
 
@@ -147,81 +109,171 @@ class User extends  Base
     /*修改*/
 
     public function merchant_edit(){
-
         //先取出填充的数据
-
         $id  =input('request.id');
-
-
-
         $mer_Data=Db::name('merchant')->find($id);
-
       //  var_dump($mer_Data);die;
-
-
         return view('',[
-
             'merdd_Data'=>$mer_Data,
-
-        ]);
-    }
-
-    public function car_edit(){
-
-        //先取出填充的数据
-
-        $id  =input('request.id');
-
-
-        $car_Data=Db::name('merchant')->find($id);
-
-
-
-        return view('',[
-
-            'cardd_Data'=>$car_Data,
-
         ]);
     }
 
     public function merchant_update(){
 
-        //处理post过来的数据
         if(request()->isPost()){
 
             $data=request()->post();
-          /*  if(!empty($data['time1'])){
-                $data['time1']=strtotime($data['time1']);
-            }else{
-                $data['time1']=time();//
+
+            $data['submit_ip'] = $this->request->ip();
+            $data['update_time'] = time();
+          //  var_dump($_FILES['store_pic']);die;
+
+            if (!empty($_FILES['store_pic']['name']) || !empty($_FILES['payment_code_pic']['name'])){
+                // 上传图片
+                $store_pic = $this->request->file('store_pic');
+                $payment_code_pic = $this->request->file('payment_code_pic');
+                $upload = new Uploader();
+                $store_pic_path = $upload->uploadimg($store_pic);
+                $payment_path = $upload->uploadimg2($payment_code_pic);
+
+                $path1 = json_decode($store_pic_path,true);
+                $path2 = json_decode($payment_path,true);
+
+                //获取图片路径
+                $data['store_pic'] = $path1['path'];
+                $data['payment_code_pic'] = $path2['path'];
             }
 
-            if(!empty($data['time2'])){
-                $data['time2']=strtotime($data['time2']);
-            }else{
-                $data['time2']=time();//
-            }*/
 
+           // var_dump($data);die;
 
-          $data['update_time'] = time();
-          $data['submit_ip'] = $this->request->ip();
-
-          $res=Db::name('merchant')->update($data);
+            $res=Db::name('merchant')->update($data);
 
             if($res){
-
                 return alert('操作成功','index',6);
+            }else{
+                return alert('操作失败','index',5);
+            }
+        }
+    }
+    //user data
+    public function user_edit(){
+
+        $userSessionData = $this->isLogin();
+
+
+        $user_Data=Db::name('user')->find($userSessionData['id']);
+
+        return view('',[
+
+            'user_Data'=>$user_Data,
+
+        ]);
+
+        return view();
+    }
+
+
+    public  function  user_update(){
+
+        if(request()->isPost()){
+
+            $data=request()->post();
+
+            $data['submit_ip'] = $this->request->ip();
+            $data['update_time'] = time();
+
+            if (!empty($_FILES['id_front_pic']['name']) || !empty($_FILES['id_back_pic']['name'])|| !empty($_FILES['self_pic']['name'])){
+                // 上传图片
+                $store_pic = $this->request->file('id_front_pic');
+                $payment_code_pic = $this->request->file('id_back_pic');
+                $self_pic = $this->request->file('self_pic');
+
+
+                $upload = new Uploader();
+                $store_pic_path = $upload->uploadimg($store_pic);
+                $payment_path = $upload->uploadimg2($payment_code_pic);
+                $self_pic_path = $upload->uploadimg($self_pic);
+
+                $path1 = json_decode($store_pic_path,true);
+                $path2 = json_decode($payment_path,true);
+                $path3 = json_decode($self_pic_path,true);
+
+                //获取图片路径
+                $data['id_front_pic'] = $path1['path'];
+                $data['id_back_pic'] = $path2['path'];
+                $data['self_pic'] = $path3['path'];
 
             }else{
 
-                return alert('操作失败','index',5);
+                return alert('图片不能为空','user_edit',5);
+            }
 
+
+            // var_dump($data);die;
+
+            $res=Db::name('user')->update($data);
+
+            if($res){
+                return alert('操作成功','index',6);
+            }else{
+                return alert('操作失败','user_edit',5);
             }
         }
+
+
     }
 
 
 
+
+
+    public function car_edit(){
+        //先取出填充的数据
+        $id  =input('request.id');
+        $cardd_Data=Db::name('merchant')->find($id);
+
+        return view('',[
+
+            'cardd_Data'=>$cardd_Data,
+
+        ]);
+    }
+
+    public function car_update(){
+
+        if(request()->isPost()){
+
+            $data=request()->post();
+
+            $data['submit_ip'] = $this->request->ip();
+            $data['update_time'] = time();
+            //  var_dump($_FILES['store_pic']);die;
+
+            if (!empty($_FILES['car_pic']['name'])){
+                // 上传图片
+                $store_pic = $this->request->file('car_pic');
+                $upload = new Uploader();
+                $store_pic_path = $upload->uploadimg($store_pic);
+
+                $path1 = json_decode($store_pic_path,true);
+
+                //获取图片路径
+                $data['car_pic'] = $path1['path'];
+            }
+
+
+            // var_dump($data);die;
+
+            $res=Db::name('merchant')->update($data);
+
+            if($res){
+                return alert('操作成功','index',6);
+            }else{
+                return alert('操作失败','index',5);
+            }
+        }
+    }
 
         //登录
         public function login()
@@ -317,6 +369,8 @@ class User extends  Base
             $this->redirect('/mobile/user/login');
 
         }
+
+
 
 
 }

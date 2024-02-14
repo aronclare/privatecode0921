@@ -1,4 +1,4 @@
-<?php /*a:2:{s:70:"D:\phpstudy_pro\WWW\privatecode0921\app\mobile\view\user\car_edit.html";i:1707801963;s:72:"D:\phpstudy_pro\WWW\privatecode0921\app\mobile\view\public\foot_bar.html";i:1707797701;}*/ ?>
+<?php /*a:2:{s:70:"D:\phpstudy_pro\WWW\privatecode0921\app\mobile\view\user\car_edit.html";i:1707897634;s:72:"D:\phpstudy_pro\WWW\privatecode0921\app\mobile\view\public\foot_bar.html";i:1707797701;}*/ ?>
 <!DOCTYPE html>
 
 <html>
@@ -87,7 +87,7 @@
         <!--汽车信息-->
         <div id="car_control" class="car_control" style="display: block">
             <h3>汽车信息</h3>
-            <form action="<?php echo url('user/merchant_update'); ?>" method="post">
+            <form action="<?php echo url('user/car_update'); ?>" method="post" enctype="multipart/form-data">
 
                 <label><input type="hidden" value="<?php echo htmlentities($cardd_Data['id']); ?>"  name="id"></label><br>
 

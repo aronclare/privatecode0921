@@ -1,4 +1,4 @@
-<?php /*a:2:{s:67:"D:\phpstudy_pro\WWW\privatecode0921\app\mobile\view\user\index.html";i:1707818766;s:72:"D:\phpstudy_pro\WWW\privatecode0921\app\mobile\view\public\foot_bar.html";i:1707797701;}*/ ?>
+<?php /*a:2:{s:67:"D:\phpstudy_pro\WWW\privatecode0921\app\mobile\view\user\index.html";i:1707905871;s:72:"D:\phpstudy_pro\WWW\privatecode0921\app\mobile\view\public\foot_bar.html";i:1707797701;}*/ ?>
 <!DOCTYPE html>
 
 <html>
@@ -43,7 +43,7 @@
                 <a href="<?php echo url('user/login_out'); ?>">
                     <button class="exit_btn">退出</button>
                 </a>
-                <a href="#">
+                <a href="<?php echo url('user/user_edit'); ?>">
                     <button class="exit_btn">编辑个人资料</button>
                 </a>
                 <a href="#">
@@ -118,6 +118,12 @@
             </form>
 
             <div class="inner_box2">
+                <p><span class="ad">推广链接:</span></p>
+                <p>http://xxxxxx.com/ad?code=20240214skfdjskfjs<span class="copy">点击复制</span></p>
+
+            </div>
+
+            <div class="inner_box2">
 
                 <table>
                     <thead>
@@ -158,10 +164,13 @@
 
             </div>
         </div>
+
+
+
 <!--汽车信息-->
         <div id="car_control" class="car_control">
             <h3>汽车信息</h3>
-            <form action="<?php echo url('user/merchant_add'); ?>" method="post">
+            <form action="<?php echo url('user/car_add'); ?>" method="post" enctype="multipart/form-data">
 
 
                 <label>汽车名称</label><br>
@@ -171,10 +180,7 @@
                 <label>获取地点</label><br>
                 <label><input type="text"  name="address"></label><br>
                 <label>汽车照片</label><br>
-                <label><input type="file"  name="car_pic"><img src="" alt=""></label><br>
-
-
-
+                <label><input type="file"  name="car_pic"></label><br>
 
                 <button type="submit">提交</button>
             </form>
@@ -221,15 +227,25 @@
 
 
 
-
-
-
-
-
-
-
-
         <style>
+            .copy{
+                color: #00b62f;
+                font-size: 12px;
+            }
+
+            .ad{
+                color: red;
+                font-weight: bold;
+            }
+
+            table tr th{
+                color: #0e90d2;
+            }
+
+            tr td img{
+                width: 30px;
+                height: 30px;
+            }
 
             form{
                 text-align: center;

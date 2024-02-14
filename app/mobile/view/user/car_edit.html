@@ -86,7 +86,7 @@
         <!--汽车信息-->
         <div id="car_control" class="car_control" style="display: block">
             <h3>汽车信息</h3>
-            <form action="{:url('user/merchant_update')}" method="post">
+            <form action="{:url('user/car_update')}" method="post" enctype="multipart/form-data">
 
                 <label><input type="hidden" value="{$cardd_Data.id}"  name="id"></label><br>
 
@@ -103,14 +103,6 @@
             </form>
 
         </div>
-
-
-
-
-
-
-
-
 
 
 
@@ -153,7 +145,6 @@
                 display: block;
             }
         </style>
-
 
     </div>
 

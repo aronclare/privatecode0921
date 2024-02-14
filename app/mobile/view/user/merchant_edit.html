@@ -87,7 +87,7 @@
         <div id="mer_control" class="mer_control active">
             <h2>商户信息</h2>
 
-            <form action="{:url('user/merchant_update')}" method="post" >
+            <form action="{:url('user/merchant_update')}" method="post" enctype="multipart/form-data">
 
                 <label><input type="hidden" value="{$merdd_Data.id}" name="id"></label><br>
 
@@ -105,10 +105,10 @@
                 <label><input type="text" value="{$merdd_Data.store_type}" name="store_type"></label><br>
 
                 <label>门户照片</label><br>
-                <label><input type="text" value="{$merdd_Data.store_pic}" name="store_pic"><img src="{$merdd_Data.store_pic}" alt=""></label><br>
+                <label><img src="{$merdd_Data.store_pic}" alt=""><input type="file" name="store_pic"></label><br>
 
                 <label>收款码</label><br>
-                <label><input type="file" name="payment_code_pic"><img src="{$merdd_Data.payment_code_pic}" alt=""></label><br>
+                <label><img src="{$merdd_Data.payment_code_pic}" alt=""><input type="file" name="payment_code_pic"></label><br>
 
                 <button type="submit">提交</button>
 
@@ -124,6 +124,10 @@
 
 
         <style>
+            label img{
+                width: 60px;
+                height: 60px;
+            }
 
             form{
                 text-align: center;
