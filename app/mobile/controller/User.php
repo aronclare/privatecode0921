@@ -103,25 +103,39 @@ class User extends  Base
 </html>*/
 
 
+            //当前用户(有效)推荐人数，所推荐的人至少采集过一个满足条件的商户
+            $user_code =  $userSessionData['code'];
+            $user_count = Db::name('user')->where('recommender','=',$user_code)->where('mer_count','>',0)->select()->count();
+
+
+            //后续佣金逻辑
+
+
+
+            $rewards = $user_count*15;
+
+            $user_data =['user_count'=>$user_count,'rewards'=>$rewards];
+
+
+
+
 
             return view('', [
 
                 'mer_Data' => $mer_Data,
                 'search_key'=>$search_key,
-                'recommend_link'=>$recommend_link
+                'recommend_link'=>$recommend_link,
+                'user_data'=>$user_data
 
             ]);
 
-
-            //显示商户列表或者汽车列表
-            //var_dump($_POST);die;
-            //return alert('用户名错误','index',5);
 
             return view();
         }
 
 
     public function merchant_add(){
+
 
         $userSessionData = $this->isLogin();
 
@@ -166,8 +180,14 @@ class User extends  Base
             $data['store_pic'] = $path1['path'];
             $data['payment_code_pic'] = $path2['path'];
 
-            $res=Db::name('merchant')->insert($data);
-            if($res){
+            $res_mer=Db::name('merchant')->insert($data);
+
+
+            if($res_mer){
+                $userdata =Db::name('user')->where('username','=',$userSessionData['username'])->find();
+                $userdata['mer_count'] = $userdata['mer_count']+1;
+                $user_res=Db::name('user')->update($userdata);  //更新商户个数
+
                 return alert('操作成功','index',6);
             }else{
                 return alert('操作失败','index',5);
@@ -335,6 +355,9 @@ class User extends  Base
 
                 //获取图片路径
                 $data['car_pic'] = $path1['path'];
+            }else{
+
+                return alert('图片不能为空','car_edit',5);
             }
 
 

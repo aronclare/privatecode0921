@@ -1,4 +1,4 @@
-<?php /*a:1:{s:70:"D:\phpstudy_pro\WWW\privatecode0921\app\mobile\view\user\register.html";i:1707925079;}*/ ?>
+<?php /*a:1:{s:70:"D:\phpstudy_pro\WWW\privatecode0921\app\mobile\view\user\register.html";i:1707965839;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 

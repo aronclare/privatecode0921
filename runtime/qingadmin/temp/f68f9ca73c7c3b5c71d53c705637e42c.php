@@ -1,5 +1,5 @@
-<?php /*a:3:{s:69:"D:\phpstudy_pro\WWW\privatecode0921\app\qingadmin\view\user\edit.html";i:1707738454;s:71:"D:\phpstudy_pro\WWW\privatecode0921\app\qingadmin\view\public\head.html";i:1707738454;s:71:"D:\phpstudy_pro\WWW\privatecode0921\app\qingadmin\view\public\foot.html";i:1707738454;}*/ ?>
-<!--包含头部文件--><!DOCTYPE HTML>
+<?php /*a:2:{s:69:"D:\phpstudy_pro\WWW\privatecode0921\app\qingadmin\view\user\edit.html";i:1707985531;s:71:"D:\phpstudy_pro\WWW\privatecode0921\app\qingadmin\view\public\head.html";i:1707797701;}*/ ?>
+<!DOCTYPE HTML>
 
 <html>
 
@@ -51,34 +51,4 @@
 
 <body>
 
-<div class="cl pd-5 bg-1 bk-gray mt-20"> 修改</div><article class="page-container">  <style>    .formControls label{      display: block;    }    .inline{      display: inline-block;    }    .block{      display: block;    }  </style>  <form class="form form-horizontal" id="form-article-add" method="post" action="" enctype="multipart/form-data" >    <div class="row cl">      <label class="form-label col-xs-4 col-sm-2">信息审核：</label>      <div class="formControls col-xs-8 col-sm-6">        <input type="hidden" class="input-text" value="<?php echo htmlentities($userData['id']); ?>" placeholder="" id="" name="id">        <p class="form-label col-xs-6"><label for="">姓名：<input type="text" class="input-text " value="<?php echo htmlentities($userData['real_name']); ?>" required="required" name="id_front_pic">        </label></p>        <p class="form-label col-xs-6"><label for="">ID正面：<input type="text" class="input-text" value="<?php echo htmlentities($userData['id_front_pic']); ?>" required="required" name="id_front_pic">        </label></p>        <p class="form-label col-xs-6">ID反面：<input type="text" class="input-text" value="<?php echo htmlentities($userData['id_back_pic']); ?>" required="required" name="id_back_pic">        </p>        <p class="form-label col-xs-6">ID号码：<input type="text" class="input-text" value="<?php echo htmlentities($userData['id_number']); ?>" required="required" name="id_number">        </p>        <p class="form-label col-xs-6">个人图片：<input type="text" class="input-text" value="<?php echo htmlentities($userData['self_pic']); ?>" required="required" name="self_pic">        </p>        <p class="form-label col-xs-6">审核状态(0待审核1审核通过2审核未通过)：<input type="text" class="input-text" value="<?php echo htmlentities($userData['check_status']); ?>" required="required" name="check_status">        </p>        <p class="form-label col-xs-6">审核意见：<input type="text" class="input-text" value="<?php echo htmlentities($userData['remark']); ?>" required="required" name="remark">        </p>       <label class="form-label col-xs-6"></label>      </div>    </div>    <div class="row cl">     <!-- <label class="form-label col-xs-4 col-sm-2">对应数据表：</label>      <div class="formControls col-xs-8 col-sm-6">        <input type="text" class="input-text" value="<?php echo htmlentities($userData['table_name']); ?>" required="required" name="table_name">      </div>-->    </div>    <div class="row cl">      <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">        <button onClick="article_save_submit();" class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 提交</button>      </div>    </div>  </form></article><script>  /**定义页面全局变量**/  var SCOPE = {};</script><!--包含头部文件--><!--_footer 作为公共模版分离出去-->
-
-
-
-<script type="text/javascript" src="/public/static/admin/lib/layer/2.4/layer.js"></script>
-
-<script type="text/javascript" src="/public/static/admin/static/h-ui/js/H-ui.min.js"></script>
-
-<script type="text/javascript" src="/public/static/admin/static/h-ui.admin/js/H-ui.admin.js"></script> 
-
-
-
-
-
-
-
-<script type="text/javascript" src="/public/static/admin/lib/ueditor/1.4.3/ueditor.config.js"></script>
-
-<script type="text/javascript" src="/public/static/admin/lib/ueditor/1.4.3/ueditor.all.min.js"> </script>
-
-<script type="text/javascript" src="/public/static/admin/lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
-
-<script src="/public/static/admin/lib/My97DatePicker/4.8/WdatePicker.js"></script>
-
-
-
-<script src="/public/static/admin/js/common.js"></script><!-- 后台公共自定义js -->
-
-
-
-</body></html>
+    <div class="cl pd-5 bg-1 bk-gray mt-20"> 信息审核</div>    <div class="page-container form form-horizontal">      <form action="<?php echo url('user/user_update'); ?>" method="post" enctype="multipart/form-data">        <div class="row cl">          <label class="form-label col-xs-4 col-sm-2">姓名：</label>          <div class="formControls col-xs-8 col-sm-6">            <input type="text" class="input-text " value="<?php echo htmlentities($userData['real_name']); ?>" required="required" name="real_name">            <input type="hidden" class="input-text" value="<?php echo htmlentities($userData['id']); ?>"  name="id">          </div>        </div>        <div class="row cl">          <label class="form-label col-xs-4 col-sm-2">身份证号码：</label>          <div class="formControls col-xs-8 col-sm-6">            <input type="text" class="input-text " value="<?php echo htmlentities($userData['id_number']); ?>" required="required" name="id_number">          </div>        </div>        <div class="row cl">          <label class="form-label col-xs-4 col-sm-2">手机号码：</label>          <div class="formControls col-xs-8 col-sm-6">            <input type="text" class="input-text " value="<?php echo htmlentities($userData['mobile']); ?>" required="required" name="mobile">          </div>        </div>        <div class="row cl">          <label class="form-label col-xs-4 col-sm-2">邮箱：</label>          <div class="formControls col-xs-8 col-sm-6">            <input type="text" class="input-text " value="<?php echo htmlentities($userData['email']); ?>" required="required" name="email">          </div>        </div>        <div class="row cl">          <label class="form-label col-xs-4 col-sm-2">ID正面：</label>          <div class="formControls col-xs-8 col-sm-6">            <img src="<?php echo htmlentities($userData['id_front_pic']); ?>" alt="">            <input type="file" class="input-text " name="id_front_pic">          </div>        </div>        <div class="row cl">          <label class="form-label col-xs-4 col-sm-2">ID反面：</label>          <div class="formControls col-xs-8 col-sm-6">            <img src="<?php echo htmlentities($userData['id_back_pic']); ?>" alt="">            <input type="file" class="input-text " value="<?php echo htmlentities($userData['id_back_pic']); ?>"  name="id_back_pic">          </div>        </div>        <div class="row cl">          <label class="form-label col-xs-4 col-sm-2">自拍照：</label>          <div class="formControls col-xs-8 col-sm-6">            <img src="<?php echo htmlentities($userData['self_pic']); ?>" alt="">            <input type="file" class="input-text " value="<?php echo htmlentities($userData['self_pic']); ?>" name="self_pic">          </div>        </div>        <div class="row cl">          <label class="form-label col-xs-4 col-sm-2">审核状态：</label>          <div class="formControls col-xs-8 col-sm-6">            <input type="text" class="input-text " value="<?php echo htmlentities($userData['check_status']); ?>" required="required" name="check_status">          </div>        </div>        <div class="row cl">          <label class="form-label col-xs-4 col-sm-2">审核意见：</label>          <div class="formControls col-xs-8 col-sm-6">            <textarea name="remark" id="" cols="69" rows="8"><?php echo htmlentities($userData['remark']); ?></textarea>          </div>        </div>        <div class="row cl">          <label class="form-label col-xs-4 col-sm-2"></label>          <div class="formControls col-xs-8 col-sm-6">            <button class="btn btn-primary radius rbtn" type="submit"><i class="Hui-iconfont"></i> 提交</button>          </div>        </div>      </form>    </div><style>  .rbtn{    float: right;  }  .formControls img{    width: 200px;    height: 120px;  }</style>    </body>    </html>

@@ -1,4 +1,4 @@
-<?php /*a:2:{s:67:"D:\phpstudy_pro\WWW\privatecode0921\app\mobile\view\user\index.html";i:1707930136;s:72:"D:\phpstudy_pro\WWW\privatecode0921\app\mobile\view\public\foot_bar.html";i:1707738454;}*/ ?>
+<?php /*a:2:{s:67:"D:\phpstudy_pro\WWW\privatecode0921\app\mobile\view\user\index.html";i:1707980013;s:72:"D:\phpstudy_pro\WWW\privatecode0921\app\mobile\view\public\foot_bar.html";i:1707797701;}*/ ?>
 <!DOCTYPE html>
 
 <html>
@@ -57,11 +57,9 @@
                 <a href="#">
                     <button class="exit_btn">复制推广链接</button>
                 </a>
+                <p class="count"><span>有效推荐人数:</span><?php echo htmlentities($user_data['user_count']); ?>个</p>
                 <a href="#">
-                    <button class="exit_btn">显示有效推荐人数</button>
-                </a>
-                <a href="#">
-                    <button class="exit_btn">显示总佣金</button>
+                    <p class="count"><span>总计佣金:</span><?php echo htmlentities($user_data['rewards']); ?>RMB</p>
                 </a>
         </div>
 
@@ -231,6 +229,10 @@
 
 
         <style>
+            .count{
+                color: #00B83F;
+                font-size: 14px;
+            }
             .copy{
                 color: #00b62f;
                 font-size: 12px;

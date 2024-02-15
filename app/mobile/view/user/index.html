@@ -56,11 +56,9 @@
                 <a href="#">
                     <button class="exit_btn">复制推广链接</button>
                 </a>
+                <p class="count"><span>有效推荐人数:</span>{$user_data.user_count}个</p>
                 <a href="#">
-                    <button class="exit_btn">显示有效推荐人数</button>
-                </a>
-                <a href="#">
-                    <button class="exit_btn">显示总佣金</button>
+                    <p class="count"><span>总计佣金:</span>{$user_data.rewards}RMB</p>
                 </a>
         </div>
 
@@ -230,6 +228,10 @@
 
 
         <style>
+            .count{
+                color: #00B83F;
+                font-size: 14px;
+            }
             .copy{
                 color: #00b62f;
                 font-size: 12px;
