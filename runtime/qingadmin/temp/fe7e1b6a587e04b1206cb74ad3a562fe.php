@@ -1,4 +1,4 @@
-<?php /*a:3:{s:73:"D:\phpstudy_pro\WWW\privatecode0921\app\qingadmin\view\comment\index.html";i:1708179639;s:71:"D:\phpstudy_pro\WWW\privatecode0921\app\qingadmin\view\public\head.html";i:1708179639;s:71:"D:\phpstudy_pro\WWW\privatecode0921\app\qingadmin\view\public\foot.html";i:1708179639;}*/ ?>
+<?php /*a:3:{s:70:"D:\phpstudy_pro\WWW\privatecode0921\app\qingadmin\view\news\index.html";i:1708179639;s:71:"D:\phpstudy_pro\WWW\privatecode0921\app\qingadmin\view\public\head.html";i:1708179639;s:71:"D:\phpstudy_pro\WWW\privatecode0921\app\qingadmin\view\public\foot.html";i:1708179639;}*/ ?>
 <!--包含头部文件-->
 
 <!DOCTYPE HTML>
@@ -57,25 +57,11 @@
 
 <body>
 
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i>列表 </nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 新闻列表 </nav>
 
 <div class="page-container">
 
-
-
-	<form acction="" method="get">
-
-		<div class="text-c">
-
-			<input type="text" class="input-text" style="width:20%" placeholder="<?php echo htmlentities((isset($search_key) && ($search_key !== '')?$search_key:'输入手机号查询')); ?>" name="search_key">
-
-			<button type="submit" class="btn btn-success radius"><i class="Hui-iconfont">&#xe665;</i>搜索</button>
-
-		</div>
-
-	</form>
-
-
+<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"> <a class="btn btn-primary radius"  href="<?php echo url('news/add'); ?>"><i class="Hui-iconfont">&#xe600;</i> 添加</a></span> <span class="r"><a class="btn btn-primary radius"  href="<?php echo url('news/layui'); ?>">layui上传插件</a></span> </div>
 
 	<div class="mt-20">
 
@@ -87,18 +73,11 @@
 
 						<th width="50">ID</th>
 
-						<th width="150">商品</th>
+						<th width="250">名称</th>
 
-						<th width="250">用户名</th>	
+						<th width="250">链接</th>						
 
-						<th width="250">手机号</th>	
-
-						<th width="550">评论内容</th>	
-						<th width="250">评分</th>	
-
-						<th width="250">时间</th>
-
-						<th width="50">操作</th>						
+						<th width="50">操作</th>
 
 					</tr>
 
@@ -106,31 +85,17 @@
 
 				<tbody>
 
-					<?php if(is_array($commentData) || $commentData instanceof \think\Collection || $commentData instanceof \think\Paginator): $i = 0; $__LIST__ = $commentData;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
+					<?php if(is_array($newsData) || $newsData instanceof \think\Collection || $newsData instanceof \think\Paginator): $i = 0; $__LIST__ = $newsData;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
 
 					<tr class="text-c">
 
 						<td><?php echo htmlentities($vo['id']); ?></td>
 
-						<td><a href="<?php echo url('mobile/goods/index',array('goods_id'=>$vo['goods_id'])); ?>" target="_blank"><img src="<?php echo htmlentities($vo['goods_thumb']); ?>" width="100"></a></td>
+						<td><?php echo htmlentities($vo['title']); ?></td>
 
-						<td><?php echo htmlentities($vo['username']); ?></td>
+						<td><?php echo htmlentities(date("Y-m-d",!is_numeric($vo['time'])? strtotime($vo['time']) : $vo['time'])); ?></td>
 
-						<td><?php echo htmlentities($vo['mobile']); ?></td>
-
-						<td><?php echo htmlentities($vo['content']); ?></td>
-						<td><?php echo htmlentities($vo['star']); ?></td>
-
-						<td><?php echo htmlentities(date("Y-m-d H:s",!is_numeric($vo['time'])? strtotime($vo['time']) : $vo['time'])); ?></td>
-
-						<td>
-
-							<a style="text-decoration:none" class="ml-5" onclick="delete_confirm('<?php echo url('base/del',array('id'=>$vo['id'],'dbname'=>'comment')); ?>')" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a>
-
-
-						</td>
-
-						
+						<td class="td-manage"><a style="text-decoration:none" class="ml-5" href="<?php echo url('news/edit',array('id'=>$vo['id'])); ?>" title="修改"><i class="Hui-iconfont">&#xe6df;</i></a><a style="text-decoration:none" class="ml-5" onclick="delete_confirm('<?php echo url('news/del',array('id'=>$vo['id'])); ?>')" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 
 					</tr>
 
@@ -142,9 +107,7 @@
 
 			</table>
 
-
-
-			<?php echo $commentData; ?>
+			<?php echo $newsData; ?>
 
 	</div>
 

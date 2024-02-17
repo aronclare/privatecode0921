@@ -99,22 +99,25 @@ class User extends  Base
         });
     </script>
 
+
 </body>
 </html>*/
+            $user_code =  $userSessionData['code'];
 
+            //成功推荐人数
+
+            $all_count = Db::name('user')->where('recommender','=',$user_code)->where('mer_count','>=',0)->select()->count();
 
             //当前用户(有效)推荐人数，所推荐的人至少采集过一个满足条件的商户
-            $user_code =  $userSessionData['code'];
+
             $user_count = Db::name('user')->where('recommender','=',$user_code)->where('mer_count','>',0)->select()->count();
 
 
             //后续佣金逻辑
 
-
-
             $rewards = $user_count*15;
 
-            $user_data =['user_count'=>$user_count,'rewards'=>$rewards];
+            $user_data =['user_count'=>$user_count,'all_count'=>$all_count,'rewards'=>$rewards];
 
 
 
@@ -162,14 +165,16 @@ class User extends  Base
             $data['user_id'] = $userSessionData['id'];
             $data['add_time'] = time();
 
+            if (empty($store_pic) || empty($payment_code_pic)){
+
+                return alert('图片不能为空!','index',5);
+            }
+
             // 上传图片
             $store_pic = $this->request->file('store_pic');
             $payment_code_pic = $this->request->file('payment_code_pic');
 
-            if (empty($store_pic) || empty($payment_code_pic)){
 
-                 return alert('图片不能为空!','index',5);
-            }
             $upload = new Uploader();
             $store_pic_path = $upload->uploadimg($store_pic);
             $payment_path = $upload->uploadimg2($payment_code_pic);

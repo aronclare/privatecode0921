@@ -1,4 +1,4 @@
-<?php /*a:3:{s:73:"D:\phpstudy_pro\WWW\privatecode0921\app\qingadmin\view\comment\index.html";i:1708179639;s:71:"D:\phpstudy_pro\WWW\privatecode0921\app\qingadmin\view\public\head.html";i:1708179639;s:71:"D:\phpstudy_pro\WWW\privatecode0921\app\qingadmin\view\public\foot.html";i:1708179639;}*/ ?>
+<?php /*a:3:{s:71:"D:\phpstudy_pro\WWW\privatecode0921\app\qingadmin\view\order\index.html";i:1708179639;s:71:"D:\phpstudy_pro\WWW\privatecode0921\app\qingadmin\view\public\head.html";i:1708179639;s:71:"D:\phpstudy_pro\WWW\privatecode0921\app\qingadmin\view\public\foot.html";i:1708179639;}*/ ?>
 <!--包含头部文件-->
 
 <!DOCTYPE HTML>
@@ -57,95 +57,65 @@
 
 <body>
 
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i>列表 </nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 订单列表 </nav>
 
 <div class="page-container">
 
+	<form acction="" method="get" class="mt-20">
 
 
-	<form acction="" method="get">
+		<div class="text-c"> 日期范围：
 
-		<div class="text-c">
+			<input type="text" onfocus="WdatePicker()" id="datemin" class="input-text Wdate" name="start_time" style="width:120px;" placeholder="<?php echo htmlentities((isset($start_time) && ($start_time !== '')?$start_time:'开始时间')); ?>">
 
-			<input type="text" class="input-text" style="width:20%" placeholder="<?php echo htmlentities((isset($search_key) && ($search_key !== '')?$search_key:'输入手机号查询')); ?>" name="search_key">
+			<input type="text" onfocus="WdatePicker()" id="datemax" class="input-text Wdate" name="end_time"style="width:120px;" placeholder="<?php echo htmlentities((isset($end_time) && ($end_time !== '')?$end_time:'结束时间')); ?>">
 
-			<button type="submit" class="btn btn-success radius"><i class="Hui-iconfont">&#xe665;</i>搜索</button>
+			<button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜订单</button>
+
 
 		</div>
 
+
 	</form>
-
-
-
 	<div class="mt-20">
-
+			
 			<table class="table table-border table-bordered table-bg table-hover table-sort mt-20">
 
 				<thead>
-
-					<tr class="text-c">
-
-						<th width="50">ID</th>
-
-						<th width="150">商品</th>
-
-						<th width="250">用户名</th>	
-
-						<th width="250">手机号</th>	
-
-						<th width="550">评论内容</th>	
-						<th width="250">评分</th>	
-
-						<th width="250">时间</th>
-
-						<th width="50">操作</th>						
-
+					<tr>
+						<th width='30%'>订单号</th>
+						<th width='15%'>订单总价</th>
+						<th width='20%'>下单时间</th>
+						<th width='15%'>支付方式</th>
+						<th width='10%'>状态</th>
+						<th width='10%'>操作</th>
 					</tr>
-
 				</thead>
 
 				<tbody>
-
-					<?php if(is_array($commentData) || $commentData instanceof \think\Collection || $commentData instanceof \think\Paginator): $i = 0; $__LIST__ = $commentData;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
-
-					<tr class="text-c">
-
-						<td><?php echo htmlentities($vo['id']); ?></td>
-
-						<td><a href="<?php echo url('mobile/goods/index',array('goods_id'=>$vo['goods_id'])); ?>" target="_blank"><img src="<?php echo htmlentities($vo['goods_thumb']); ?>" width="100"></a></td>
-
-						<td><?php echo htmlentities($vo['username']); ?></td>
-
-						<td><?php echo htmlentities($vo['mobile']); ?></td>
-
-						<td><?php echo htmlentities($vo['content']); ?></td>
-						<td><?php echo htmlentities($vo['star']); ?></td>
-
-						<td><?php echo htmlentities(date("Y-m-d H:s",!is_numeric($vo['time'])? strtotime($vo['time']) : $vo['time'])); ?></td>
+					<?php if(is_array($orderData1) || $orderData1 instanceof \think\Collection || $orderData1 instanceof \think\Paginator): $i = 0; $__LIST__ = $orderData1;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
+					<tr>
+						<td><?php echo htmlentities($vo['out_trade_no']); ?></td>
+						<td><?php echo htmlentities($vo['total_price']); ?></td>
+						<td><?php echo htmlentities(date("Y-m-d",!is_numeric($vo['time'])? strtotime($vo['time']) : $vo['time'])); ?></td>
+						<td><?php if($vo['pay_method'] == 1): ?>微信支付<?php else: ?>支付宝<?php endif; ?></td>
 
 						<td>
-
-							<a style="text-decoration:none" class="ml-5" onclick="delete_confirm('<?php echo url('base/del',array('id'=>$vo['id'],'dbname'=>'comment')); ?>')" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a>
-
-
+							<?php switch($vo['status']): case "1": ?>已支付<?php break; case "2": ?>已完成<?php break; case "4": ?>已发货未签收<?php break; default: ?><span style="color: #f00;">待付款</span>
+						<?php endswitch; ?>
 						</td>
-
-						
-
+						<td>
+							<a style="text-decoration:none" class="ml-5" href="<?php echo url('order/edit',array('id'=>$vo['id'])); ?>" title="修改"><i class="Hui-iconfont">&#xe6df;</i></a>
+						</td>
 					</tr>
-
 					<?php endforeach; endif; else: echo "" ;endif; ?>
-
-					
-
 				</tbody>
 
 			</table>
+			
 
-
-
-			<?php echo $commentData; ?>
-
+			<?php echo $page; ?>
+	
 	</div>
 
 </div>

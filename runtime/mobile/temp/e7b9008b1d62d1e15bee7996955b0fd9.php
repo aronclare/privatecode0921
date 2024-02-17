@@ -1,4 +1,4 @@
-<?php /*a:2:{s:68:"D:\phpstudy_pro\WWW\privatecode0921\app\mobile\view\index\index.html";i:1707797701;s:72:"D:\phpstudy_pro\WWW\privatecode0921\app\mobile\view\public\foot_bar.html";i:1707797701;}*/ ?>
+<?php /*a:2:{s:68:"D:\phpstudy_pro\WWW\privatecode0921\app\mobile\view\index\index.html";i:1708185832;s:72:"D:\phpstudy_pro\WWW\privatecode0921\app\mobile\view\public\foot_bar.html";i:1708179639;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -46,8 +46,31 @@
   </section>
 
   <section class="nav_icon">
-    <a class="item" href="#"><img src="/public/static/mobile/images/1.webp"></a>
-    <a class="item" href="#"><img src="/public/static/mobile/images/2.webp"></a>
+
+    <a class="item" href="#"><img src="/public/static/mobile/images/1.webp"><span class="ca_font">新上架</span></a>
+    <a class="item" href="#"><img src="/public/static/mobile/images/1.webp"><span class="ca_font">热销品</span></a>
+    <a class="item" href="#"><img src="/public/static/mobile/images/1.webp"><span class="ca_font">零食专区</span></a>
+    <a class="item" href="#"><img src="/public/static/mobile/images/1.webp"><span class="ca_font">整箱专区</span></a>
+    <a class="item" href="#"><img src="/public/static/mobile/images/1.webp"><span class="ca_font">门店热销</span></a>
+    <a class="item" href="#"><img src="/public/static/mobile/images/1.webp"><span class="ca_font">生活用品</span></a>
+    <a class="item" href="#"><img src="/public/static/mobile/images/1.webp"><span class="ca_font">水果专区</span></a>
+    <a class="item" href="#"><img src="/public/static/mobile/images/1.webp"><span class="ca_font">五金配件</span></a>
+    <a class="item" href="#"><img src="/public/static/mobile/images/1.webp"><span class="ca_font">复购专区</span></a>
+    <a class="item" href="#"><img src="/public/static/mobile/images/1.webp"><span class="ca_font">充值专区</span></a>
+    
+    <style>
+      .ca_font{
+        color: red;
+        font-size: 12px;
+        text-align: center;
+        line-height: 23px;
+        padding: 0 10px
+      }
+
+    </style>
+
+
+<!--    <a class="item" href="#"><img src="/public/static/mobile/images/2.webp"></a>
     <a class="item" href="#"><img src="/public/static/mobile/images/3.webp"></a>
     <a class="item" href="#"><img src="/public/static/mobile/images/4.webp"></a>
     <a class="item" href="#"><img src="/public/static/mobile/images/5.webp"></a>
@@ -55,7 +78,7 @@
     <a class="item" href="#"><img src="/public/static/mobile/images/7.webp"></a>
     <a class="item" href="#"><img src="/public/static/mobile/images/8.webp"></a>
     <a class="item" href="#"><img src="/public/static/mobile/images/9.webp"></a>
-    <a class="item" href="#"><img src="/public/static/mobile/images/10.webp"></a>
+    <a class="item" href="#"><img src="/public/static/mobile/images/10.webp"></a>-->
 
     </div>
   </section>

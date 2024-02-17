@@ -1,4 +1,4 @@
-<?php /*a:2:{s:73:"D:\phpstudy_pro\WWW\privatecode0921\app\qingadmin\view\index\welcome.html";i:1707797701;s:71:"D:\phpstudy_pro\WWW\privatecode0921\app\qingadmin\view\public\head.html";i:1707797701;}*/ ?>
+<?php /*a:2:{s:73:"D:\phpstudy_pro\WWW\privatecode0921\app\qingadmin\view\index\welcome.html";i:1708179639;s:71:"D:\phpstudy_pro\WWW\privatecode0921\app\qingadmin\view\public\head.html";i:1708179639;}*/ ?>
 ﻿<!DOCTYPE HTML>
 
 <html>

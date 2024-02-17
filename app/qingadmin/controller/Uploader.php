@@ -17,9 +17,10 @@ class Uploader extends Base
     public function local_upload(){
         //10240单位是字节，10240是10kb，102400是100kb
         $file = request()->file('file');
+
         try {
             validate(['file'=>[
-                'filesize'=>102400,
+                'filesize'=>1024000,
                 'fileExt'=>'jpg',
             ]])->check(['file'=>$file]);
 
