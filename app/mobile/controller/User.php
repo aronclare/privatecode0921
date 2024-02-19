@@ -99,21 +99,24 @@ class User extends  Base
         });
     </script>
 
-
 </body>
 </html>*/
-            $user_code =  $userSessionData['code'];
 
+            $user_code =  $userSessionData['code'];
             //成功推荐人数
 
             $all_count = Db::name('user')->where('recommender','=',$user_code)->where('mer_count','>=',0)->select()->count();
 
-            //当前用户(有效)推荐人数，所推荐的人至少采集过一个满足条件的商户
 
+
+            //当前用户(有效)推荐人数，所推荐的人至少采集过一个满足条件的商户
+            $user_code =  $userSessionData['code'];
             $user_count = Db::name('user')->where('recommender','=',$user_code)->where('mer_count','>',0)->select()->count();
 
 
             //后续佣金逻辑
+
+
 
             $rewards = $user_count*15;
 
@@ -146,35 +149,18 @@ class User extends  Base
 
             $data=request()->post();
 
-            //时间戳插件 添加入库的是需要把2020-05-20 12：12：12 转成时间戳入库 strtotime
-            //编辑的时候，把时间戳转成时间格式 2020-05-20 12：12：12
-
-           /* if(!empty($data['time1'])){
-                $data['time1']=strtotime($data['time1']);
-            }else{
-                $data['time1']=time();//当前时间戳
-            }
-
-            if(!empty($data['time2'])){
-                $data['time2']=strtotime($data['time2']);
-            }else{
-                $data['time2']=time();//当前时间戳
-            }*/
-
             $data['submit_ip'] = $this->request->ip();
             $data['user_id'] = $userSessionData['id'];
             $data['add_time'] = time();
-
-            if (empty($store_pic) || empty($payment_code_pic)){
-
-                return alert('图片不能为空!','index',5);
-            }
 
             // 上传图片
             $store_pic = $this->request->file('store_pic');
             $payment_code_pic = $this->request->file('payment_code_pic');
 
+            if (empty($store_pic) || empty($payment_code_pic)){
 
+                 return alert('图片不能为空!','index',5);
+            }
             $upload = new Uploader();
             $store_pic_path = $upload->uploadimg($store_pic);
             $payment_path = $upload->uploadimg2($payment_code_pic);
@@ -239,10 +225,10 @@ class User extends  Base
                 //获取图片路径
                 $data['store_pic'] = $path1['path'];
                 $data['payment_code_pic'] = $path2['path'];
+            }else{
+                return alert('图片不能为空','merchant_edit',5);
+
             }
-
-
-           // var_dump($data);die;
 
             $res=Db::name('merchant')->update($data);
 
@@ -363,10 +349,9 @@ class User extends  Base
             }else{
 
                 return alert('图片不能为空','car_edit',5);
+
             }
 
-
-            // var_dump($data);die;
 
             $res=Db::name('merchant')->update($data);
 

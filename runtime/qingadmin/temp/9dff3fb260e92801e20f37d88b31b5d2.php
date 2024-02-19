@@ -1,4 +1,4 @@
-<?php /*a:3:{s:68:"D:\phpstudy_pro\WWW\privatecode0921\app\qingadmin\view\ad\index.html";i:1708179639;s:71:"D:\phpstudy_pro\WWW\privatecode0921\app\qingadmin\view\public\head.html";i:1708179639;s:71:"D:\phpstudy_pro\WWW\privatecode0921\app\qingadmin\view\public\foot.html";i:1708179639;}*/ ?>
+<?php /*a:3:{s:68:"D:\phpstudy_pro\WWW\privatecode0921\app\qingadmin\view\ad\index.html";i:1707797701;s:71:"D:\phpstudy_pro\WWW\privatecode0921\app\qingadmin\view\public\head.html";i:1707797701;s:71:"D:\phpstudy_pro\WWW\privatecode0921\app\qingadmin\view\public\foot.html";i:1707797701;}*/ ?>
 <!--包含头部文件-->
 
 <!DOCTYPE HTML>

@@ -66,7 +66,7 @@ class Merchant  extends  Base
 
             $data['time'] = time();
 
-            /*if (!empty($_FILES['store_pic']['name']) || !empty($_FILES['payment_code_pic']['name'])){
+            if (!empty($_FILES['store_pic']['name']) || !empty($_FILES['payment_code_pic']['name'])){
                 // 上传图片
                 $store_pic = $this->request->file('store_pic');
                 $payment_code_pic = $this->request->file('payment_code_pic');
@@ -82,25 +82,17 @@ class Merchant  extends  Base
                 $data['payment_code_pic'] = $path2['path'];
             }else{
 
-                return alert('图片不能为空','edit',5);
-            }*/
+                $res=Db::name('merchant')->update($data);
 
-
-            $res=Db::name('merchant')->update($data);
-
-            if($res){
-                return alert('操作成功','index',6);
-            }else{
-                return alert('操作失败','index',5);
+                if($res){
+                    return alert('操作成功','index',6);
+                }else{
+                    return alert('操作失败','index',5);
+                }
             }
+
         }
     }
-
-
-
-
-
-
 
 
     public function delete(){
@@ -172,7 +164,7 @@ class Merchant  extends  Base
 
             $data['time'] = time();
 
-          /*  if (!empty($_FILES['car_pic']['name'])){
+            if (!empty($_FILES['car_pic']['name'])){
                 // 上传图片
                 $store_pic = $this->request->file('car_pic');
                 $upload = new Uploader();
@@ -184,19 +176,16 @@ class Merchant  extends  Base
                 $data['car_pic'] = $path1['path'];
             }else{
 
-                return alert('图片不能为空','user_edit',5);
-            }*/
+                $res=Db::name('merchant')->update($data);
 
+                if($res){
+                    return alert('操作成功','index',6);
+                }else{
+                    return alert('操作失败','index',5);
+                }
 
-            // var_dump($data);die;
-
-            $res=Db::name('merchant')->update($data);
-
-            if($res){
-                return alert('操作成功','index',6);
-            }else{
-                return alert('操作失败','index',5);
             }
+
         }
     }
 
@@ -222,15 +211,6 @@ class Merchant  extends  Base
 
 
     }
-
-
-
-
-
-
-
-
-
 
 
 }

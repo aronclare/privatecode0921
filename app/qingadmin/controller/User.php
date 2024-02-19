@@ -58,8 +58,6 @@ class User extends  Base
         ]);
     }
 
-
-
     public  function  user_update(){
 
         if(request()->isPost()){
@@ -91,25 +89,20 @@ class User extends  Base
 
             }else{
 
-                return alert('图片不能为空','edit',5);
+                $res=Db::name('user')->update($data);
+
+                if($res){
+                    return alert('操作成功','index',6);
+                }else{
+                    return alert('操作失败','edit',5);
+                }
+
             }
 
-
-            // var_dump($data);die;
-
-            $res=Db::name('user')->update($data);
-
-            if($res){
-                return alert('操作成功','index',6);
-            }else{
-                return alert('操作失败','edit',5);
-            }
         }
 
 
     }
-
-
 
     //删除会员
     public function delete(){
@@ -129,14 +122,5 @@ class User extends  Base
 
         ]);
     }
-
-
-
-
-
-
-
-
-
 }
 

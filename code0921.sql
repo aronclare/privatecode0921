@@ -3,14 +3,14 @@ Navicat MySQL Data Transfer
 
 Source Server         : users
 Source Server Version : 50726
-Source Host           : 127.0.0.1:3306
+Source Host           : localhost:3306
 Source Database       : code0921
 
 Target Server Type    : MYSQL
 Target Server Version : 50726
 File Encoding         : 65001
 
-Date: 2024-02-15 01:29:57
+Date: 2024-02-19 18:39:38
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -81,7 +81,7 @@ CREATE TABLE `qing_admin` (
 INSERT INTO `qing_admin` VALUES ('1', 'root_qing', '0d734ea736e18b582050e3b990636001', '1703605203', '1', '1');
 INSERT INTO `qing_admin` VALUES ('2', 'goods_admin', '0d734ea736e18b582050e3b990636001', '1590197437', '2', '1');
 INSERT INTO `qing_admin` VALUES ('4', 'order_admin', '0d734ea736e18b582050e3b990636001', '1597276611', '4', '1');
-INSERT INTO `qing_admin` VALUES ('5', 'admin', '3b10490bad11d7fc64d7ab10c2d96919', '1707923142', '1', '1');
+INSERT INTO `qing_admin` VALUES ('5', 'admin', '3b10490bad11d7fc64d7ab10c2d96919', '1707980664', '1', '1');
 
 -- ----------------------------
 -- Table structure for qing_ad_type
@@ -823,27 +823,40 @@ CREATE TABLE `qing_merchant` (
   `store_name` varchar(50) DEFAULT NULL,
   `address` varchar(50) DEFAULT NULL,
   `name` varchar(20) DEFAULT NULL,
-  `store_pic` varchar(50) DEFAULT NULL,
-  `payment_code_pic` varchar(255) DEFAULT NULL,
+  `store_pic` varchar(150) DEFAULT NULL,
+  `payment_code_pic` varchar(150) DEFAULT NULL,
   `store_type` varchar(20) DEFAULT NULL,
   `submit_ip` varchar(20) DEFAULT NULL,
   `ip_address` varchar(20) DEFAULT NULL,
   `car_name` varchar(50) DEFAULT NULL,
   `car_number` varchar(20) DEFAULT NULL,
-  `car_pic` varchar(255) DEFAULT NULL,
-  `remark` varchar(100) DEFAULT NULL,
+  `car_pic` varchar(150) DEFAULT NULL,
+  `remark` varchar(200) DEFAULT NULL,
   `status` char(4) DEFAULT NULL,
   `add_time` int(10) DEFAULT NULL,
   `update_time` int(10) DEFAULT NULL,
+  `time` int(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of qing_merchant
 -- ----------------------------
-INSERT INTO `qing_merchant` VALUES ('1', '2', '螺蛳粉总店', '北京市', '老王', '/upload/ddd.jpg', '/upload/ddd.jpg', '餐饮', '127.0.0.1', '本机', null, null, null, '审核待确认中，身份信息不明。', '1', null, null);
-INSERT INTO `qing_merchant` VALUES ('4', null, null, '浙江省义乌市', null, null, null, null, '127.0.0.1', null, '迈巴赫90', 'E50457BA', '/car.jpg', null, null, null, null);
-INSERT INTO `qing_merchant` VALUES ('5', null, null, '湖南长沙市', null, null, null, null, '127.0.0.1', null, '宝马A3', 'E50457VN', '/car.jpg', null, '-1', null, null);
+INSERT INTO `qing_merchant` VALUES ('1', '2', '螺蛳粉总店', '北京市', '老王', '\\public\\upload/20240215\\3e571ad87c2f5a8a7eb5dbbde7ed1670.png', '\\public\\upload/20240215\\5450341b4b8d3c1f50675ea81e89ceda.png', '餐饮', '127.0.0.1', '本机', '奔驰A1', 'Q22557899', '\\public\\upload/20240215\\f63739f0b35a2c334498fb9d9ad079e0.png', '审核待确认中，身份信息不明。', '1', null, '1707967070', null);
+INSERT INTO `qing_merchant` VALUES ('4', null, null, '浙江省义乌市', null, null, null, null, '127.0.0.1', null, '迈巴赫90', 'E50457BA', '/car.jpg', null, null, null, null, null);
+INSERT INTO `qing_merchant` VALUES ('5', null, null, '湖南长沙市', null, null, null, null, '127.0.0.1', null, '宝马A3', 'E50457VN', '/car.jpg', null, '-1', null, null, null);
+INSERT INTO `qing_merchant` VALUES ('6', '2', '橘子商铺', '北京城西', '老五', '\\public\\upload/20240215\\230ba4abc60ae47af444c67632bdc68b.png', '\\public\\upload/20240215\\44c6bf41c16109806cc7373d7bdec76d.png', '农业', '127.0.0.1', null, null, null, null, null, null, '1707973266', null, null);
+INSERT INTO `qing_merchant` VALUES ('7', '2', '橘子商铺', '北京城西', '老五', '\\public\\upload/20240215\\024e045373071544e1c9688927956e73.png', '\\public\\upload/20240215\\cd489684005e5a30107e65a15f8f748f.png', '农业', '127.0.0.1', null, null, null, null, null, null, '1707973317', null, null);
+INSERT INTO `qing_merchant` VALUES ('8', '2', '橘子商铺', '北京城西', '老五', '\\public\\upload/20240215\\7180aa81aaa34803dfc922830ed0bb7c.png', '\\public\\upload/20240215\\76bab021842baa8cd761deedf0df4d94.png', '农业', '127.0.0.1', null, null, null, null, null, null, '1707973319', null, null);
+INSERT INTO `qing_merchant` VALUES ('9', '2', '橘子商铺', '北京城西', '老五', '\\public\\upload/20240215\\e87a32d6e339d003fe995c2f83267e08.png', '\\public\\upload/20240215\\5dc3abb2cc71cb869d60c05a8f51f1fb.png', '农业', '127.0.0.1', null, null, null, null, null, null, '1707973415', null, null);
+INSERT INTO `qing_merchant` VALUES ('10', '2', '橘子商铺', '北京城西', '老五', '\\public\\upload/20240215\\0139a0c0b2ae6ee93667a849eec2d771.png', '\\public\\upload/20240215\\539142e172e6ee958548a0a6c6c5ab06.png', '农业', '127.0.0.1', null, null, null, null, null, null, '1707973650', null, null);
+INSERT INTO `qing_merchant` VALUES ('11', '2', '橘子商铺', '北京城西', '老五', '\\public\\upload/20240215\\507925932e24e54310cb3019e60b0832.png', '\\public\\upload/20240215\\8278b4b26e7b07179db60333e34754a5.png', '农业', '127.0.0.1', null, null, null, null, null, null, '1707973653', null, null);
+INSERT INTO `qing_merchant` VALUES ('12', '2', '橘子商铺', '北京城西', '老五', '\\public\\upload/20240215\\7531d669668251465e7a7586c305be92.png', '\\public\\upload/20240215\\0cc8adadcc141bbab3d37af483832b90.png', '农业', '127.0.0.1', null, null, null, null, null, null, '1707973654', null, null);
+INSERT INTO `qing_merchant` VALUES ('13', '2', '橘子商铺', '北京城西', '老五111', '\\public\\upload/20240215\\1ba7cd5e41412f48d6289b6dd02809ed.png', '\\public\\upload/20240215\\d7d1ba0b4d1f850ac3540cc77374db95.png', '农业', '127.0.0.1', null, null, null, null, null, null, '1707973656', null, '1707984992');
+INSERT INTO `qing_merchant` VALUES ('14', '2', '橘子商铺', '北京城西', '老五', '\\public\\upload/20240215\\a35957bd8d1ec968e0305cf312349c10.png', '\\public\\upload/20240215\\e156f43b983345560d4a1d5966e9c58f.png', '农业', '127.0.0.1', null, null, null, null, null, null, '1707973957', null, null);
+INSERT INTO `qing_merchant` VALUES ('15', '2', '橘子商铺', '河北省南昌市', '老五', '\\public\\upload/20240215\\c746160c27527a8c73bf14fb1cc0adf7.png', '\\public\\upload/20240215\\efee3f15b1ff6a863e822e21f607a706.png', '餐饮', '127.0.0.1', null, '奔驰A1', 'Q22557899', '\\public\\upload/20240215\\91a2533c25e3d30d6a4f7a57f5a32c07.png', null, null, '1707976072', '1707980410', null);
+INSERT INTO `qing_merchant` VALUES ('16', '2', '998商铺', '河北省南昌市', '老五', '\\public\\upload/20240215\\06e3850eb3e1e2ad4b67bf28ff008aba.png', '\\public\\upload/20240215\\b08ce2848d05df3d68533cbe69abf87e.png', '餐饮', '127.0.0.1', null, null, null, null, null, null, '1707990066', null, null);
+INSERT INTO `qing_merchant` VALUES ('17', '2', '99商铺1122', '河北省南昌市22', '老五22', '\\public\\upload/20240215\\7f9c19f3175d75d9883df735623e2f71.png', '\\public\\upload/20240215\\1b3279eb9a89fd00ceba61a8ef073970.png', '餐饮22', '127.0.0.1', null, null, null, null, null, null, '1707990090', null, null);
 
 -- ----------------------------
 -- Table structure for qing_message
@@ -1564,6 +1577,7 @@ CREATE TABLE `qing_user` (
   `cash_address` varchar(150) DEFAULT '',
   `submit_ip` varchar(50) DEFAULT NULL,
   `recommender` varchar(50) DEFAULT NULL COMMENT '推荐人',
+  `mer_count` int(10) DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `username_2` (`username`),
@@ -1575,15 +1589,15 @@ CREATE TABLE `qing_user` (
 -- ----------------------------
 -- Records of qing_user
 -- ----------------------------
-INSERT INTO `qing_user` VALUES ('2', '15100000001', 'a8a5c404e3927315ccb6e028d4372ac8', '1707927798', '15100000001', '1', '1596269352', null, null, 'admin@qq.com', '3', null, '0', 'YJ1596269352', null, '老九', '\\public\\upload/20240214\\0058c29ba46c6169a912ab91d5a553a9.jpg', '\\public\\upload/20240214\\bf8e5c7d415a027a7f52a9dc92458869.jpg', '\\public\\upload/20240214\\21b6e9fdb0d4380c0a58beac85ce6bcb.jpg', null, '1707922915', '0', null, '513232198710160820', null, 'usdtqwrqrqqrqrqrqrqwrqwsfsfs', '127.0.0.1', null);
-INSERT INTO `qing_user` VALUES ('30', '15100000009', 'a8a5c404e3927315ccb6e028d4372ac8', '1596436540', '15100000009', '1', '1596275329', null, null, null, '3', null, '0', 'YJ1596275329', null, null, null, null, null, null, null, '0', null, null, null, null, null, null);
-INSERT INTO `qing_user` VALUES ('33', '15100000011', 'a8a5c404e3927315ccb6e028d4372ac8', '1705160257', '15100000011', '1', '1596275434', null, null, null, '3', null, '1', 'YJ1596275434', null, null, null, null, null, null, null, '0', null, null, null, null, null, null);
-INSERT INTO `qing_user` VALUES ('34', '17615342771', 'a8a5c404e3927315ccb6e028d4372ac8', '1598255654', '17615342771', '1', '1598255643', null, null, null, '3', null, '1', 'YJ1598255643', null, null, null, null, null, null, null, '0', null, null, null, null, null, null);
-INSERT INTO `qing_user` VALUES ('36', '15100000010', 'a8a5c404e3927315ccb6e028d4372ac8', '1598344289', '15100000010', '1', '1598344219', null, null, null, '3', null, '1', 'YJ1598344219', null, null, null, null, null, null, null, '0', null, null, null, null, null, null);
-INSERT INTO `qing_user` VALUES ('37', '15100000012', 'a8a5c404e3927315ccb6e028d4372ac8', '1598345048', '15100000012', '1', '1598345040', null, null, null, '3', null, '1', 'YJ1598345040', null, null, null, null, null, null, null, '0', null, null, null, null, null, null);
-INSERT INTO `qing_user` VALUES ('38', '15100000013', 'admin123456', '1598345659', '15100000013', '1', '1598345648', null, null, null, '3', null, '1', 'YJ1598345648', null, null, null, null, null, null, null, '0', null, null, null, null, null, null);
-INSERT INTO `qing_user` VALUES ('39', 'admin', 'ae71b36a06b355ec6e4967afc57be73d', '0', '', '1', '1707927651', null, null, null, '3', null, '0', 'YJ1707927651', null, null, null, null, null, '1707927651', null, '0', null, null, null, '', null, null);
-INSERT INTO `qing_user` VALUES ('43', 'admintest', 'ae71b36a06b355ec6e4967afc57be73d', '1707929221', null, '1', '1707928648', null, null, null, '3', null, '0', 'YJ1707928648', null, null, null, null, null, '1707928648', null, '0', null, null, null, '', null, 'YJ1596269352');
+INSERT INTO `qing_user` VALUES ('2', '15100000001', 'a8a5c404e3927315ccb6e028d4372ac8', '1708338896', '15100000001', '1', '1707983653', null, null, 'admin@qq.com', '3', null, '0', 'YJ1596269352', null, '老九', '\\public\\upload/20240215\\6b53bbb474985ab7357d235becfc999b.png', '\\public\\upload/20240215\\ad49bd1fdcfe4ab4753d84ac7f891eeb.png', '\\public\\upload/20240215\\d6122dcbd4ea95cb83bb12dee5463f63.png', null, '1707980452', '0', null, '513232198710160820', '该会员条件不错，审核通过。', 'usdtqwrqrqqrqrqrqrqwrqwsfsfs', '127.0.0.1', '', '7');
+INSERT INTO `qing_user` VALUES ('30', '15100000009', 'a8a5c404e3927315ccb6e028d4372ac8', '1596436540', '15100000009', '1', '1596275329', null, null, null, '3', null, '0', 'YJ1596275329', null, null, null, null, null, null, null, '0', null, null, null, null, null, null, '0');
+INSERT INTO `qing_user` VALUES ('33', '15100000011', 'a8a5c404e3927315ccb6e028d4372ac8', '1705160257', '15100000011', '1', '1596275434', null, null, null, '3', null, '1', 'YJ1596275434', null, null, null, null, null, null, null, '0', null, null, null, null, null, null, '0');
+INSERT INTO `qing_user` VALUES ('34', '17615342771', 'a8a5c404e3927315ccb6e028d4372ac8', '1598255654', '17615342771', '1', '1598255643', null, null, null, '3', null, '1', 'YJ1598255643', null, null, null, null, null, null, null, '0', null, null, null, null, null, null, '0');
+INSERT INTO `qing_user` VALUES ('36', '15100000010', 'a8a5c404e3927315ccb6e028d4372ac8', '1598344289', '15100000010', '1', '1598344219', null, null, null, '3', null, '1', 'YJ1598344219', null, null, null, null, null, null, null, '0', null, null, null, null, null, null, '0');
+INSERT INTO `qing_user` VALUES ('37', '15100000012', 'a8a5c404e3927315ccb6e028d4372ac8', '1598345048', '15100000012', '1', '1598345040', null, null, null, '3', null, '1', 'YJ1598345040', null, null, null, null, null, null, null, '0', null, null, null, null, null, 'YJ1596269352', '2');
+INSERT INTO `qing_user` VALUES ('38', '15100000013', 'admin123456', '1598345659', '15100000013', '1', '1598345648', null, null, null, '3', null, '1', 'YJ1598345648', null, null, null, null, null, null, null, '0', null, null, null, null, null, 'YJ1596269352', '2');
+INSERT INTO `qing_user` VALUES ('39', 'admin', 'ae71b36a06b355ec6e4967afc57be73d', '0', '15280832018', '1', '1707985712', null, null, '15100000001@qq.com', '3', null, '0', 'YJ1707927651', null, '老九', '\\public\\upload/20240215\\4278604c5efd1b54e9d58a1666318d86.png', '\\public\\upload/20240215\\52d6ba6fa6d3bc1a9b9ceecf8132589a.png', '\\public\\upload/20240215\\72149581f5a80f5171f7cc7dd6b6f5a8.png', '1707927651', null, '0', null, '512828187620231028', '豆腐干大概', '', null, 'YJ1596269352', '1');
+INSERT INTO `qing_user` VALUES ('43', 'admintest', 'ae71b36a06b355ec6e4967afc57be73d', '1707929221', null, '1', '1707928648', null, null, null, '3', null, '0', 'YJ1707928648', null, null, null, null, null, '1707928648', null, '0', null, null, null, '', null, 'YJ1596269352', '0');
 
 -- ----------------------------
 -- Table structure for qing_user_trace
