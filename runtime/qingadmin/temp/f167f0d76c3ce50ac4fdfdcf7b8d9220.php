@@ -1,4 +1,4 @@
-<?php /*a:4:{s:71:"D:\phpstudy_pro\WWW\privatecode0921\app\qingadmin\view\index\index.html";i:1707797701;s:71:"D:\phpstudy_pro\WWW\privatecode0921\app\qingadmin\view\public\head.html";i:1707797701;s:71:"D:\phpstudy_pro\WWW\privatecode0921\app\qingadmin\view\public\left.html";i:1707797701;s:71:"D:\phpstudy_pro\WWW\privatecode0921\app\qingadmin\view\public\foot.html";i:1707797701;}*/ ?>
+<?php /*a:4:{s:71:"D:\phpstudy_pro\WWW\privatecode0921\app\qingadmin\view\index\index.html";i:1711000728;s:71:"D:\phpstudy_pro\WWW\privatecode0921\app\qingadmin\view\public\head.html";i:1711000728;s:71:"D:\phpstudy_pro\WWW\privatecode0921\app\qingadmin\view\public\left.html";i:1711000728;s:71:"D:\phpstudy_pro\WWW\privatecode0921\app\qingadmin\view\public\foot.html";i:1711000728;}*/ ?>
 ﻿
 
 <!DOCTYPE HTML>

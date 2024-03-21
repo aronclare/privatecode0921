@@ -235,6 +235,8 @@
             url ="/index/order/order_create";
             postData = {'address_id':address_id,'pay_method':pay_method,'content':content};
 
+            console.log(postData);
+
             $.post(url,postData,function(result){
 
                     //如果没有地址信息，不能提交订单

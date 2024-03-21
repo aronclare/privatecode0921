@@ -1,4 +1,4 @@
-<?php /*a:2:{s:68:"D:\phpstudy_pro\WWW\privatecode0921\app\mobile\view\lists\index.html";i:1707797701;s:72:"D:\phpstudy_pro\WWW\privatecode0921\app\mobile\view\public\foot_bar.html";i:1707797701;}*/ ?>
+<?php /*a:2:{s:68:"D:\phpstudy_pro\WWW\privatecode0921\app\mobile\view\lists\index.html";i:1711004458;s:72:"D:\phpstudy_pro\WWW\privatecode0921\app\mobile\view\public\foot_bar.html";i:1711000728;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -61,7 +61,8 @@
                 </ul>
               </div>
             </div>
-            <div class="pros">
+
+           <!-- <div class="pros">
               <div class="pros-title"><span>电视</span></div>
               <div class="pros-goods">
                 <ul>
@@ -128,7 +129,7 @@
                   </li>
                 </ul>
               </div>
-            </div>
+            </div>-->
           </li>
           <?php endforeach; endif; else: echo "" ;endif; ?>
 

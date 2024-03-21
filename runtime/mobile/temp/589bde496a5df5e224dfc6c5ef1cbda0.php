@@ -1,4 +1,4 @@
-<?php /*a:1:{s:67:"D:\phpstudy_pro\WWW\privatecode0921\app\mobile\view\cart\index.html";i:1707797701;}*/ ?>
+<?php /*a:1:{s:67:"D:\phpstudy_pro\WWW\privatecode0921\app\mobile\view\cart\index.html";i:1711011500;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -179,6 +179,8 @@
             // 执行AJAX更新到服务器
             url = "/mobile/cart/update_status_cart";
             postData = { 'idArr': idArr };
+
+            //  console.log(postData);
             $.post(url, postData, function (result) {
                 if (result.status = 1) {
                     window.location.href = '/mobile/order/order_confirm';

@@ -178,6 +178,8 @@
             // 执行AJAX更新到服务器
             url = "/mobile/cart/update_status_cart";
             postData = { 'idArr': idArr };
+
+            //  console.log(postData);
             $.post(url, postData, function (result) {
                 if (result.status = 1) {
                     window.location.href = '/mobile/order/order_confirm';
