@@ -1,4 +1,4 @@
-<?php /*a:4:{s:67:"D:\phpstudy_pro\WWW\privatecode0921\app\index\view\order\index.html";i:1711013552;s:67:"D:\phpstudy_pro\WWW\privatecode0921\app\index\view\public\head.html";i:1711000728;s:68:"D:\phpstudy_pro\WWW\privatecode0921\app\index\view\public\foot2.html";i:1711000728;s:71:"D:\phpstudy_pro\WWW\privatecode0921\app\index\view\public\rightnav.html";i:1711000728;}*/ ?>
+<?php /*a:4:{s:67:"D:\phpstudy_pro\WWW\privatecode0921\app\index\view\order\index.html";i:1711093825;s:67:"D:\phpstudy_pro\WWW\privatecode0921\app\index\view\public\head.html";i:1711000728;s:68:"D:\phpstudy_pro\WWW\privatecode0921\app\index\view\public\foot2.html";i:1711000728;s:71:"D:\phpstudy_pro\WWW\privatecode0921\app\index\view\public\rightnav.html";i:1711000728;}*/ ?>
 
 <!DOCTYPE html>
 
@@ -368,7 +368,7 @@
             url ="/index/order/order_create";
             postData = {'address_id':address_id,'pay_method':pay_method,'content':content};
 
-            console.log(postData);
+         //   console.log(postData);die;
 
             $.post(url,postData,function(result){
 

@@ -21,21 +21,20 @@ use think\facade\Db;
 use think\facade\Session;
 
 
-
 class Order extends Base
 
 {
     //购物车-确认订单页面
-
     function index()
 
     {
-
+      // return view();
         $sessionUserData=$this->isLogin();
         $addressDefaultData=Db::name('address')->where('user_id',$sessionUserData['id'])->where('isdefault',1)->find();
         $addressData=Db::name('address')->where('user_id',$sessionUserData['id'])->where('isdefault',0)->limit(3)->order('id desc')->select();
         $cartData=[];
         $cartDataTmp=Db::name('cart')->where('user_id',$sessionUserData['id'])->where('status',1)->order('id desc')->select()->toArray();
+   // var_dump($cartDataTmp);die;
         if($cartDataTmp){
             foreach($cartDataTmp as $k=>$v){
                 $cartData[$k]['id']=$v['id'];
@@ -51,12 +50,10 @@ class Order extends Base
                 }else{
                     $cartData[$k]['goods_price']=Db::name('goods_standard')->where('goods_id',$v['goods_id'])->where('sku',$v['sku'])->value('goods_price');
                 }
-
-
             }
         }
 
-
+     //   var_dump($cartData);die;
         return view('',[
             'cartData'=>$cartData,
             'sessionUserData'=>$sessionUserData,
@@ -65,11 +62,7 @@ class Order extends Base
         ]);
 
     }
-
-
-
     //创建订单,购物车购买
-
     function order_create(){
         $sessionUserData=session('sessionUserData');
         if(empty($sessionUserData)){
@@ -138,24 +131,14 @@ class Order extends Base
         }
 
 
-
-
-
         if($order_id && $res){
 
-
             //微信支付
-
             if($data['pay_method']==1){
-
                 return json(['msg'=>'订单提交成功！','status'=>1,'out_trade_no'=>$data['out_trade_no']]);
-
             }
-
             //支付宝支付
-
             if($data['pay_method']==2){
-
                 return json(['msg'=>'订单提交成功！','status'=>2,'out_trade_no'=>$data['out_trade_no']]);
 
             }
@@ -339,12 +322,6 @@ class Order extends Base
 
 
     }
-
-
-
-
-
-
 
     //取消订单
 

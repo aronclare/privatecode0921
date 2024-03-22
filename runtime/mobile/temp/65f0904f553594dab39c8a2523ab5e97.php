@@ -1,3 +1,4 @@
+<?php /*a:1:{s:68:"D:\phpstudy_pro\WWW\privatecode0921\app\mobile\view\order\index.html";i:1711095031;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -60,29 +61,29 @@
   </style>
 
   <div class="cart_box">
-    {volist name="$cartData" id="vo"}
-    <li class="item" data-id="{$vo.id}">
+    <?php if(is_array($cartData) || $cartData instanceof \think\Collection || $cartData instanceof \think\Paginator): $i = 0; $__LIST__ = $cartData;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
+    <li class="item" data-id="<?php echo htmlentities($vo['id']); ?>">
       <div class="left_content">
         <input class="status" type="checkbox">
       </div>
       <div class="middle_content">
         <div class="pic">
-          <a href="{:url('mobile/goods/index',array('goods_id'=>$vo.goods_id))}">
-            <img src="{$vo.goods_thumb}">
+          <a href="<?php echo url('mobile/goods/index',array('goods_id'=>$vo['goods_id'])); ?>">
+            <img src="<?php echo htmlentities($vo['goods_thumb']); ?>">
           </a>
         </div>
         <div class="info">
-          <div class="goods_name"><a href="{:url('mobile/goods/index',array('goods_id'=>$vo.goods_id))}">{$vo.goods_name}</a>
+          <div class="goods_name"><a href="<?php echo url('mobile/goods/index',array('goods_id'=>$vo['goods_id'])); ?>"><?php echo htmlentities($vo['goods_name']); ?></a>
           </div>
           <div class="attr">
-            {$vo.sku}&nbsp;&nbsp;&nbsp;
+            <?php echo htmlentities($vo['sku']); ?>&nbsp;&nbsp;&nbsp;
           </div>
           <div class="number_box">
             <div class="reduce_num">
               <i class="fa fa-minus-square-o"></i>
             </div>
             <div class="amount">
-              <input type="number" class="amount_input" value="{$vo.amount}" oninput="if(value < 1 ){alert('数量最小为1！');value = '1'}">
+              <input type="number" class="amount_input" value="<?php echo htmlentities($vo['amount']); ?>" oninput="if(value < 1 ){alert('数量最小为1！');value = '1'}">
             </div>
             <div class="add_num">
               <i class="fa fa-plus-square-o"></i>
@@ -93,12 +94,12 @@
       </div>
 
       <div class="right_content">
-        <span class="price">{$vo.goods_price}</span>
+        <span class="price"><?php echo htmlentities($vo['goods_price']); ?></span>
         <div class="delete_goods"><i class="iconfont iconlajitong"></i></div>
       </div>
 
     </li>
-    {/volist}
+    <?php endforeach; endif; else: echo "" ;endif; ?>
   </div>
 
 

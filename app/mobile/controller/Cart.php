@@ -175,10 +175,6 @@ class Cart extends  Base
 
     }
 
-
-
-
-
     //购物车全选，全不选，设置购物车清单选中状态
 
     public function update_allcart_status(){
@@ -192,7 +188,6 @@ class Cart extends  Base
         return ['msg'=>'操作成功','status'=>1];
 
     }
-
 
 
     //更改购物车清单状态，1：选中，0：未选中

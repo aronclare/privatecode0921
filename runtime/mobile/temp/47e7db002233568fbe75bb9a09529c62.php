@@ -1,4 +1,4 @@
-<?php /*a:1:{s:68:"D:\phpstudy_pro\WWW\privatecode0921\app\mobile\view\goods\index.html";i:1711010975;}*/ ?>
+<?php /*a:1:{s:68:"D:\phpstudy_pro\WWW\privatecode0921\app\mobile\view\goods\index.html";i:1711011016;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -288,7 +288,7 @@
         postData = {'standard_value_id':standard_value_id,'goods_id':goods_id};
 
 
-        console.log(postData);
+      //  console.log(postData);
 
         $.post(url,postData,function(result){
           if(result.status==0){
@@ -317,8 +317,6 @@
       });
 
       getPrice();
-     
-      
     });
 
 
