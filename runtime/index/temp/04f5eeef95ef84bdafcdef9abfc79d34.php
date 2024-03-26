@@ -1,17 +1,11 @@
-<?php /*a:4:{s:67:"D:\phpstudy_pro\WWW\privatecode0921\app\index\view\order\index.html";i:1711093825;s:67:"D:\phpstudy_pro\WWW\privatecode0921\app\index\view\public\head.html";i:1711000728;s:68:"D:\phpstudy_pro\WWW\privatecode0921\app\index\view\public\foot2.html";i:1711000728;s:71:"D:\phpstudy_pro\WWW\privatecode0921\app\index\view\public\rightnav.html";i:1711000728;}*/ ?>
-
+<?php /*a:4:{s:67:"D:\phpstudy_pro\WWW\privatecode0921\app\index\view\order\index.html";i:1711438264;s:67:"D:\phpstudy_pro\WWW\privatecode0921\app\index\view\public\head.html";i:1711000728;s:68:"D:\phpstudy_pro\WWW\privatecode0921\app\index\view\public\foot2.html";i:1711000728;s:71:"D:\phpstudy_pro\WWW\privatecode0921\app\index\view\public\rightnav.html";i:1711000728;}*/ ?>
 <!DOCTYPE html>
 
 <html>
-
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport"
-
           content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
-
     <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
 
     <link rel="stylesheet" type="text/css" href="/public/static/index/css/shop.css"/>
@@ -34,12 +28,9 @@
 
     <meta name="description" content="">
 
-
-
 </head>
 
 <body>
-
 
 
 <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_1646840_wwuv2y1aefe.css"/>
@@ -113,8 +104,6 @@
 
     <div class="public_ad"><a href="#"><img src="/public/static/index/images/ad.jpg"></a></div>
 
-
-
     <form class="pay_box">
 
         <div class="title_box">
@@ -146,8 +135,7 @@
 
                 </div>
                 <?php endforeach; endif; else: echo "" ;endif; ?>
-                
-                
+
             </div>
 
             <div class="pay_method">
@@ -204,7 +192,6 @@
                                 <div class="info"><?php echo htmlentities($vo['goods_name']); ?></div>
 
                             </a>
-
                         </div>
 
                         <div class="name3"><?php echo htmlentities((isset($vo['sku']) && ($vo['sku'] !== '')?$vo['sku']:'标准规格')); ?></div>

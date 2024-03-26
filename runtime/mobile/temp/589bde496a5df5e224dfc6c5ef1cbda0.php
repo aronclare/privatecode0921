@@ -1,4 +1,4 @@
-<?php /*a:1:{s:67:"D:\phpstudy_pro\WWW\privatecode0921\app\mobile\view\cart\index.html";i:1711011500;}*/ ?>
+<?php /*a:1:{s:67:"D:\phpstudy_pro\WWW\privatecode0921\app\mobile\view\cart\index.html";i:1711445451;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -77,7 +77,7 @@
       <div class="total_box">
           ￥<strong id="total">2500</strong>
       </div>
-      <div class="pay_btn" id="pay">结算</div>
+    <a href="/mobile/order/index"><div class="pay_btn" id="pay">结算</div></a>
   </div>
 
   <style>
@@ -180,7 +180,10 @@
             url = "/mobile/cart/update_status_cart";
             postData = { 'idArr': idArr };
 
-            //  console.log(postData);
+              console.log(postData);
+
+
+
             $.post(url, postData, function (result) {
                 if (result.status = 1) {
                     window.location.href = '/mobile/order/order_confirm';

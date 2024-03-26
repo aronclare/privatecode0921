@@ -1,4 +1,4 @@
-<?php /*a:4:{s:67:"D:\phpstudy_pro\WWW\privatecode0921\app\index\view\goods\index.html";i:1711000728;s:67:"D:\phpstudy_pro\WWW\privatecode0921\app\index\view\public\head.html";i:1711000728;s:68:"D:\phpstudy_pro\WWW\privatecode0921\app\index\view\public\foot2.html";i:1711000728;s:71:"D:\phpstudy_pro\WWW\privatecode0921\app\index\view\public\rightnav.html";i:1711000728;}*/ ?>
+<?php /*a:4:{s:67:"D:\phpstudy_pro\WWW\privatecode0921\app\index\view\goods\index.html";i:1711442039;s:67:"D:\phpstudy_pro\WWW\privatecode0921\app\index\view\public\head.html";i:1711000728;s:68:"D:\phpstudy_pro\WWW\privatecode0921\app\index\view\public\foot2.html";i:1711000728;s:71:"D:\phpstudy_pro\WWW\privatecode0921\app\index\view\public\rightnav.html";i:1711000728;}*/ ?>
 <!DOCTYPE html>
 
 <html>
@@ -379,6 +379,9 @@ $(".goods_attr_value_box .item").click(function(){
     url ="/index/cart/add_to_cart";
 
     postData = {'amount':amount,'goods_id':goods_id,'standard_value_id':standard_value_id};
+
+
+    console.log(postData);
 
     //发送请求
 

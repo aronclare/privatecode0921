@@ -49,11 +49,7 @@ class Cart extends  Base
             'cartData'=>$cartData
         ]);
 
-
-        
-
     }
-
 
 
     //商品添加购物车加
@@ -66,6 +62,9 @@ class Cart extends  Base
         }
 
         $data=input('post.');
+
+        
+      //  var_dump($data);die;
         //先查找数据表有没有相同记录，有就更新数量，没有再插入记录
         $cartData=Db::name('cart')->field('amount,id')->where('user_id',$userSessionData['id'])->where('goods_id',$data['goods_id'])->where('sku',$data['standard_value_id'])->find();
         if($cartData){
@@ -96,8 +95,15 @@ class Cart extends  Base
         $user_id=$userSessionData['id'];
 
 
+    }
 
 
+
+    public function update_status_cart(){
+
+
+
+        var_dump('update_status_cart');die;
     }
 
 

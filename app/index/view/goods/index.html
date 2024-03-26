@@ -246,6 +246,9 @@ $(".goods_attr_value_box .item").click(function(){
 
     postData = {'amount':amount,'goods_id':goods_id,'standard_value_id':standard_value_id};
 
+
+    console.log(postData);
+
     //发送请求
 
     $.post(url,postData,function(result){
