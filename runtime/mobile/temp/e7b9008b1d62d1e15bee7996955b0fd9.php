@@ -1,4 +1,4 @@
-<?php /*a:2:{s:68:"D:\phpstudy_pro\WWW\privatecode0921\app\mobile\view\index\index.html";i:1711000728;s:72:"D:\phpstudy_pro\WWW\privatecode0921\app\mobile\view\public\foot_bar.html";i:1711000728;}*/ ?>
+<?php /*a:2:{s:68:"D:\phpstudy_pro\WWW\privatecode0921\app\mobile\view\index\index.html";i:1716971636;s:72:"D:\phpstudy_pro\WWW\privatecode0921\app\mobile\view\public\foot_bar.html";i:1716971636;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 

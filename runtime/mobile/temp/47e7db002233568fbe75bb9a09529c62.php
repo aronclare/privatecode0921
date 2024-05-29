@@ -1,4 +1,4 @@
-<?php /*a:1:{s:68:"D:\phpstudy_pro\WWW\privatecode0921\app\mobile\view\goods\index.html";i:1711443229;}*/ ?>
+<?php /*a:1:{s:68:"D:\phpstudy_pro\WWW\privatecode0921\app\mobile\view\goods\index.html";i:1716971636;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -222,9 +222,7 @@
 
             $.post(url,postData,function(result){
 
-
                 if(result.status == 1) {
-
 
                     layui.use('layer', function(){
 
@@ -235,8 +233,6 @@
                         });
 
                     });
-
-
 
                 }
 
