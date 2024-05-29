@@ -1,4 +1,4 @@
-<?php /*a:1:{s:67:"D:\phpstudy_pro\WWW\privatecode0921\app\mobile\view\cart\index.html";i:1716971636;}*/ ?>
+<?php /*a:1:{s:67:"D:\phpstudy_pro\WWW\privatecode0921\app\mobile\view\cart\index.html";i:1716973340;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -177,7 +177,7 @@
             idArr = JSON.stringify(idArr);
 
             // 执行AJAX更新到服务器
-            url = "/mobile/cart/update_status_cart";
+            url = "/mobile/cart/update_cart_status";
             postData = { 'idArr': idArr };
 
               console.log(postData);

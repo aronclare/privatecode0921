@@ -98,17 +98,24 @@ class Cart extends  Base
     }
 
 
+    //更改购物车清单状态，1：选中，0：未选中
 
-    public function update_status_cart(){
+    public function update_cart_status(){
 
 
+        var_dump('update_cart_status');die;
 
-        var_dump('update_status_cart');die;
+        $userSessionData = $this->isLogin();
+
+        $id = input('request.id');
+
+        $status = intval(input('request.status'));
+
+        Db::name("cart")->where('id',$id)->update(['status'=>$status]);
+
+        return ['msg'=>'操作成功','status'=>1];
+
     }
-
-
-    
-
 
 
 
@@ -195,22 +202,6 @@ class Cart extends  Base
 
     }
 
-
-    //更改购物车清单状态，1：选中，0：未选中
-
-    public function update_cart_status(){
-
-        $userSessionData = $this->isLogin();
-
-        $id = input('request.id');
-
-        $status = intval(input('request.status'));
-
-        Db::name("cart")->where('id',$id)->update(['status'=>$status]);
-
-        return ['msg'=>'操作成功','status'=>1];
-
-    }
 
     //购物车数量增减
 

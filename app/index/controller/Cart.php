@@ -150,8 +150,6 @@ class Cart extends  Base
 
         $userSessionData = $this->isLogin();
 
-
-
         $id = input('request.id',0);
 
         if($id == 0){
