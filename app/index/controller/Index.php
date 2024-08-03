@@ -13,7 +13,7 @@ class Index extends  Base{
     public function index(){
        // var_dump(App::VERSION);die;
         if(request()->isMobile()){
-            return redirect('/mobile/index/index');
+            return redirect('/mobile/Index/index');
         }
 
         //轮播

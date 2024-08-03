@@ -16,23 +16,61 @@ class User extends  Base
         //会员主页
         public function index(){
 
-
             $userSessionData = $this->isLogin();
-
-          $user_id =  $userSessionData['id'];
-
-
-        //  var_dump($userSessionData);die;
+            $user_id =  $userSessionData['id'];
+         //   print_r($userSessionData);die;
+           // var_dump($userSessionData);die;
             //获取有没有搜索关键字，用于填充
             $search_key=input('request.search_key');
-
             $mer_Data=Db::name('merchant')->alias('a')->where('a.store_name','like','%'.$search_key.'%')->where('user_id','=',"$user_id")->order('add_time desc')->paginate(10);
 
-
-            $domain =   $this->request->domain();
+            $domain = $this->request->domain();
             //http://code0921.com/index/user/register?code=YJ1596269352
-
             $recommend_link = $domain.'/mobile/user/register?code='.$userSessionData['code'];
+
+/*{
+	"id": 22493,
+	"name": "admin",
+	"email": "admin@gmail.com",
+	"phone": null,
+	"avatar": null,
+	"openid": null,
+	"total": 10,
+	"unum": 0,
+	"avatar_url": "https://api.shop.eduwork.cn/imgs/avatar.png",
+	"is_locked": 0,
+	"created_at": "2024-07-20 09:24:14",
+	"updated_at": "2024-07-20 09:24:14"
+}*/
+/*
+ * ^ "{"id":2,"username":"admin123456","password":"a8a5c404e3927315ccb6e028d4372ac8","last_login_time":1721630964,
+ * mobile":"15100000001","status":1,"time":1707983653,"face":null,"unionid":null,"email":"admin@qq.com","sex":3,"xingzuo":null,
+ * "parent_id":0,"code":"YJ1596269352","nicname":null,"real_name":"\u8001\u4e5d","id_front_pic":"\\public\\upload\/20240215\\6b53bbb474985ab7357d235becfc999b.png",
+ * "id_back_pic":"\\public\\upload\/20240215\\ad49bd1fdcfe4ab4753d84ac7f891eeb.png","self_pic":"\\public\\upload\/20240215\\d6122dcbd4ea95cb83bb12dee5463f63.png",
+ * "add_time":null,"update_time":1707980452,"check_status":0,"referral_code":null,"id_number":"513232198710160820","remark":"\u8be5\u4f1a\u5458\u6761\u4ef6\u4e0d\u9519\uff0c\u5ba1\u6838\u901a\u8fc7\u3002",
+ * "cash_address":"usdtqwrqrqqrqrqrqrqwrqwsfsfs","submit_ip":"127.0.0.1","recommender":"","mer_count":7} ◀"*/
+
+            $userdata= [];
+            $userdata['id'] =  $userSessionData['id'];
+            $userdata['name'] =  $userSessionData['real_name'];
+            $userdata['email'] = $userSessionData['username'];
+            $userdata['phone'] = $userSessionData['mobile'];
+            $userdata['openid'] = $userSessionData['unionid'];
+            $userdata['total'] = 10;
+            $userdata['unum'] = 0;
+            $userdata['avatar_url'] = 'https://baidu.com';
+            if ($userSessionData['status']==1){
+                $userdata['is_locked'] =0;
+            }else{
+                $userdata['is_locked'] =1;
+            }
+            $userdata['created_at'] = $userSessionData['add_time'];
+            $userdata['updated_at'] = $userSessionData['update_time'];
+
+
+
+           return json_encode($userdata);
+
 
           //链接生成二维码并在新窗口打开
          /*echo "<!DOCTYPE html>
@@ -101,48 +139,28 @@ class User extends  Base
 
 </body>
 </html>*/
-
             $user_code =  $userSessionData['code'];
             //成功推荐人数
-
             $all_count = Db::name('user')->where('recommender','=',$user_code)->where('mer_count','>=',0)->select()->count();
-
-
-
             //当前用户(有效)推荐人数，所推荐的人至少采集过一个满足条件的商户
             $user_code =  $userSessionData['code'];
             $user_count = Db::name('user')->where('recommender','=',$user_code)->where('mer_count','>',0)->select()->count();
 
-
             //后续佣金逻辑
-
-
-
             $rewards = $user_count*15;
-
             $user_data =['user_count'=>$user_count,'all_count'=>$all_count,'rewards'=>$rewards];
-
-
-
-
-
+            //var_dump($mer_Data);die;
             return view('', [
-
                 'mer_Data' => $mer_Data,
                 'search_key'=>$search_key,
                 'recommend_link'=>$recommend_link,
                 'user_data'=>$user_data
-
             ]);
-
 
             return view();
         }
 
-
     public function merchant_add(){
-
-
         $userSessionData = $this->isLogin();
 
         if(request()->isPost()){
@@ -260,6 +278,13 @@ class User extends  Base
     }
 
 
+    //会员信息更新
+    public  function  userinfo(){
+
+
+
+    }
+
     public  function  user_update(){
 
         if(request()->isPost()){
@@ -295,7 +320,6 @@ class User extends  Base
                 return alert('图片不能为空','user_edit',5);
             }
 
-
             // var_dump($data);die;
 
             $res=Db::name('user')->update($data);
@@ -309,10 +333,6 @@ class User extends  Base
 
 
     }
-
-
-
-
 
     public function car_edit(){
         //先取出填充的数据

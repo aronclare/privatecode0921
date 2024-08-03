@@ -1,4 +1,4 @@
-<?php /*a:4:{s:67:"D:\phpstudy_pro\WWW\privatecode0921\app\index\view\lists\index.html";i:1711000728;s:67:"D:\phpstudy_pro\WWW\privatecode0921\app\index\view\public\head.html";i:1711000728;s:68:"D:\phpstudy_pro\WWW\privatecode0921\app\index\view\public\foot2.html";i:1711000728;s:71:"D:\phpstudy_pro\WWW\privatecode0921\app\index\view\public\rightnav.html";i:1711000728;}*/ ?>
+<?php /*a:4:{s:67:"D:\phpstudy_pro\WWW\privatecode0921\app\index\view\lists\index.html";i:1716971636;s:67:"D:\phpstudy_pro\WWW\privatecode0921\app\index\view\public\head.html";i:1716971636;s:68:"D:\phpstudy_pro\WWW\privatecode0921\app\index\view\public\foot2.html";i:1716971636;s:71:"D:\phpstudy_pro\WWW\privatecode0921\app\index\view\public\rightnav.html";i:1716971636;}*/ ?>
 <!DOCTYPE html>
 <html>
 

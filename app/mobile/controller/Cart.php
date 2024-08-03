@@ -117,11 +117,6 @@ class Cart extends  Base
 
     }
 
-
-
-
-
-
      //购物车删除一条记录
 
      public function delete_to_cart(){
@@ -151,11 +146,6 @@ class Cart extends  Base
         }
 
     }
-
-
-
-
-
     //清空购物车
 
     public function delete_all_cart(){
@@ -218,22 +208,6 @@ class Cart extends  Base
         return ['msg'=>'操作成功','status'=>1];
 
     }
-
-
-
-
-
- 
-
-
-
-
-
-   
-
-
-
-
 
 }
 

@@ -1,4 +1,4 @@
-<?php /*a:2:{s:67:"D:\phpstudy_pro\WWW\privatecode0921\app\mobile\view\user\index.html";i:1716971636;s:72:"D:\phpstudy_pro\WWW\privatecode0921\app\mobile\view\public\foot_bar.html";i:1716971636;}*/ ?>
+<?php /*a:2:{s:67:"D:\phpstudy_pro\WWW\privatecode0921\app\mobile\view\user\index.html";i:1717145831;s:72:"D:\phpstudy_pro\WWW\privatecode0921\app\mobile\view\public\foot_bar.html";i:1716971636;}*/ ?>
 <!DOCTYPE html>
 
 <html>
@@ -30,11 +30,17 @@
 
 </head>
 
-<body>
+<!--<!DOCTYPE>
+<!-- saved from url=(0111)https://safe.webscan360.com:36000/?d=oci-prrr-dd6yyyp-iwi-pe2j&u=&p=856h2s37&t360=d36s36636byb9k&v360=111381921 -->
+<html>-->
 
+
+
+<body>
+<!--
 <div class="user_box">
 
-    <div class="inner_box">
+    &lt;!&ndash;<div class="inner_box">
 
         <div class="nav_bar">我的</div>
         <div class="user_head">
@@ -65,9 +71,9 @@
                 </a>
         </div>
 
-    </div>
+    </div>&ndash;&gt;
 
-    <div class="inner_box1">
+   &lt;!&ndash; <div class="inner_box1">
 
         <div class="order_list">
             <ul>
@@ -84,10 +90,10 @@
                 <li>我的足迹</li>
             </ul>
         </div>
-    </div>
+    </div>&ndash;&gt;
 
-<!--商户信息-->
-    <div class="inner_box2">
+&lt;!&ndash;商户信息&ndash;&gt;
+    &lt;!&ndash;<div class="inner_box2">
         <button onclick="toggleForm()">切换汽车信息</button>
 
 
@@ -170,7 +176,7 @@
 
 
 
-<!--汽车信息-->
+&lt;!&ndash;汽车信息&ndash;&gt;
         <div id="car_control" class="car_control">
             <h3>汽车信息</h3>
             <form action="<?php echo url('user/car_add'); ?>" method="post" enctype="multipart/form-data">
@@ -308,9 +314,9 @@
             }
         </script>
 
-    </div>
+    </div>&ndash;&gt;
 
-</div>
+</div>-->
 
 
 <style>
@@ -410,7 +416,7 @@
 
 
 
-  <!--  <div class="wrapbg">
+  <div class="wrapbg">
 
         <div class="wrap ">
 
@@ -496,7 +502,7 @@
         </div>
 
     </div>
--->
+
 
 
 

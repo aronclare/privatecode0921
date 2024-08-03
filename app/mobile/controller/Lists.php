@@ -16,14 +16,10 @@ class Lists extends  Base
         {   
             
             $cate_id=input('cate_id');
-            
             $categoryData=$categoryTopData=Db::name('category')->field('id,cate_name,thumb')->where('parent_id',0)->where('status',1)->select()->toArray();
             foreach($categoryData as $k=>$v){
                 $categoryData[$k]['children']=Db::name('category')->field('id,cate_name,thumb')->where('parent_id',$v['id'])->where('status',1)->select()->toArray();
             }
-
-        
-
             return view('',[
                 'cate_id'=>$cate_id,
                 'categoryData'=>$categoryData,
@@ -64,12 +60,6 @@ class Lists extends  Base
                 'order'=>$order
             ]);
         }
-
-   
-
-
-
-
 
 }
 

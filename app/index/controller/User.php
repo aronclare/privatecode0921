@@ -17,10 +17,13 @@ class User extends  Base
     public function index(){
         $sessionUserData=$this->isLogin();
         $collectCount=Db::name('collect')->where('user_id',$sessionUserData['id'])->count();
+
+
         return view('',[
             'left_menu'=>0,
             'collectCount'=>$collectCount
-        ]); 
+        ]);
+
     }
 
 
@@ -137,8 +140,6 @@ class User extends  Base
     //会员登录
     public function login()
     {
-
-
         $sessionUserData=session('sessionUserData');
         if(!empty($sessionUserData)){
             return redirect('index');
@@ -175,7 +176,9 @@ class User extends  Base
 
             Db::name('user')->where('id',$userData['id'])->update(['last_login_time'=>time()]);
             session('sessionUserData',$userData);
-            
+
+
+            $token = fsdklfdjslfdksjlfksjflskfjlskfslkfwqerwrelwkxvxvmx;
             return alert('登录成功','index',6);
 
         }else{
@@ -183,6 +186,8 @@ class User extends  Base
         }
 
     }
+
+
 
     //微信扫码登录
     public function wechat(){
