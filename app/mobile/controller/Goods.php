@@ -1,9 +1,10 @@
 <?php
 
 namespace app\mobile\controller;
-
+use think\facade\Request;
 use think\Controller;
 use think\facade\Db;
+
 class Goods extends  Base{
     public function index(){
 
@@ -18,12 +19,37 @@ class Goods extends  Base{
         $click=$goodsData['click']+1;
         Db::name('goods')->where('goods_id',$goods_id)->update(['click'=>$click]);
 
-
         //商品图集
         $goodsImg=Db::name('goods_img')->where('goods_id',$goods_id)->select();
 
         //商品详情
-        $goodsContent=Db::name('goods_content')->where('goods_id',$goods_id)->find();
+        //$goodsContent=Db::name('goods_content')->where('goods_id',$goods_id)->find();
+
+        // 使用联合查询（JOIN）获取商品及其详情
+        $goodsContents = Db::name('goods')
+            ->alias('p')
+            ->join('goods_content pd', 'p.goods_id = pd.goods_id')
+            ->field('p.goods_id, p.goods_name, p.goods_price, p.stock, p.selnumber, p.goods_thumb, pd.content')
+            ->select();
+
+        // 获取当前域名
+        //构造user_id
+      //  $userSessionData = $this->isLogin();
+
+
+        $sessionUserData=session('sessionUserData');
+
+        var_dump($sessionUserData);die;
+
+        $domain = Request::domain();
+        foreach ($goodsContents as $goodsContent){
+
+            $goodsContent['user_id'] = $user_id;
+            $goodsContent['goods_thumb'] = $domain.$goodsContent['goods_thumb'];
+            $newSlides[] = $goodsContent;
+        }
+        var_dump($newSlides);die;
+
 
         //当前位置
         $positionData=$this->getPositionByCatId($goodsData['goods_cate_id']);

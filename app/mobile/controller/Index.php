@@ -23,26 +23,27 @@ class Index extends  Base{
             stock,selnumber,goods_thumb,description,collects_count,cover_url')->select();
         //滚动数据
         $slides =  Db::name('ad')->field('id,title,url,thumb,status,seq,created_at,updated_at,img_url')->select();
-
         foreach ($slides as $slide){
-
-
             $slide['thumb'] = $domain.$slide['thumb'];
+            $newSlides[] = $slide;
         }
 
+        //链接links
+        foreach ($slides as $slide){
+            $slide['name'] = $slide['title'];
+            $slide['thumb'] = $domain.$slide['thumb'];
+            unset($slide['title']);
+            $links[] = $slide;
+        }
 
-
-        var_dump($slide);die;
-
-
-
-return json($newslides);
-
+        $data = ['goods'=>$goods,
+                 'slides'=>$newSlides,
+                 'links'=>$links ,
+                ];
+        return json($data);
 
 
         $category_model=new CategoryModel();
-
-
         $indexCate=$category_model->getNavCateData();
 
 

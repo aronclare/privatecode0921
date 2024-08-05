@@ -252,3 +252,16 @@
 [2024-08-03T18:46:23+08:00][sql] SELECT `goods_id`,`goods_name`,`goods_price`,`stock`,`selnumber`,`goods_thumb`,`description`,`collects_count`,`cover_url` FROM `qing_goods` [ RunTime:0.000290s ]
 [2024-08-03T18:46:23+08:00][sql] SELECT `id`,`title`,`url`,`thumb`,`status`,`seq`,`created_at`,`updated_at`,`img_url` FROM `qing_ad` [ RunTime:0.000202s ]
 [2024-08-03T18:46:23+08:00][error] [2]Illegal offset type
+[2024-08-03T19:02:19+08:00][sql] CONNECT:[ UseTime:0.000944s ] mysql:host=127.0.0.1;port=3306;dbname=code0921;charset=utf8
+[2024-08-03T19:02:19+08:00][sql] SHOW FULL COLUMNS FROM `qing_config` [ RunTime:0.000895s ]
+[2024-08-03T19:02:19+08:00][sql] SELECT `value` FROM `qing_config` [ RunTime:0.000231s ]
+[2024-08-03T19:02:19+08:00][sql] SHOW FULL COLUMNS FROM `qing_search` [ RunTime:0.000684s ]
+[2024-08-03T19:02:19+08:00][sql] SELECT * FROM `qing_search` ORDER BY `id` DESC LIMIT 10 [ RunTime:0.000244s ]
+[2024-08-03T19:02:19+08:00][sql] SHOW FULL COLUMNS FROM `qing_cart` [ RunTime:0.000701s ]
+[2024-08-03T19:02:19+08:00][sql] SELECT COUNT(*) AS think_count FROM `qing_cart` WHERE  `user_id` IS NULL [ RunTime:0.000207s ]
+[2024-08-03T19:02:19+08:00][sql] SHOW FULL COLUMNS FROM `qing_ad` [ RunTime:0.000681s ]
+[2024-08-03T19:02:19+08:00][sql] SELECT * FROM `qing_ad` WHERE  `type_id` = 1 [ RunTime:0.000322s ]
+[2024-08-03T19:02:19+08:00][sql] SHOW FULL COLUMNS FROM `qing_goods` [ RunTime:0.000867s ]
+[2024-08-03T19:02:19+08:00][sql] SELECT `goods_id`,`goods_name`,`goods_price`,`stock`,`selnumber`,`goods_thumb`,`description`,`collects_count`,`cover_url` FROM `qing_goods` [ RunTime:0.000259s ]
+[2024-08-03T19:02:19+08:00][sql] SELECT `id`,`title`,`url`,`thumb`,`status`,`seq`,`created_at`,`updated_at`,`img_url` FROM `qing_ad` [ RunTime:0.000413s ]
+[2024-08-03T19:02:19+08:00][error] [2]Illegal offset type
