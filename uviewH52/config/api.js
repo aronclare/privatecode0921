@@ -13,7 +13,7 @@ export const apiAddCart = params => http.post('/api/carts',params)// 加入购�
 export const apiCartList = params => http.get('/api/carts',{params})// 购物车列表        //{params}参数格式为id=76
 export const apiGoodsList = params => http.get('/api/goods',{params})// 商品列表
 export const apiCartChecked = params => http.patch('/api/carts/checked',params)// 购物车改变选中     //is_checked=1   1选中0未选中
-export const apiCartNum = (id,params) => http.put(`/api/carts/${id}`,params)// 购物车某个商品的数量
+export const apiCartNum = (id,params) => http.put(`/api/carts/${id}`,params)// 购物车某个商品的数量  api/carts/29136//设置id=29136商品的数量为1num=1
 export const apiCartDelete = id => http.delete(`/api/carts/${id}`)// 移出购物车
 
 
