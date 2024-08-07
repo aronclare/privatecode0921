@@ -226,10 +226,7 @@ class User extends Base
 
         $userSessionData = $this->isLogin();
 
-
         //  var_dump($userSessionData);die;
-
-
         $user_Data = Db::name('user')->find($userSessionData['id']);
 
         return view('', [
@@ -281,10 +278,9 @@ class User extends Base
                 $data['self_pic'] = $path3['path'];
 
             } else {
-
                 return alert('图片不能为空', 'user_edit', 5);
             }*/
-           
+
             $res = Db::name('user')->update($data);
 
             if ($res) {
@@ -295,6 +291,32 @@ class User extends Base
         }
 
 
+    }
+    //更新用户头像 avatar   需传入id 和 图片
+    public function avatar(){
+
+        if (request()->isPost()) {
+            $data = request()->post();
+            if (!empty($_FILES['avatar']['name'])) {
+                // 上传图片
+                $store_pic = $this->request->file('avatar');
+
+                $upload = new Uploader();
+                $store_pic_path = $upload->uploadimg($store_pic);
+                $path1 = json_decode($store_pic_path, true);
+                //获取图片路径
+                $data['avatar'] = $path1['path'];
+            } else {
+                return json(['status' => 0, 'message' => '图片不能为空!']);
+            }
+            $res = Db::name('user')->update($data);
+
+            if (!$res) {
+                return json(['status' => 0, 'message' => '头像上传失败!']);
+            }
+        }else{
+            return json(['status' => 0, 'message' => '请使用正确的请求方式!']);
+        }
     }
 
     public function car_edit()

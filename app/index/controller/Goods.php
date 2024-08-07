@@ -10,8 +10,10 @@ class Goods extends  Base{
         $goods_id=input('goods_id');
         $goodsData=Db::name('goods')->find($goods_id);
         if(empty($goodsData) || $goodsData['goods_status']!=1){
+
+
             return alert('没有该商品或者该商品已经下架','/',5);
-            
+
         }
 
         //更新点击量

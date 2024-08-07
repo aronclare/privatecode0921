@@ -8,11 +8,12 @@ use think\facade\Db;
 class Goods extends  Base{
     public function index(){
 
+
         $goods_id=input('goods_id');
+
         $goodsData=Db::name('goods')->find($goods_id);
         if(empty($goodsData) || $goodsData['goods_status']!=1){
-            return alert('没有该商品或者该商品已经下架','/',5);
-            
+            return json(['status' => 0, 'message' => '没有该商品或者该商品已经下架!']);
         }
 
         //更新点击量
@@ -29,17 +30,21 @@ class Goods extends  Base{
         $goodsContents = Db::name('goods')
             ->alias('p')
             ->join('goods_content pd', 'p.goods_id = pd.goods_id')
-            ->field('p.goods_id, p.goods_name, p.goods_price, p.stock, p.selnumber, p.goods_thumb, pd.content')
+            ->field('p.goods_id, p.goods_name, p.goods_price, p.stock, p.selnumber,p.goods_cate_id, p.goods_thumb, pd.content')
             ->select();
-
-        // 获取当前域名
+        //获取当前域名
         //构造user_id
-      //  $userSessionData = $this->isLogin();
+        //  $userSessionData = $this->isLogin();
+        $user_data = session('sessionUserData');
+        foreach ($goodsContents as $goodsContent){
+            $goodsContent['user_id'] = $user_data['id'];
+            $goodsContentdata[]=$goodsContent;
+        }
 
+        var_dump($goodsContentdata);die;
 
         $sessionUserData=session('sessionUserData');
-
-        var_dump($sessionUserData);die;
+        var_dump($sessionUserData['user_id']);die;
 
         $domain = Request::domain();
         foreach ($goodsContents as $goodsContent){
