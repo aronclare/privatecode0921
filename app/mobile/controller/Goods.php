@@ -29,31 +29,63 @@ class Goods extends  Base{
         // 使用联合查询（JOIN）获取商品及其详情
         $goodsContents = Db::name('goods')
             ->alias('p')
-            ->join('goods_content pd', 'p.goods_id = pd.goods_id')
-            ->field('p.goods_id, p.goods_name, p.goods_price, p.stock, p.selnumber,p.goods_cate_id, p.goods_thumb, pd.content')
+            ->join('goods_content pd', 'p.goods_id = pd.goods_id')->Join('collect c', 'pd.goods_id = c.goods_id')->group('p.goods_id')
+            ->field('p.goods_id, p.goods_name, p.goods_price， COUNT(c.goods_id) as collects_count, p.stock, p.selnumber,p.goods_cate_id, p.goods_thumb, pd.content')
             ->select();
+
+        var_dump($goodsContents);die;
+
+
+
+
+
+
+
+
+
+
+
+
         //获取当前域名
         //构造user_id
         //  $userSessionData = $this->isLogin();
         $user_data = session('sessionUserData');
         foreach ($goodsContents as $goodsContent){
+
             $goodsContent['user_id'] = $user_data['id'];
             $goodsContentdata[]=$goodsContent;
         }
 
-        var_dump($goodsContentdata);die;
+         //商品被收藏的次数 collects_count  需传入goods_id  并统计goods_id数量
+         //$collects_count = Db::name('collect')->where('goods_id',$goodsContent['goods_id'])->count();
 
-        $sessionUserData=session('sessionUserData');
-        var_dump($sessionUserData['user_id']);die;
+
+        // 查询每个商品及其被收藏的次数
+
+        $products = Db::name('goods')
+            ->alias('p')
+            ->leftJoin('collect c', 'p.goods_id = c.goods_id')
+            ->field('p.goods_id, p.goods_name, p.goods_price, COUNT(c.goods_id) as collects_count')
+            ->group('p.goods_id')
+            ->select();
+
+
+        var_dump($products);die;
+     //   var_dump($goodsContentdata);die;
 
         $domain = Request::domain();
-        foreach ($goodsContents as $goodsContent){
+       /* foreach ($goodsContents as $goodsContent){
 
             $goodsContent['user_id'] = $user_id;
             $goodsContent['goods_thumb'] = $domain.$goodsContent['goods_thumb'];
             $newSlides[] = $goodsContent;
-        }
-        var_dump($newSlides);die;
+        }*/
+     //   var_dump($newSlides);die;
+
+
+
+
+
 
 
         //当前位置
@@ -70,7 +102,6 @@ class Goods extends  Base{
         if($goodsStandarData){
             $skuDefaultStr=$this->getAttrBySku($goodsStandarData[0]['sku']);
 
-            
             $skuStr='';
             foreach($goodsStandarData as $k=>$v){
                 $skuStr=$skuStr.','.$v['sku'];
