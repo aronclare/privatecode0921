@@ -27,13 +27,22 @@ class Goods extends  Base{
         //$goodsContent=Db::name('goods_content')->where('goods_id',$goods_id)->find();
 
         // 使用联合查询（JOIN）获取商品及其详情
-        $goodsContents = Db::name('goods')
+        /*$goodsContents = Db::name('goods')
             ->alias('p')
-            ->join('goods_content pd', 'p.goods_id = pd.goods_id')->Join('collect c', 'pd.goods_id = c.goods_id')->group('p.goods_id')
-            ->field('p.goods_id, p.goods_name, p.goods_price， COUNT(c.goods_id) as collects_count, p.stock, p.selnumber,p.goods_cate_id, p.goods_thumb, pd.content')
+            ->join('goods_content pd', 'p.goods_id = pd.goods_id')->Join('collect c', 'pd.goods_id = c.goods_id')->group('pd.goods_id')
+            ->field('p.goods_id, p.goods_name, p.goods_price， COUNT(c.id) as collects_count, p.stock, p.selnumber,p.goods_cate_id, p.goods_thumb, pd.content')
+            ->select();*/
+
+
+        // 查询每个商品及其被收藏的次数
+        $products = Db::name('goods')
+            ->alias('p')
+            ->leftJoin('collect c', 'p.goods_id = c.goods_id')
+            ->field('p.goods_id, p.goods_name, p.goods_price, COUNT(c.goods_id) as collection_count')
+            ->group('p.goods_id')
             ->select();
 
-        var_dump($goodsContents);die;
+        var_dump($products);die;
 
 
 
