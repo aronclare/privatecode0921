@@ -22,7 +22,7 @@
 			></u-loading-icon>
 		</view>
 		<template v-else>
-			<scroll-view scroll-y="true" >
+			<scroll-view scroll-y="true">
 				<view class="address" v-for="item in addressList" :key="item.id">
 					<view class="np">
 						<view id='name'>{{item.name}}</view>

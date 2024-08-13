@@ -16,12 +16,12 @@ export const apiCartChecked = params => http.patch('/api/carts/checked',params)/
 export const apiCartNum = (id,params) => http.put(`/api/carts/${id}`,params)// 购物车某个商品的数量  api/carts/29136//设置id=29136商品的数量为1num=1
 export const apiCartDelete = id => http.delete(`/api/carts/${id}`)// 移出购物车
 
-
 export const apiTrade = () => http.get('/api/orders/preview')   //preview预览
 export const apiAddAddress = (params) => http.post('/api/address',params)// 添加地址
 export const apiDeleteAddress = (address) => http.delete(`/api/address/${address}`)// 删除地址
 export const apiGetAddress = () => http.get('/api/address')// 获取地址列表
 export const apiUpdateAddress = (id,params) => http.put(`/api/address/${id}`,params)// 更新地址信息
+
 export const apiSubmitTrade = params => http.post(`/api/orders`,params)// 提交订单
 export const apiTradeList = params => http.get(`/api/orders`,{params})// 订单列表
 export const apiorderDetail = (order,params) => http.get(`/api/orders/${order}`,{params})// 订单详细

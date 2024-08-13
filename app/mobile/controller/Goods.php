@@ -44,17 +44,6 @@ class Goods extends  Base{
 
         var_dump($products);die;
 
-
-
-
-
-
-
-
-
-
-
-
         //获取当前域名
         //构造user_id
         //  $userSessionData = $this->isLogin();
@@ -90,12 +79,6 @@ class Goods extends  Base{
             $newSlides[] = $goodsContent;
         }*/
      //   var_dump($newSlides);die;
-
-
-
-
-
-
 
         //当前位置
         $positionData=$this->getPositionByCatId($goodsData['goods_cate_id']);

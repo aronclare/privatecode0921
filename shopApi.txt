@@ -1,3 +1,4 @@
+反编译接口 
 首页，get('/api/index', {params})// get请求，获取首页数据
 {
 	"categories": [
@@ -235,27 +236,28 @@
 		}
 	]
 }
+#http://code09211.cc/mobile/Index/index#
 
-get(`/api/goods/${id}`)// 商品详情
+get(`/api/goods/${id}`)// 商品详情          直接/api/goods/3   传参格式
 {
 	"goods": {
-		"id": 47,
-		"user_id": 1,
-		"category_id": 1,
-		"title": "《区块链》",
-		"description": "前沿 / 《区块链》",
-		"price": 32,
-		"stock": 678,
-		"sales": 99,
-		"cover": "product/2020-0820-5f3e152e57d13.png",
-		"pics": null,
-		"is_on": 1,
-		"is_recommend": 1,
-		"details": "<img src=\"https://oss.shop.eduwork.cn/article/2020-0820-5f3e1522b0b1e.jpg\" alt=\"qq.jpg\" width=\"750\" height=\"13291\" />",
-		"created_at": "2021-01-04T00:16:39.000000Z",
-		"updated_at": "2022-08-26T09:21:53.000000Z",
-		"collects_count": 187,
-		"cover_url": "http://oss.shop.eduwork.cn/product/2020-0820-5f3e152e57d13.png",
+		"id": 47,   goods_id
+		"user_id": 1,    user_id
+		"category_id": 1,   goods_cate_id
+		"title": "《区块链》",    goods_name
+		"description": "前沿 / 《区块链》",   content
+		"price": 32,  goods_price
+		"stock": 678,   stock
+		"sales": 99,    selnumber
+		"cover": "product/2020-0820-5f3e152e57d13.png",     goods_thumb
+		"pics": null,  
+		"is_on": 1,    goods_status
+		"is_recommend": 1,       is_recommend
+		"details": "<img src=\"https://oss.shop.eduwork.cn/article/2020-0820-5f3e1522b0b1e.jpg\" alt=\"qq.jpg\" width=\"750\" height=\"13291\" />",    content
+		"created_at": "2021-01-04T00:16:39.000000Z",   add_time
+		"updated_at": "2022-08-26T09:21:53.000000Z",  update_time
+		"collects_count": 187,    
+		"cover_url": "http://oss.shop.eduwork.cn/product/2020-0820-5f3e152e57d13.png",         goods_thumb
 		"pics_url": [],
 		"is_collect": 0,
 		"comments": []
@@ -353,8 +355,9 @@ get(`/api/goods/${id}`)// 商品详情
 		}
 	]
 }
+post('/api/carts',params)// 加入购物车
 
-get('/api/carts',{params})// 购物车列表
+get('/api/carts',{params})// 购物车列表     //{params}参数格式为id=76
 
 id=76返回数据
 {
@@ -382,7 +385,57 @@ id=76返回数据
 		}
 	]
 }
-get('/api/goods',{params})// 商品列表
+不传参返回数据
+{
+	"data": [
+		{
+			"id": 29133,
+			"user_id": 22493,
+			"goods_id": 234,
+			"num": 1,
+			"is_checked": 0
+		},
+		{
+			"id": 29135,
+			"user_id": 22493,
+			"goods_id": 47,
+			"num": 3,
+			"is_checked": 0
+		},
+		{
+			"id": 29136,
+			"user_id": 22493,
+			"goods_id": 178,
+			"num": 2,
+			"is_checked": 0
+		}
+	]
+}
+
+
+patch('/api/carts/checked',params)// 购物车改变选中     //is_checked=1
+
+put(`/api/carts/${id}`,params)// 购物车某个商品的数量
+https://api.shop.eduwork.cn/api/carts/29136
+{
+	"message": "The given data was invalid.",
+	"errors": {
+		"num": [
+			"数量 不能为空"
+		]
+	},
+}
+https://api.shop.eduwork.cn/api/carts/29136    参数num=1    设置商品的数量为1    响应后无返回数据，只改变购物车表中 对应商品29136的数量    为1
+
+
+https://api.shop.eduwork.cn/api/carts/29136
+delete(`/api/carts/${id}`)// 移出购物车     响应后无返回数据   只删除表中对应商品
+
+
+
+
+
+get('/api/goods',{params})// 商品列表 
 {
 	"goods": {
 		"current_page": 1,
@@ -516,7 +569,7 @@ get('/api/goods',{params})// 商品列表
 		"prev_page_url": null,
 		"to": 10
 	},
-	"recommend_goods": [
+	"recommend_goods": [  //推荐商品
 		{
 			"id": 221,
 			"title": "《Linux命令大全》",
@@ -608,7 +661,7 @@ get('/api/goods',{params})// 商品列表
 			"cover_url": "http://oss.shop.eduwork.cn/product/2020-0820-5f3e180ea8886.png"
 		}
 	],
-	"categories": [
+	"categories": [    //分类
 		{
 			"id": 1,
 			"pid": 0,
@@ -708,7 +761,7 @@ get('/api/goods',{params})// 商品列表
 			"level": 1,
 			"status": 1,
 			"seq": 1,
-			"children": [
+			"children": [  //二级分类
 				{
 					"id": 13,
 					"pid": 12,
@@ -822,8 +875,8 @@ post('/api/user/avatar',params)// post请求，更新头像
 
 {
 	"id": 22493,
-	"name": "admin",
-	"email": "admin@gmail.com",
+	"name": "admin",    
+	"email": "admin@gmail.com",    //username
 	"phone": null,
 	"avatar": null,
 	"openid": null,
@@ -831,11 +884,11 @@ post('/api/user/avatar',params)// post请求，更新头像
 	"unum": 0,
 	"avatar_url": "https://api.shop.eduwork.cn/imgs/avatar.png",
 	"is_locked": 0,
-	"created_at": "2024-07-20 09:24:14",
-	"updated_at": "2024-07-20 09:24:14"
+	"created_at": "2024-07-20 09:24:14",  //add_time
+	"updated_at": "2024-07-20 09:24:14" //updated_time
 }
 
-post(`/api/collects/goods/${id}`)// 收藏或取消收藏
+post(`/api/collects/goods/${id}`)// 收藏或取消收藏   直接goods/3传参  后无响应  只改变对应表中 is_collect=0或1
 
 post('/api/auth/login', params)// post请求，用户登录
 参数
@@ -854,5 +907,292 @@ name:admin
 email:admin@gmail.com
 password:adminadmin
 password_confirmation:adminadmin     //二次确认密码一致
+
+api/collects/goods                    user/add_goods_collect
+
+get('/api/orders/preview')   //preview预览apiTrade
+https://api.shop.eduwork.cn/api/orders/preview
+
+{
+	"data": [
+		{
+			"id": 4664,
+			"name": "xiaozhu",
+			"province": "北京市",
+			"city": "市辖区",
+			"county": "东城区",
+			"address": "啷哩个热浪",
+			"phone": "13433552020",
+			"is_default": 1,
+			"created_at": "2024-08-06T03:21:58.000000Z",
+			"updated_at": "2024-08-06T03:21:58.000000Z"
+		},
+		{
+			"id": 4665,
+			"name": "bazhe",
+			"province": "天津市",
+			"city": "市辖区",
+			"county": "和平区",
+			"address": "枫叶树村",
+			"phone": "13633662828",
+			"is_default": 0,
+			"created_at": "2024-08-06T03:22:50.000000Z",
+			"updated_at": "2024-08-06T03:22:50.000000Z"
+		}
+	],
+	"carts": [
+		{
+			"id": 29133,
+			"user_id": 22493,
+			"goods_id": 234,
+			"num": 1,
+			"is_checked": 1,
+			"created_at": "2024-07-20T01:26:46.000000Z",
+			"updated_at": "2024-08-05T08:03:04.000000Z",
+			"goods": {
+				"id": 234,
+				"cover": "product/2020-0820-5f3e084e2b714.png",
+				"title": "《细说PHP》第2版",
+				"price": 78,
+				"cover_url": "http://oss.shop.eduwork.cn/product/2020-0820-5f3e084e2b714.png"
+			}
+		}
+	]
+}
+
+
+https://api.shop.eduwork.cn/api/address
+post('/api/address',params)// 添加地址
+{
+	"message": "The given data was invalid.",
+	"errors": {
+		"name": [
+			"收货人 不能为空"
+		],
+		"address": [
+			"详细收货地址 不能为空"
+		],
+		"phone": [
+			"手机号 不能为空"
+		],
+		"province": [
+			"省份 不能为空"
+		],
+		"city": [
+			"城市 不能为空"
+		],
+		"county": [
+			"区县 不能为空"
+		]
+	},
+}
+
+delete(`/api/address/${address}`)// 删除地址    api/address/4665  传入地址 id删除地址
+https://api.shop.eduwork.cn/api/address/4665   
+
+get('/api/address')// 获取地址列表
+
+{
+	"data": [
+		{
+			"id": 4664,          // id
+			"name": "xiaozhu",     //shou_name
+			"province": "北京市",   //"province": "北京市",
+			"city": "市辖区",           //city
+			"county": "东城区",       //district
+			"address": "啷哩个热浪",    // shou_address
+			"phone": "13433552020",    //shou_mobile
+			"is_default": 1,                  //isdefault
+			"created_at": "2024-08-06T03:21:58.000000Z",    //create_at
+			"updated_at": "2024-08-06T03:21:58.000000Z"    //update_at
+		},
+		{
+			"id": 4665,
+			"name": "bazhe",
+			"province": "天津市",
+			"city": "市辖区",
+			"county": "和平区",
+			"address": "枫叶树村",
+			"phone": "13633662828",
+			"is_default": 0,
+			"created_at": "2024-08-06T03:22:50.000000Z",
+			"updated_at": "2024-08-06T03:22:50.000000Z"
+		}
+	]
+}
+
+put(`/api/address/${id}`,params)// 更新地址信息     传入地址id  4664
+https://api.shop.eduwork.cn/api/address/4664          
+
+{
+	"message": "The given data was invalid.",
+	"errors": {
+		"name": [
+			"收货人 不能为空"
+		],
+		"address": [
+			"详细收货地址 不能为空"
+		],
+		"phone": [
+			"手机号 不能为空"
+		],
+		"province": [
+			"省份 不能为空"
+		],
+		"city": [
+			"城市 不能为空"
+		],
+		"county": [
+			"区县 不能为空"
+		]
+	},
+}
+
+get(`/api/orders`,{params})// 订单列表
+
+{
+	"data": [],
+	"meta": {
+		"pagination": {
+			"total": 0,
+			"count": 0,
+			"per_page": 10,
+			"current_page": 1,
+			"total_pages": 1,
+			"links": null
+		}
+	}
+}
+//这几个接口需要实际支付场景和购买场景
+post(`/api/orders`,params)// 提交订单
+get(`/api/orders`,{params})// 订单列表
+get(`/api/orders/${order}`,{params})// 订单详细
+get(`/api/orders/${orderId}/pay`,{params})// 订单支付
+get(`/api/orders/${orderId}/status`)// 查询支付状态
+===========================================
+get('/api/auth/oss/token')// 获取阿里云OSS Token，用于前端直传文件使用
+{
+	"accessid": "LTAI5tH86j3fBs1X99z8GMZT",
+	"host": "https://laravel-book-shop.oss-cn-beijing.aliyuncs.com/",
+	"policy": "eyJleHBpcmF0aW9uIjoiMjAyNC0wOC0wNlQwNDo1NTowMVoiLCJjb25kaXRpb25zIjpbWyJjb250ZW50LWxlbmd0aC1yYW5nZSIsMCwxMDQ4NTc2MDAwXSxbInN0YXJ0cy13aXRoIiwiJGtleSIsIiJdXX0=",
+	"signature": "1sqU4RJnGuPY20Np7B5RYHCTsAU=",
+	"expire": 1722920101,
+	"callback": "eyJjYWxsYmFja1VybCI6IiIsImNhbGxiYWNrQm9keSI6ImJ1Y2tldD0ke2J1Y2tldH0mZXRhZz0ke2V0YWd9JmZpbGVuYW1lPSR7b2JqZWN0fSZzaXplPSR7c2l6ZX0mbWltZVR5cGU9JHttaW1lVHlwZX0maGVpZ2h0PSR7aW1hZ2VJbmZvLmhlaWdodH0md2lkdGg9JHtpbWFnZUluZm8ud2lkdGh9JmZvcm1hdD0ke2ltYWdlSW5mby5mb3JtYXR9IiwiY2FsbGJhY2tCb2R5VHlwZSI6ImFwcGxpY2F0aW9uXC94LXd3dy1mb3JtLXVybGVuY29kZWQifQ==",
+	"callback-var": [],
+	"dir": ""
+}
+
+
+
+已完成编译接口
+登录
+http://code09211.cc/mobile/user/login
+post
+username:admin@gmail.com
+password:admin123456
+{
+	"status": 1,
+	"message": "登录成功!",
+	"access_token": "123456",
+	"token_type": "Bearer",
+	"expires_in": "360000"
+}
+退出
+http://code09211.cc/mobile/user/login_out
+get
+{
+	"status": 1,
+	"message": "您已成功退出!"
+}
+get请求获取用户信息
+http://code09211.cc/mobile/user/index
+{
+	"id": 22493,
+	"name": "admin",    
+	"email": "admin@gmail.com",    //username
+	"phone": null,
+	"avatar": null,
+	"openid": null,
+	"total": 10,
+	"unum": 0,
+	"avatar_url": "https://api.shop.eduwork.cn/imgs/avatar.png",
+	"is_locked": 0,   //status
+	"created_at": "2024-07-20 09:24:14",  //add_time
+	"updated_at": "2024-07-20 09:24:14" //updated_time
+}
+修改用户名
+http://code09211.cc/mobile/user/user_update
+
+修改头像
+http://code09211.cc/mobile/user/avatar
+
+地址列表、添加地址   数据为空显示地址列表，不为空为添加地址
+http://code09211.cc/mobile/order/address
+{
+	"status": 1,
+	"data": [
+		{
+			"id": 9,
+			"shou_name": "王五",
+			"shou_address": "山东青岛沙滩村",
+			"shou_mobile": "13433226868",
+			"isdefault": 0,
+			"user_id": 39,
+			"province": "山东省",
+			"city": "青岛市",
+			"district": "沙滩村",
+			"create_at": "1723535780",
+			"update_at": "1723535780"
+		},
+		{
+			"id": 8,
+			"shou_name": "李四",
+			"shou_address": "山东青岛沙滩村",
+			"shou_mobile": "13433226868",
+			"isdefault": 0,
+			"user_id": 39,
+			"province": "山东省",
+			"city": "青岛市",
+			"district": "沙滩村",
+			"create_at": "1723530778",
+			"update_at": "1723530778"
+		},
+		{
+			"id": 7,
+			"shou_name": "李四",
+			"shou_address": "山东青岛沙滩村",
+			"shou_mobile": "13433226868",
+			"isdefault": 0,
+			"user_id": 39,
+			"province": "山东省",
+			"city": "青岛市",
+			"district": "沙滩村",
+			"create_at": null,
+			"update_at": null
+		}
+	]
+}
+
+//修改地址
+http://code09211.cc/mobile/order/addressUpdate
+//需传入以下参数
+
+{
+			"id": 7,
+			"shou_name": "李四",
+			"shou_address": "山东青岛沙滩村",
+			"shou_mobile": "13433226868",
+			"isdefault": 0,
+			"user_id": 39,
+			"province": "山东省",
+			"city": "青岛市",
+			"district": "沙滩村",
+			"create_at": null,
+			"update_at": null
+		}
+//删除地址
+http://code09211.cc/mobile/order/addressDelete
+
+
 
 

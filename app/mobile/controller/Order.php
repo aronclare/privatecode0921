@@ -19,6 +19,7 @@ use think\facade\Request;
 use think\facade\Db;
 
 use think\facade\Session;
+use think\facade\Validate;
 
 
 class Order extends Base
@@ -30,6 +31,7 @@ class Order extends Base
     {
       // return view();
         $sessionUserData=$this->isLogin();
+
         $addressDefaultData=Db::name('address')->where('user_id',$sessionUserData['id'])->where('isdefault',1)->find();
         $addressData=Db::name('address')->where('user_id',$sessionUserData['id'])->where('isdefault',0)->limit(3)->order('id desc')->select();
         $cartData=[];
@@ -62,7 +64,108 @@ class Order extends Base
         ]);
 
     }
-    //创建订单,购物车购买
+
+    //地址列表、添加地址
+    public function  address(){
+
+        $sessionUserData = $this->isLogin();
+        $data = Request::post();
+
+        if (!empty($data)){
+            // 定义验证规则
+            $validate = Validate::rule([
+                'shou_address'    => 'require|max:255',    // 地址必须存在，最大长度为255个字符
+                'shou_name'  => 'require|max:50',     // 收货人姓名必须存在，最大长度为50个字符
+                'shou_mobile'=> ['require', 'regex' => '/^1[3-9]\d{9}$/'],  // 电话号码必须存在，并且符合中国大陆手机号码格式
+                'province'   =>'require',
+                'city'       =>'require',
+                'district'   =>'require'
+            ])->message([
+                'shou_address.require'   => '地址不能为空',
+                'shou_address.max'       => '地址不能超过255个字符',
+                'province.require'   => '省份不能为空',
+                'city.require'   => '城市不能为空',
+                'district.require'   => '地方区域不能为空',
+                'shou_name.require' => '收货人姓名不能为空',
+                'shou_name.max'     => '收货人姓名不能超过50个字符',
+                'shou_mobile.require'     => '电话号码不能为空',
+                'shou_mobile.regex'       => '电话号码格式不正确',
+            ]);
+
+            // 验证数据
+            if (!$validate->check($data)){
+                return json(['message'=>'The given data was invalid','error' => $validate->getError()], 400);
+            }
+
+            if (!empty($data)){
+                $data['user_id'] = $sessionUserData['id'];
+                $data['create_at'] = time();
+                $data['update_at'] = time();
+
+                $addressData=Db::name('address')->insert($data);
+
+                return json(['status'=>1,'message'=>'地址添加成功！']);
+            }
+        }
+
+        //地址列表
+        $addressData=Db::name('address')->where('user_id',$sessionUserData['id'])->limit(3)->order('id desc')->select();
+
+        return json(['status' =>1, 'data' =>$addressData]);
+
+    }
+
+
+    public function addressUpdate(){
+        $sessionUserData = $this->isLogin();
+        //更新地址
+
+        $data = Request::post();
+        // 定义验证规则
+        $validate = Validate::rule([
+            'shou_address'    => 'require|max:255',    // 地址必须存在，最大长度为255个字符
+            'shou_name'  => 'require|max:50',     // 收货人姓名必须存在，最大长度为50个字符
+            'shou_mobile'=> ['require', 'regex' => '/^1[3-9]\d{9}$/'],  // 电话号码必须存在，并且符合中国大陆手机号码格式
+            'province'   =>'require',
+            'city'       =>'require',
+            'district'   =>'require'
+        ])->message([
+            'shou_address.require'   => '地址不能为空',
+            'shou_address.max'       => '地址不能超过255个字符',
+            'province.require'   => '省份不能为空',
+            'city.require'   => '城市不能为空',
+            'district.require'   => '地方区域不能为空',
+            'shou_name.require' => '收货人姓名不能为空',
+            'shou_name.max'     => '收货人姓名不能超过50个字符',
+            'shou_mobile.require'     => '电话号码不能为空',
+            'shou_mobile.regex'       => '电话号码格式不正确',
+        ]);
+        // 验证数据
+        if (!$validate->check($data)){
+            return json(['message'=>'The given data was invalid','error' => $validate->getError()], 400);
+        }
+
+        $data['update_at'] = time();
+
+        $addressData=Db::name('address')->where('id',$data['id'])->where('user_id',$sessionUserData['id'])->update($data);
+        if ($addressData){
+            return json(['status'=>1,'message'=>'地址修改成功！']);
+        }
+
+    }
+
+    //地址删除
+    public function addressDelete(){
+        $id = input('id');
+        //删除地址
+        $addressDelete=Db::name('address')->where('id',$id)->delete();
+        if ($addressDelete){
+            return json(['status'=>1,'message'=>'地址删除成功！']);
+        }
+
+    }
+
+        //创建订单,购物车购买
     function order_create(){
         $sessionUserData=session('sessionUserData');
         if(empty($sessionUserData)){
@@ -149,10 +252,6 @@ class Order extends Base
 
     }
 
-
-
-
-
     /* 从商品详情页直接购买，方法提交到这里
 
     ** 提交过来参数：goods_id、amount、sku
@@ -185,12 +284,6 @@ class Order extends Base
         //收货信息
         $addressDefaultData=Db::name('address')->where('user_id',$sessionUserData['id'])->where('isdefault',1)->find();
         $addressData=Db::name('address')->where('user_id',$sessionUserData['id'])->where('isdefault',0)->limit(3)->order('id desc')->select();
-
-
-
-
-
-
 
         return view('',[
             'goodsData'=>$goodsData,
