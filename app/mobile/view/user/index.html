@@ -5,15 +5,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
-        content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
 
     <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
 
-    <link rel="stylesheet" type="text/css" href="/public/static/index/css/shop.css" />
+    <link rel="stylesheet" type="text/css" href="/public/static/index/css/shop.css"/>
 
-    <link rel="stylesheet" type="text/css" href="/public/static/index/css/user.css" />
+    <link rel="stylesheet" type="text/css" href="/public/static/index/css/user.css"/>
 
-    <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_1646840_fj05m4s1s4h.css" />
+    <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_1646840_fj05m4s1s4h.css"/>
 
     <link rel="stylesheet" href="/public/static/index/layui/css/layui.css">
 
@@ -32,7 +32,6 @@
 <!--<!DOCTYPE>
 <!-- saved from url=(0111)https://safe.webscan360.com:36000/?d=oci-prrr-dd6yyyp-iwi-pe2j&u=&p=856h2s37&t360=d36s36636byb9k&v360=111381921 -->
 <html>-->
-
 
 
 <body>
@@ -319,50 +318,56 @@
 
 
 <style>
-    .nav_bar{
+    .nav_bar {
         width: 100%;
         font-size: 16px;
         color: gray;
         text-align: center;
         padding: 7px 7px;
     }
-    .user_head div{
-       display: inline;
+
+    .user_head div {
+        display: inline;
     }
-    .user_box{
+
+    .user_box {
         margin: 0;
         height: 800px;
-        background-color:#f5f5f5 ;
+        background-color: #f5f5f5;
         display: block;
         width: 100%;
         border-bottom: 2px solid yellow;
     }
-    .user_head{
+
+    .user_head {
 
         width: 100%;
         height: 90px;
     }
-    .inner_box1 .order_list{
+
+    .inner_box1 .order_list {
         width: 100%;
         height: 60px;
         text-align: center;
     }
-    .inner_box1 .order_list ul li{
+
+    .inner_box1 .order_list ul li {
         width: 30%;
         height: 40px;
         line-height: 40px;
         display: inline-block;
     }
 
-    .inner_box2 ul li{
+    .inner_box2 ul li {
         width: 100%;
         height: 40px;
         line-height: 40px;
         margin-bottom: 2px;
-       padding: 0 46px 0 46px;
+        padding: 0 46px 0 46px;
         border-radius: 6px;
         background-color: bisque;
     }
+
     .footer_bar {
         text-align: center;
         background: #fff;
@@ -376,11 +381,12 @@
         justify-content: space-between;
         box-shadow: 0px -2px 5px #eaeaea;
     }
-    .iconfont{
+
+    .iconfont {
         font-size: 30px;
     }
 
-    #think_page_trace_open{
+    #think_page_trace_open {
         display: none;
     }
 </style>
@@ -388,95 +394,1149 @@
 
 {include file="public/foot_bar"}
 
-  <div class="wrapbg">
+<div class="wrapbg">
 
-        <div class="wrap ">
+    <div class="wrap ">
 
 
-            <div class="user_position">
+        <div class="user_position">
 
-                当前位置：<a href="/">首页</a> > <a href="{:url('user/index')}">会员中心</a> >
+            当前位置：<a href="/">首页</a> > <a href="{:url('user/index')}">会员中心</a> >
 
-            </div>
+        </div>
 
-            <div class="user_box">
+        <div class="user_box">
 
-                <div class="user_box_right">
+            <div class="user_box_right">
 
-                   <div class="user_index_content1">
-                        <div class="left_content">
-                            <div class="pic"><img src="{$sessionUserData.face|default='/public/static/index/images/face.jpg'}" class="img"></div>
-                        
-                            <div class="info">
-                                <div class="title">{$sessionUserData.username}</div>
-                                <div class="description">上次登录：{$sessionUserData.last_login_time|date="Y-m-d H:s:i"}</div>
-                                <div class="description1"><a href="{:url('sign')}" class="color1">签到赚取积分</a></div>
-                            </div>
+                <div class="user_index_content1">
+                    <div class="left_content">
+                        <div class="pic"><img
+                                src="{$sessionUserData.face|default='/public/static/index/images/face.jpg'}"
+                                class="img"></div>
+
+                        <div class="info">
+                            <div class="title">{$sessionUserData.username}</div>
+                            <div class="description">上次登录：{$sessionUserData.last_login_time|date="Y-m-d H:s:i"}</div>
+                            <div class="description1"><a href="{:url('sign')}" class="color1">签到赚取积分</a></div>
                         </div>
-                        <div class="left_content">
-                        
-                            <div class="info">
-                                <div class="description1"><a href="{:url('user/info')}" class="colorblue">修改资料 ></a></div>
-                                <div class="description2">绑定手机：{$sessionUserData.mobile}</div>
-                                <div class="description2">绑定邮箱：{$sessionUserData.email|default='未绑定'}</div>
-                            </div>
-                        </div>
-                   </div>
-                   <div class="user_index_content2">
-                        <div class="item">
-                            <div class="icon bg1"> <i class="iconquanbudingdan iconfont"></i></div>
-                            <div class="info">
-                                <div class="title">
-                                    <span class="span1">全部订单：</span>
-                                    <span class="span2">1</span>
-                                </div>
-                                <div class="description"><a href="#" >查看全部付订单 <i class="iconchevron-copy-copy-copy-copy-copy iconfont"></i></a></div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="icon bg2"> <i class="icondaifukuan iconfont"></i></div>
-                            <div class="info">
-                                <div class="title">
-                                    <span class="span1">待支付的订单：</span>
-                                    <span class="span2">2</span>
-                                </div>
-                                <div class="description"><a href="#" >查看待支付订单 <i class="iconchevron-copy-copy-copy-copy-copy iconfont"></i></a></div>
-                            </div>
-                        </div>
-                        <div class="item ">
-                            <div class="icon bg3"> <i class="icondaishouhuo iconfont"></i></div>
-                            <div class="info">
-                                <div class="title">
-                                    <span class="span1">待收货的订单：</span>
-                                    <span class="span2">3</span>
-                                </div>
-                                <div class="description"><a href="#" >查看待收货订单 <i class="iconchevron-copy-copy-copy-copy-copy iconfont"></i></a></div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="icon bg4"> <i class="iconshoucang iconfont"></i></div>
-                            <div class="info">
-                                <div class="title">
-                                    <span class="span1">查看收藏商品：</span>
+                    </div>
+                    <div class="left_content">
 
-                                </div>
-                                <div class="description"><a href="{:url('index/user/collect')}" >查看收藏商品 <i class="iconchevron-copy-copy-copy-copy-copy iconfont"></i></a></div>
-                            </div>
+                        <div class="info">
+                            <div class="description1"><a href="{:url('user/info')}" class="colorblue">修改资料 ></a></div>
+                            <div class="description2">绑定手机：{$sessionUserData.mobile}</div>
+                            <div class="description2">绑定邮箱：{$sessionUserData.email|default='未绑定'}</div>
                         </div>
-                   </div>
+                    </div>
+                </div>
+                <div class="user_index_content2">
+                    <div class="item">
+                        <div class="icon bg1"><i class="iconquanbudingdan iconfont"></i></div>
+                        <div class="info">
+                            <div class="title">
+                                <span class="span1">全部订单：</span>
+                                <span class="span2">1</span>
+                            </div>
+                            <div class="description"><a href="#">查看全部付订单 <i
+                                    class="iconchevron-copy-copy-copy-copy-copy iconfont"></i></a></div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="icon bg2"><i class="icondaifukuan iconfont"></i></div>
+                        <div class="info">
+                            <div class="title">
+                                <span class="span1">待支付的订单：</span>
+                                <span class="span2">2</span>
+                            </div>
+                            <div class="description"><a href="#">查看待支付订单 <i
+                                    class="iconchevron-copy-copy-copy-copy-copy iconfont"></i></a></div>
+                        </div>
+                    </div>
+                    <div class="item ">
+                        <div class="icon bg3"><i class="icondaishouhuo iconfont"></i></div>
+                        <div class="info">
+                            <div class="title">
+                                <span class="span1">待收货的订单：</span>
+                                <span class="span2">3</span>
+                            </div>
+                            <div class="description"><a href="#">查看待收货订单 <i
+                                    class="iconchevron-copy-copy-copy-copy-copy iconfont"></i></a></div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="icon bg4"><i class="iconshoucang iconfont"></i></div>
+                        <div class="info">
+                            <div class="title">
+                                <span class="span1">查看收藏商品：</span>
 
+                            </div>
+                            <div class="description"><a href="{:url('index/user/collect')}">查看收藏商品 <i
+                                    class="iconchevron-copy-copy-copy-copy-copy iconfont"></i></a></div>
+                        </div>
+                    </div>
                 </div>
 
             </div>
 
-
         </div>
+
 
     </div>
 
-
+</div>
 
 
 </body>
 
 </html>
+
+
+<!DOCTYPE html>
+<!-- saved from url=(0018)https://ut5173.cc/ -->
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <style type="text/css">
+        .anticon {
+            display: inline-block;
+            color: inherit;
+            font-style: normal;
+            line-height: 0;
+            text-align: center;
+            text-transform: none;
+            vertical-align: -0.125em;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .anticon > * {
+            line-height: 1;
+        }
+
+        .anticon svg {
+            display: inline-block;
+        }
+
+        .anticon::before {
+            display: none;
+        }
+
+        .anticon .anticon-icon {
+            display: block;
+        }
+
+        .anticon[tabindex] {
+            cursor: pointer;
+        }
+
+        .anticon-spin::before,
+        .anticon-spin {
+            display: inline-block;
+            -webkit-animation: loadingCircle 1s infinite linear;
+            animation: loadingCircle 1s infinite linear;
+        }
+
+        @-webkit-keyframes loadingCircle {
+            100% {
+                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes loadingCircle {
+            100% {
+                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+
+    <link rel="icon" type="image/svg+xml" href="https://ut5173.cc/logo.ico">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1,user-scalable=no">
+    <title>UT游戏装备交易商城</title>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        #app {
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .loading-warp {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .dot {
+            animation: antRotate 1.2s infinite linear;
+            transform: rotate(45deg);
+            position: relative;
+            display: inline-block;
+            font-size: 32px;
+            width: 32px;
+            height: 32px;
+            box-sizing: border-box;
+        }
+
+        .dot i {
+            width: 14px;
+            height: 14px;
+            position: absolute;
+            display: block;
+            background-color: #1890ff;
+            border-radius: 100%;
+            transform: scale(0.75);
+            transform-origin: 50% 50%;
+            opacity: 0.3;
+            animation: antSpinMove 1s infinite linear alternate;
+        }
+
+        .dot i:nth-child(1) {
+            top: 0;
+            left: 0;
+        }
+
+        .dot i:nth-child(2) {
+            top: 0;
+            right: 0;
+            -webkit-animation-delay: 0.4s;
+            animation-delay: 0.4s;
+        }
+
+        .dot i:nth-child(3) {
+            right: 0;
+            bottom: 0;
+            -webkit-animation-delay: 0.8s;
+            animation-delay: 0.8s;
+        }
+
+        .dot i:nth-child(4) {
+            bottom: 0;
+            left: 0;
+            -webkit-animation-delay: 1.2s;
+            animation-delay: 1.2s;
+        }
+
+        @keyframes antRotate {
+            to {
+                -webkit-transform: rotate(405deg);
+                transform: rotate(405deg);
+            }
+        }
+
+        @-webkit-keyframes antRotate {
+            to {
+                -webkit-transform: rotate(405deg);
+                transform: rotate(405deg);
+            }
+        }
+
+        @keyframes antSpinMove {
+            to {
+                opacity: 1;
+            }
+        }
+
+        @-webkit-keyframes antSpinMove {
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+    <script type="module" crossorigin="" src="./UT游戏装备交易商城_files/index.dc006e7b.js.download"></script>
+    <link rel="modulepreload" crossorigin="" href="https://ut5173.cc/assets/index.81abfa5c.js">
+    <link rel="modulepreload" crossorigin="" href="https://ut5173.cc/assets/Header.6f5fedcc.js">
+    <link rel="modulepreload" crossorigin="" href="https://ut5173.cc/assets/none.c65e8e51.js">
+    <link rel="modulepreload" crossorigin="" href="https://ut5173.cc/assets/zh-cn.3fbb34de.js">
+    <link rel="stylesheet" href="./UT游戏装备交易商城_files/index.e4771160.css">
+    <link rel="stylesheet" href="./UT游戏装备交易商城_files/Header.724e9bfa.css">
+    <link rel="stylesheet" href="./UT游戏装备交易商城_files/index.cdf87638.css">
+    <link rel="stylesheet" href="./UT游戏装备交易商城_files/index.a4ea8988.css">
+    <link rel="stylesheet" href="./UT游戏装备交易商城_files/antd.f64cb562.css">
+</head>
+<body class="ant-scrolling-effect" style="overflow: hidden;">
+<div id="app" data-v-app="">
+    <section class="ant-layout full-height"><!-- 标题 -->
+        <header class="ant-layout-header layout-header flex-between">
+            <div data-v-c0a776b3="" class="header flex-between flex-grow">
+                <div data-v-c0a776b3="" class="flex-center"><img data-v-c0a776b3="" class="logo-title"
+                                                                 src="./UT游戏装备交易商城_files/logo_title.f95e7862.jpg"></div>
+                <div data-v-c0a776b3="" class="flex-center flex-grow mobile"></div>
+                <div data-v-c0a776b3="" class="flex-center pc">
+                    <button data-v-c0a776b3="" class="ant-btn ant-btn-link ant-btn-dangerous" type="button">
+                        <!----><span>请登陆</span></button>
+                    <button data-v-c0a776b3="" class="ant-btn ant-btn-link" type="button"><!----><span
+                            data-v-c0a776b3="" class="ant-badge"><a data-v-c0a776b3="">我是卖家</a><sup data-show="false"
+                                                                                                    class="ant-scroll-number ant-badge-count"
+                                                                                                    title="0"
+                                                                                                    style="margin-top: -5px; right: -10px; display: none;">0</sup>
+                        <!----></span></button>
+                </div>
+                <div data-v-c0a776b3="" class="mobile flex-justify-end pr-4" style="padding-top: 6px; width: 120px;">
+                    <span data-v-c0a776b3="" role="img" aria-label="menu" class="anticon anticon-menu"
+                          style="font-size: 20px;"><svg focusable="false" class="" data-icon="menu" width="1em"
+                                                        height="1em" fill="currentColor" aria-hidden="true"
+                                                        viewBox="64 64 896 896"><path
+                            d="M904 160H120c-4.4 0-8 3.6-8 8v64c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-64c0-4.4-3.6-8-8-8zm0 624H120c-4.4 0-8 3.6-8 8v64c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-64c0-4.4-3.6-8-8-8zm0-312H120c-4.4 0-8 3.6-8 8v64c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-64c0-4.4-3.6-8-8-8z"></path></svg></span>
+                </div>
+            </div><!--teleport start--><!--teleport end--><!--v-if--><!--v-if--><!--v-if--><!----></header>
+        <section class="ant-layout">
+            <main class="ant-layout-content content-warp flex-direction" id="content-warp">
+                <div data-v-4cf7dd89="" class="filter pt-20 px-6">
+                    <div data-v-4cf7dd89="" class="bg pc"></div>
+                    <div data-v-4cf7dd89="" class="form flex py-2 flex-direction">
+                        <div data-v-4cf7dd89="" class="item py-2 px-8 flex pc">
+                            <div data-v-4cf7dd89="" class="label flex-center mr-4">游戏类型：</div>
+                            <div data-v-4cf7dd89="" class="value flex-grow">
+                                <button data-v-4cf7dd89="" class="ant-btn ant-btn-primary ant-btn-sm mr-4 mb-2"
+                                        type="button"><!----><span>全 部</span></button>
+                                <button data-v-4cf7dd89="" class="ant-btn ant-btn-text ant-btn-sm mr-4 mb-2"
+                                        type="button"><!----><span>游戏币</span></button>
+                                <button data-v-4cf7dd89="" class="ant-btn ant-btn-text ant-btn-sm mr-4 mb-2"
+                                        type="button"><!----><span>账号</span></button>
+                                <button data-v-4cf7dd89="" class="ant-btn ant-btn-text ant-btn-sm mr-4 mb-2"
+                                        type="button"><!----><span>手游充值</span></button>
+                                <button data-v-4cf7dd89="" class="ant-btn ant-btn-text ant-btn-sm mr-4 mb-2"
+                                        type="button"><!----><span>代练</span></button>
+                                <button data-v-4cf7dd89="" class="ant-btn ant-btn-text ant-btn-sm mr-4 mb-2"
+                                        type="button"><!----><span>装备</span></button>
+                            </div>
+                        </div>
+                        <div data-v-4cf7dd89="" class="item py-2 px-8 flex">
+                            <div data-v-4cf7dd89="" class="label flex-center mr-4 pc">名称搜索：</div>
+                            <div data-v-4cf7dd89="" class="value flex-grow"><span data-v-4cf7dd89=""
+                                                                                  class="ant-input-group-wrapper ant-input-search ant-input-search-with-button search-input"
+                                                                                  style=""><span
+                                    class="ant-input-wrapper ant-input-group"><!----><input placeholder="请输入关键字"
+                                                                                            type="text"
+                                                                                            class="ant-input"
+                                                                                            enterkeyhint="search"><span
+                                    class="ant-input-group-addon"><button
+                                    class="ant-btn ant-btn-primary ant-input-search-button" type="button"><!----><span>搜 索</span></button></span></span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div data-v-4cf7dd89="" class="mobile filter pt-2 px-2">
+                    <div data-v-4cf7dd89="" class="form flex-around py-2">
+                        <div data-v-4cf7dd89="" class="item flex-center flex-direction"
+                             style="border-bottom: 0px; font-size: 12px;"><img data-v-4cf7dd89=""
+                                                                               src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAAoHCAkIBgoJCAkMCwoMDxoRDw4ODx8WGBMaJSEnJiQhJCMpLjsyKSw4LCMkM0Y0OD0/QkNCKDFITUhATTtBQj//2wBDAQsMDA8NDx4RER4/KiQqPz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz//wAARCAA8ADwDASIAAhEBAxEB/8QAGgAAAgMBAQAAAAAAAAAAAAAAAwUAAgYEAf/EADUQAAEEAAIDDwMFAQAAAAAAAAEAAgMEBRESITEGFBUzNEFRUlRhc5GTsdEycYETIkJykuH/xAAaAQADAAMBAAAAAAAAAAAAAAADBAUAAQYC/8QAIhEAAgIBBAIDAQAAAAAAAAAAAQIAAwQRITFREjITFGFx/9oADAMBAAIRAxEAPwDZ47jNiS3JXrvMcbDkS3aSk2+bHaJf9le2+XWPFd7lBXMXWuznedXRTWlYAELvix2ib1Cpvmx2ib1ChrzNB837hfBOoXfNjtE3qFTfNjtE3qFeCCZzc2wyEf1KoQWuycC09BGS9E2DnWaArPGkMy3aY4OZZlDh0vJWiw3dHnUAt65WnIkc/esshP1POSNRfYh2MBfjV2LuJ12+XWPFd7lCRbfLrHiu9yg+6A/uYxX6CRPNy8FaWzI6wGl7fpBQqe5+7aYHkiJp1jSGtMIMEuUWu0SydjtZbsP4Kbx6LFYOV2iOVkVMhQNvNO1jQ0AAZdwSfdDXqOw+R8jWiQDNp51xQTPke+Nslxj49Toxkcv+IVzMU5S5rmuLf5u0nn8cypWWqyEaSXVUUsB1mbGxBk4wo6BJxhUJPadG3E7LfLrHiu9yqQnKdhHM4bVe3y6x4rvcoTXFrg4ayDsW2Olh/s8qNawPyb2HE4WRtbYziOW0jUVd2K1dkbzI7oaM1m6+KViwacskD+duWk0or8TqhubrUjj1Y4w3NWlyh48iQGxD5epl5HyTY1M4Rn6B+1r9HL7oV+SKGrI1zmMc8amMdpOP3KT27LrE7pGgxjLIAHXl3rn59e1TnyeQJTrxDqCTxPUCTjCjoEnGFKpzHm4nfiMbocSsMeMj+oSPtmuZbrGMLq226crCHgfU3UUg4Hr55acvmPhN34pVzoYlj5avWNREiid8EV+vL5j4U4Ir9eXzHwgfA3cP9heokGpRO+CK/Xl8x8KcEV+vL5j4WfA3cz7C9RIrw0Z7TXSRRlzc8sx3J3XwWrJMGvdKW9GkPhaupVgrV2xQxhrBsCaxsQsdSYplZoQAKJ//2Q==">
+                            游戏币
+                        </div>
+                        <div data-v-4cf7dd89="" class="item flex-center flex-direction"
+                             style="border-bottom: 0px; font-size: 12px;"><img data-v-4cf7dd89=""
+                                                                               src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAAoHCAkIBgoJCAkMCwoMDxoRDw4ODx8WGBMaJSEnJiQhJCMpLjsyKSw4LCMkM0Y0OD0/QkNCKDFITUhATTtBQj//2wBDAQsMDA8NDx4RER4/KiQqPz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz//wAARCAA8ADwDASIAAhEBAxEB/8QAGgAAAgMBAQAAAAAAAAAAAAAABQYBAwQAAv/EADAQAAEDAwAFDAMBAQAAAAAAAAEAAgMEBRESITFBchMUFTI0UlNhkZKx0QYiUSTB/8QAGQEAAgMBAAAAAAAAAAAAAAAAAgMBBAUA/8QAHxEAAgMAAwEBAQEAAAAAAAAAAAECAxESEzEhIjJB/9oADAMBAAIRAxEAPwB2uF1qKid7Y5DHEDgBurKxc4n8eX3lVN2KVhyslJ62ZEpyb3SznE/jy+8rucT+PL7yqxrOACT/AALVFbqyVmm2F2juzqyuXOXhK5vwp5xP48vvK7nE/jy+8qJYpYTiWNzD5heFDcl6RskaIq2qhfpMnfnzdkFM9vuTamkbI/8AV+xw80oIraezP4z8BWKLZJ4OpskngJb1VdSxtlqo4350XOwcKlvVWm39vg4wq8VskIj9lg209vpacDkomg/0qqpu1JTTck92vfjct+7CT663VbKyXEbpA92Q4LUtk64/hGjZJ1r8oam8hVwhwDXsPkgF+oYKZkckLNEudg4RazU0lNQhkupxOcfxYvyfs8PEhtSdXJr6RYtr1r6LiK2nsr+M/AQpFbT2V/GfgKhT6Uq/QS3qqyCTkqhkm3RdlVt6qlLTxi9xjnNVPNuM9K3lXEZAylo3euLiTNoneMbF5t9xmoXYb+8Z2tP/ABFuWtNaBNM0Ne3aCMFXXZ2pZLGXHPtXx4dZbhWVEuhIzTj3vxjCp/JKlr3xwNIJacnyUVV6a1hioYw1uzSwgrnOc4ueSXE5JKGy3IcE9AssyPBPSEUtPZn8Z+AhaK2kf5X8Z+AkVf0Kr9BRaWOcxwwWkg5XJquVtpp3GVzS152lpxlC+jIcdeT1H0jnQ02FOpp4CVCL9Gw96T1H0pFsg70nqPpB1MHrYIXIt0ZD3pPUfSjo2HvSeo+l3UzutgpG7PTSOoi8DU55I+F7o7RSvkzJpuA3E6kwRxsjjDWNAaNgCs0UfdY+mn/Wf//Z">
+                            账号
+                        </div>
+                        <div data-v-4cf7dd89="" class="item flex-center flex-direction"
+                             style="border-bottom: 0px; font-size: 12px;"><img data-v-4cf7dd89=""
+                                                                               src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAAoHCAkIBgoJCAkMCwoMDxoRDw4ODx8WGBMaJSEnJiQhJCMpLjsyKSw4LCMkM0Y0OD0/QkNCKDFITUhATTtBQj//2wBDAQsMDA8NDx4RER4/KiQqPz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz//wAARCAA8ADwDASIAAhEBAxEB/8QAGgAAAgMBAQAAAAAAAAAAAAAABAUAAgMBB//EAC0QAAEDAgQEBgEFAAAAAAAAAAEAAgMEEQUxQXESExQhMlFSU5GSNWJygYKx/8QAGgEAAwEBAQEAAAAAAAAAAAAAAgMEBQABBv/EACMRAAIDAAEDBQEBAAAAAAAAAAECAAMRBBITMRQyQUJRIYH/2gAMAwEAAhEDEQA/APRqyvkllc2NxaweWqF50vuv+xWep3Kmy+LtvsdydmyqKq5k050vuv8AsVOdL7r/ALFGswmVzA7mNF9LLN1DwuIM7bj9JTvT8oDTsX3aoNzpfdf9ipzpfdf9ii48NdKDwTNP9SsqujfShpc4ODjbshankovUdyeh6mOCZMqJmG4lffdNqXEWvgBlNnDsUl1XYxcHdFxeTZW3meW1Kw8Sup3K6PENwuancro8Q3H+qT7x/wARtiNVLCImxO4QW3Q0cuISC7OIj9qvinaan2TKKoY2MAgiw0C2wpuuYM+ASDQiAgbFD6qti8bnN/hbV8jpcOp3vN3EonEZmyUrw1umZQdV+Kpkq1TWHTq0ZCUhuk5n9gKtHkd1VWjyO6zKfdKn9srqdyoPENwpqd1B2I3CD7/7C+IwxUO4oXAGwbnZYsrHWs+Mut5JrHWUpibxPblkVjWTxPhtTyRh981t2VLptWzzIVc50lYtnqnyMLA2wOlit6sWwumB0KYx1VKGND3s4rd0FitRDNHGyJwNjfsl2VqlTOX0kQlYswHTkWq0eR3VVaPI7rKp90qfxOPaWSOYR3BK4n9bRwytL3Ns4ahL+hi9T/kKu/hMlhAMXXcGXYvUsLZJh0UXqf8AIU6KL1P+Qkemf9h9wRfYLoR/RRep/wAhToovU/5C70z/ALO7ggC3pqd8kZc0dieyNhw+F0gDi4jdNo42RsDWAABXcPglySxiLr8GAT//2Q==">
+                            手游充值
+                        </div>
+                        <div data-v-4cf7dd89="" class="item flex-center flex-direction"
+                             style="border-bottom: 0px; font-size: 12px;"><img data-v-4cf7dd89=""
+                                                                               src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAAoHCAkIBgoJCAkMCwoMDxoRDw4ODx8WGBMaJSEnJiQhJCMpLjsyKSw4LCMkM0Y0OD0/QkNCKDFITUhATTtBQj//2wBDAQsMDA8NDx4RER4/KiQqPz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz//wAARCAA8ADwDASIAAhEBAxEB/8QAGgAAAwADAQAAAAAAAAAAAAAAAwQFAAEGAv/EADUQAAIBAgIFCwMDBQAAAAAAAAEDAgAEBRESITEycRMUFUFRUlNhkZLRBoGhIiPBJEJicrH/xAAZAQACAwEAAAAAAAAAAAAAAAABAgADBAX/xAAjEQADAAICAgAHAAAAAAAAAAAAAQIDERIhEzEEIzJBUWHx/9oADAMBAAIRAxEAPwDtMRxe5uXTiphWkHKIjqzpHnD/AB2+80GG6OFFSpj2Bao6UzsFdqYiZ9GJttm+cP8AHb7zWc4f47feaKcOvgQDaN1nLUKYjgl8YgyC157NKVB3iX4DqhLnD/Hb7zWc4f47feaZfhV6iBnJQnAdcDnSP44008K9AfJew8Lq5hIShcMB/wBiarWv1GVpELkaTB1gbRUOl3744UuTFNr0GaaYaG4KoYKcsYt+JH4qfDcFV/p0AX7WEZlaTIetTK/lsk/UFbcXNw1sEPmu7VIjQEtTAOzzouF3sL2fNMRjpsBOhKWo8D51q6wuV4qOIWWcGsAnKGfX2jzpI/10tBn7OIw2E/pDMv5rIlFT1/CztM6GeHckNOxZJUx/aSTGXEVIxC1jd27LlS+SuVHJy/5qjheJyuLVq3DRu0A6UDqzy668WsJG8U1kzM3aiZjqGzIfmqYdQ9v7DvTOVoD9/wC1NOAi9kRsEiB60q/f+1dXe0Z10w0NwVSwO4ijEohhyg2JgT2VNhuCvXznQqeU6Inp7Oyw1nJaVk3UxZJh/lHqIoOMW1i8AOZFT9sZddSrXEkuVBN/pCcNx0dop5ESDNiL63dpnMyeNfCua8dRW30aFSaElJfeOiJ5hyTozuo6osh5+dUYvWJMvR+m2t1laj2ny9KDctTGOV/fRnAbEoGQlxqRf4hO7MYQiFIhqhAf9NWTFZH+hG1KFJyMpykdsjmaWfv/AGpjhS79/wC1b9daKl7GNEwJjIZGJyPGsrp8Xwy2nPlspRnLe0Ttqb0Ynvs9R8VTGZVOxnHZKrWQ7BVboxPfZ6j4rOjE99nqPim8sg4skgAVuqvRie+z1HxWdGJ77PUfFTyyTgyVQWrnOecIGQAyJFXIYWiUhEzZkT3h8V0VpY29vbxWtYy269ZNVZPiFK6Q049n/9k=">
+                            代练
+                        </div>
+                        <div data-v-4cf7dd89="" class="item flex-center flex-direction"
+                             style="border-bottom: 0px; font-size: 12px;"><img data-v-4cf7dd89=""
+                                                                               src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAAoHCAkIBgoJCAkMCwoMDxoRDw4ODx8WGBMaJSEnJiQhJCMpLjsyKSw4LCMkM0Y0OD0/QkNCKDFITUhATTtBQj//2wBDAQsMDA8NDx4RER4/KiQqPz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz//wAARCAA8ADwDASIAAhEBAxEB/8QAGgABAAMBAQEAAAAAAAAAAAAABQADBgQCAf/EADUQAAEDAwAEDQMEAwAAAAAAAAEAAgMEBRESITFBBhQVMjRRUlRzkZKx0RNhcSIzNUJDcqH/xAAaAQEAAgMBAAAAAAAAAAAAAAAEAgMABQYB/8QAIREAAgICAgIDAQAAAAAAAAAAAQIAAwQREhMxMiFBUSL/2gAMAwEAAhEDEQA/ANdcLxU1VQ/6Ujo4gcNDTjK4uM1HeJfWVSzmr6ugSpFXQE5d7XZiSZbxmo7xL6ypxmo7xL6ypTU01VJoU8ZeevcEszg3VuZl0sbT1YKi70p8NqTRLrBtdwnjNR3iX1lTjNR3iX1lX1lsq6PXKzLO03WFx7dimvW42upBuxDptzphr6yB4dHUPzv0jkFbG2XAVlCyYjDtjh91hU9YiRQvwf8AIfYIuVSpXYEVh3OG1uAM5oV9JTuqqlkLDrcVQzmhI2L+WiSXJVCRC1qGsAM19BRRUdOI4m4xtO8ldSLuV6ht9RHC+Nzi4ZJG4JCCZk8IljcCxwyCtEytrk33OjRkH8L9T1IxsjS14BaRrBWLvluFDVAx/tSbB1FOVfCCCCsEDWOk1gFzdxXLwrdpQ0x6yfZKxg9dgB8GDy+u2skeRM0nbH0J/iH2CCCdsfQn+IfYLYZHpNZi+8BZzQkbGQLrDk41o5nNXoEtcHNJDhsI3Kxl5IRKkbg/Kbi7UENbSu+o39TQS1w2hZKkuNRSQyQxuy12r8fhK2y9l8D6ardh2idF/X+Vnjznf7ImPUw2jxmVcrEWV+ZouDlvgnjNXKdOQO3r3wsI0KcDbk6lzWi5R2+0yl2uQvOizr2ImqqZauczTOy47BuC8Sp2vLHwJ69yLjhB5MpTtj6E7xD7BBJ2xdBd4h9gkZPpD4vvAtExudG4EOaSCFFsLraaSdxmc1zZN7mnGURyTTj+8vmPhRryAy71JWYrKxG4MomeSYO3J5j4U5Jp+3J5j4Vncsr6G/YNvUTPJMHbk8x8KclQduTzHws7lmdDfsG+52LSWClebbpEEabyR/xfKGy0j5Myab8biRj2WkjY1kYawANAwAELJyNjiBHYmMQSxM//2Q==">
+                            装备
+                        </div><!-- <a-button
+            class="mr-4 mb-2"
+            v-for="(item, index) in typeList"
+            :key="index"
+            :type="fliterValue.goodsType === item.code ? 'primary' : 'text'"
+            size="small"
+            @click="selectHandle('goodsType', item.code)"
+          >
+            {{ item.name }}
+          </a-button> --></div>
+                </div>
+                <div class="list flex-justify-center flex-wrap">
+                    <div class="ant-list ant-list-vertical ant-list-split ant-list-grid ant-list-something-after-last-item"
+                         style="width: 100%;"><!----><!---->
+                        <div class="ant-spin-nested-loading"><!---->
+                            <div class="ant-spin-container">
+                                <div class="ant-row" style="margin-left: -8px; margin-right: -8px; row-gap: 0px;">
+                                    <div style="width: 100%; max-width: 100%;">
+                                        <div class="ant-col"
+                                             style="padding-left: 8px; padding-right: 8px; flex: 1 1 auto;">
+                                            <div class="ant-list-item ant-list-item-no-flex list-item mb-2">
+                                                <div class="ant-list-item-meta">
+                                                    <div class="ant-list-item-meta-avatar">
+                                                        <div class="game-img"
+                                                             style="background-image: url(&quot;https://utmall.oss-cn-hongkong.aliyuncs.com/goods/1692694721317main.png&quot;);"></div>
+                                                    </div>
+                                                    <div class="ant-list-item-meta-content">
+                                                        <h4 class="ant-list-item-meta-title">
+                                                            <div class="flex-align-center"><span class="tag px-1 mr-1">账号</span>
+                                                                <p class="title mt-2 flex-grow">毕业红神</p></div>
+                                                        </h4>
+                                                        <div class="ant-list-item-meta-description">
+                                                            <div class="description pr-4 flex flex-direction flex-justify-between">
+                                                                <div class="description-span">商品种类：游戏帐号
+                                                                    游戏/区/服： 地下城与勇士 / 广东区 / 广东1区
+                                                                </div>
+                                                                <span class="price flex-justify-end"> ￥ <i
+                                                                        class="new_price">800.00</i></span></div>
+                                                        </div>
+                                                    </div>
+                                                </div><!----><!----></div>
+                                        </div>
+                                    </div>
+                                    <div style="width: 100%; max-width: 100%;">
+                                        <div class="ant-col"
+                                             style="padding-left: 8px; padding-right: 8px; flex: 1 1 auto;">
+                                            <div class="ant-list-item ant-list-item-no-flex list-item mb-2">
+                                                <div class="ant-list-item-meta">
+                                                    <div class="ant-list-item-meta-avatar">
+                                                        <div class="game-img"
+                                                             style="background-image: url(&quot;https://utmall.oss-cn-hongkong.aliyuncs.com/goods/1692694689723main.png&quot;);"></div>
+                                                    </div>
+                                                    <div class="ant-list-item-meta-content">
+                                                        <h4 class="ant-list-item-meta-title">
+                                                            <div class="flex-align-center"><span class="tag px-1 mr-1">装备</span>
+                                                                <p class="title mt-2 flex-grow">
+                                                                    2023夏日收集箱套，共10个自选收集箱宝珠a</p></div>
+                                                        </h4>
+                                                        <div class="ant-list-item-meta-description">
+                                                            <div class="description pr-4 flex flex-direction flex-justify-between">
+                                                                <div class="description-span">商品种类：支付宝活动日
+                                                                    游戏/区/服： 地下城与勇士 / 重庆区 / 重庆2区
+                                                                </div>
+                                                                <span class="price flex-justify-end"> ￥ <i
+                                                                        class="new_price">68.98</i></span></div>
+                                                        </div>
+                                                    </div>
+                                                </div><!----><!----></div>
+                                        </div>
+                                    </div>
+                                    <div style="width: 100%; max-width: 100%;">
+                                        <div class="ant-col"
+                                             style="padding-left: 8px; padding-right: 8px; flex: 1 1 auto;">
+                                            <div class="ant-list-item ant-list-item-no-flex list-item mb-2">
+                                                <div class="ant-list-item-meta">
+                                                    <div class="ant-list-item-meta-avatar">
+                                                        <div class="game-img"
+                                                             style="background-image: url(&quot;https://utmall.oss-cn-hongkong.aliyuncs.com/goods/1692694623526main.png&quot;);"></div>
+                                                    </div>
+                                                    <div class="ant-list-item-meta-content">
+                                                        <h4 class="ant-list-item-meta-title">
+                                                            <div class="flex-align-center"><span class="tag px-1 mr-1">装备</span>
+                                                                <p class="title mt-2 flex-grow">
+                                                                    盛夏阳光岛屿装扮9件套，超好看时装套，全职业都有</p></div>
+                                                        </h4>
+                                                        <div class="ant-list-item-meta-description">
+                                                            <div class="description pr-4 flex flex-direction flex-justify-between">
+                                                                <div class="description-span">商品种类：绝版装扮套装礼盒
+                                                                    游戏/区/服： 地下城与勇士 / 四川区 / 四川3区
+                                                                </div>
+                                                                <span class="price flex-justify-end"> ￥ <i
+                                                                        class="new_price">164.98</i></span></div>
+                                                        </div>
+                                                    </div>
+                                                </div><!----><!----></div>
+                                        </div>
+                                    </div>
+                                    <div style="width: 100%; max-width: 100%;">
+                                        <div class="ant-col"
+                                             style="padding-left: 8px; padding-right: 8px; flex: 1 1 auto;">
+                                            <div class="ant-list-item ant-list-item-no-flex list-item mb-2">
+                                                <div class="ant-list-item-meta">
+                                                    <div class="ant-list-item-meta-avatar">
+                                                        <div class="game-img"
+                                                             style="background-image: url(&quot;https://utmall.oss-cn-hongkong.aliyuncs.com/goods/1692694593537main.png&quot;);"></div>
+                                                    </div>
+                                                    <div class="ant-list-item-meta-content">
+                                                        <h4 class="ant-list-item-meta-title">
+                                                            <div class="flex-align-center"><span class="tag px-1 mr-1">装备</span>
+                                                                <p class="title mt-2 flex-grow">
+                                                                    10套（三觉悟境装扮套装自选礼盒）永久期限</p></div>
+                                                        </h4>
+                                                        <div class="ant-list-item-meta-description">
+                                                            <div class="description pr-4 flex flex-direction flex-justify-between">
+                                                                <div class="description-span">商品种类：绝版装扮套装礼盒
+                                                                    游戏/区/服： 地下城与勇士 / 陕西区 / 陕西1区
+                                                                </div>
+                                                                <span class="price flex-justify-end"> ￥ <i
+                                                                        class="new_price">779.98</i></span></div>
+                                                        </div>
+                                                    </div>
+                                                </div><!----><!----></div>
+                                        </div>
+                                    </div>
+                                    <div style="width: 100%; max-width: 100%;">
+                                        <div class="ant-col"
+                                             style="padding-left: 8px; padding-right: 8px; flex: 1 1 auto;">
+                                            <div class="ant-list-item ant-list-item-no-flex list-item mb-2">
+                                                <div class="ant-list-item-meta">
+                                                    <div class="ant-list-item-meta-avatar">
+                                                        <div class="game-img"
+                                                             style="background-image: url(&quot;https://utmall.oss-cn-hongkong.aliyuncs.com/goods/1692694562461main.png&quot;);"></div>
+                                                    </div>
+                                                    <div class="ant-list-item-meta-content">
+                                                        <h4 class="ant-list-item-meta-title">
+                                                            <div class="flex-align-center"><span class="tag px-1 mr-1">装备</span>
+                                                                <p class="title mt-2 flex-grow">
+                                                                    稀有装扮：金秋特别装扮（枪手用，带武器装扮）</p></div>
+                                                        </h4>
+                                                        <div class="ant-list-item-meta-description">
+                                                            <div class="description pr-4 flex flex-direction flex-justify-between">
+                                                                <div class="description-span">商品种类：支付宝活动日
+                                                                    游戏/区/服： 地下城与勇士 / 江苏区 / 江苏4区
+                                                                </div>
+                                                                <span class="price flex-justify-end"> ￥ <i
+                                                                        class="new_price">273.98</i></span></div>
+                                                        </div>
+                                                    </div>
+                                                </div><!----><!----></div>
+                                        </div>
+                                    </div>
+                                    <div style="width: 100%; max-width: 100%;">
+                                        <div class="ant-col"
+                                             style="padding-left: 8px; padding-right: 8px; flex: 1 1 auto;">
+                                            <div class="ant-list-item ant-list-item-no-flex list-item mb-2">
+                                                <div class="ant-list-item-meta">
+                                                    <div class="ant-list-item-meta-avatar">
+                                                        <div class="game-img"
+                                                             style="background-image: url(&quot;https://utmall.oss-cn-hongkong.aliyuncs.com/goods/1692694532724main.png&quot;);"></div>
+                                                    </div>
+                                                    <div class="ant-list-item-meta-content">
+                                                        <h4 class="ant-list-item-meta-title">
+                                                            <div class="flex-align-center"><span class="tag px-1 mr-1">装备</span>
+                                                                <p class="title mt-2 flex-grow">
+                                                                    2023新春装扮套装（8件时装+皮肤）可以合龙袍天空</p></div>
+                                                        </h4>
+                                                        <div class="ant-list-item-meta-description">
+                                                            <div class="description pr-4 flex flex-direction flex-justify-between">
+                                                                <div class="description-span">商品种类：支付宝活动日
+                                                                    游戏/区/服： 地下城与勇士 / 广东区 / 广东5区
+                                                                </div>
+                                                                <span class="price flex-justify-end"> ￥ <i
+                                                                        class="new_price">85.88</i></span></div>
+                                                        </div>
+                                                    </div>
+                                                </div><!----><!----></div>
+                                        </div>
+                                    </div>
+                                    <div style="width: 100%; max-width: 100%;">
+                                        <div class="ant-col"
+                                             style="padding-left: 8px; padding-right: 8px; flex: 1 1 auto;">
+                                            <div class="ant-list-item ant-list-item-no-flex list-item mb-2">
+                                                <div class="ant-list-item-meta">
+                                                    <div class="ant-list-item-meta-avatar">
+                                                        <div class="game-img"
+                                                             style="background-image: url(&quot;https://utmall.oss-cn-hongkong.aliyuncs.com/goods/1692694500125main.png&quot;);"></div>
+                                                    </div>
+                                                    <div class="ant-list-item-meta-content">
+                                                        <h4 class="ant-list-item-meta-title">
+                                                            <div class="flex-align-center"><span class="tag px-1 mr-1">账号</span>
+                                                                <p class="title mt-2 flex-grow">5.0奶爸全身红111件红12细节完美
+                                                                    buff量800</p></div>
+                                                        </h4>
+                                                        <div class="ant-list-item-meta-description">
+                                                            <div class="description pr-4 flex flex-direction flex-justify-between">
+                                                                <div class="description-span">商品种类：游戏帐号
+                                                                    游戏/区/服： 地下城与勇士 / 河南区 / 河南3区
+                                                                </div>
+                                                                <span class="price flex-justify-end"> ￥ <i
+                                                                        class="new_price">1500.00</i></span></div>
+                                                        </div>
+                                                    </div>
+                                                </div><!----><!----></div>
+                                        </div>
+                                    </div>
+                                    <div style="width: 100%; max-width: 100%;">
+                                        <div class="ant-col"
+                                             style="padding-left: 8px; padding-right: 8px; flex: 1 1 auto;">
+                                            <div class="ant-list-item ant-list-item-no-flex list-item mb-2">
+                                                <div class="ant-list-item-meta">
+                                                    <div class="ant-list-item-meta-avatar">
+                                                        <div class="game-img"
+                                                             style="background-image: url(&quot;https://utmall.oss-cn-hongkong.aliyuncs.com/goods/1692694471642main.png&quot;);"></div>
+                                                    </div>
+                                                    <div class="ant-list-item-meta-content">
+                                                        <h4 class="ant-list-item-meta-title">
+                                                            <div class="flex-align-center"><span class="tag px-1 mr-1">账号</span>
+                                                                <p class="title mt-2 flex-grow">
+                                                                    4.3旅人13武器全身红附魔毕业，玲珑灿烂徽章。</p></div>
+                                                        </h4>
+                                                        <div class="ant-list-item-meta-description">
+                                                            <div class="description pr-4 flex flex-direction flex-justify-between">
+                                                                <div class="description-span">商品种类：游戏帐号
+                                                                    游戏/区/服： 地下城与勇士 / 河南区 / 河南1区
+                                                                </div>
+                                                                <span class="price flex-justify-end"> ￥ <i
+                                                                        class="new_price">178.00</i></span></div>
+                                                        </div>
+                                                    </div>
+                                                </div><!----><!----></div>
+                                        </div>
+                                    </div>
+                                    <div style="width: 100%; max-width: 100%;">
+                                        <div class="ant-col"
+                                             style="padding-left: 8px; padding-right: 8px; flex: 1 1 auto;">
+                                            <div class="ant-list-item ant-list-item-no-flex list-item mb-2">
+                                                <div class="ant-list-item-meta">
+                                                    <div class="ant-list-item-meta-avatar">
+                                                        <div class="game-img"
+                                                             style="background-image: url(&quot;https://utmall.oss-cn-hongkong.aliyuncs.com/goods/1692694445158main.png&quot;);"></div>
+                                                    </div>
+                                                    <div class="ant-list-item-meta-content">
+                                                        <h4 class="ant-list-item-meta-title">
+                                                            <div class="flex-align-center"><span class="tag px-1 mr-1">装备</span>
+                                                                <p class="title mt-2 flex-grow">2000个矛盾结晶，快速邮件，全天发货</p>
+                                                            </div>
+                                                        </h4>
+                                                        <div class="ant-list-item-meta-description">
+                                                            <div class="description pr-4 flex flex-direction flex-justify-between">
+                                                                <div class="description-span">商品种类：支付宝活动日
+                                                                    游戏/区/服： 地下城与勇士 / 广东区 / 广东6区
+                                                                </div>
+                                                                <span class="price flex-justify-end"> ￥ <i
+                                                                        class="new_price">328.98</i></span></div>
+                                                        </div>
+                                                    </div>
+                                                </div><!----><!----></div>
+                                        </div>
+                                    </div>
+                                    <div style="width: 100%; max-width: 100%;">
+                                        <div class="ant-col"
+                                             style="padding-left: 8px; padding-right: 8px; flex: 1 1 auto;">
+                                            <div class="ant-list-item ant-list-item-no-flex list-item mb-2">
+                                                <div class="ant-list-item-meta">
+                                                    <div class="ant-list-item-meta-avatar">
+                                                        <div class="game-img"
+                                                             style="background-image: url(&quot;https://utmall.oss-cn-hongkong.aliyuncs.com/goods/1692694404769main.png&quot;);"></div>
+                                                    </div>
+                                                    <div class="ant-list-item-meta-content">
+                                                        <h4 class="ant-list-item-meta-title">
+                                                            <div class="flex-align-center"><span class="tag px-1 mr-1">装备</span>
+                                                                <p class="title mt-2 flex-grow">2023新春礼包装扮，全天在线！</p>
+                                                            </div>
+                                                        </h4>
+                                                        <div class="ant-list-item-meta-description">
+                                                            <div class="description pr-4 flex flex-direction flex-justify-between">
+                                                                <div class="description-span">商品种类：支付宝活动日
+                                                                    游戏/区/服： 地下城与勇士 / 浙江区 / 浙江2区
+                                                                </div>
+                                                                <span class="price flex-justify-end"> ￥ <i
+                                                                        class="new_price">398.88</i></span></div>
+                                                        </div>
+                                                    </div>
+                                                </div><!----><!----></div>
+                                        </div>
+                                    </div>
+                                    <div style="width: 100%; max-width: 100%;">
+                                        <div class="ant-col"
+                                             style="padding-left: 8px; padding-right: 8px; flex: 1 1 auto;">
+                                            <div class="ant-list-item ant-list-item-no-flex list-item mb-2">
+                                                <div class="ant-list-item-meta">
+                                                    <div class="ant-list-item-meta-avatar">
+                                                        <div class="game-img"
+                                                             style="background-image: url(&quot;https://utmall.oss-cn-hongkong.aliyuncs.com/goods/1692694360086main.png&quot;);"></div>
+                                                    </div>
+                                                    <div class="ant-list-item-meta-content">
+                                                        <h4 class="ant-list-item-meta-title">
+                                                            <div class="flex-align-center"><span class="tag px-1 mr-1">装备</span>
+                                                                <p class="title mt-2 flex-grow">5套（三觉悟境装扮套装自选礼盒）永久期限</p>
+                                                            </div>
+                                                        </h4>
+                                                        <div class="ant-list-item-meta-description">
+                                                            <div class="description pr-4 flex flex-direction flex-justify-between">
+                                                                <div class="description-span">商品种类：支付宝活动日
+                                                                    游戏/区/服： 地下城与勇士 / 云贵区 / 贵州1区
+                                                                </div>
+                                                                <span class="price flex-justify-end"> ￥ <i
+                                                                        class="new_price">398.88</i></span></div>
+                                                        </div>
+                                                    </div>
+                                                </div><!----><!----></div>
+                                        </div>
+                                    </div>
+                                    <div style="width: 100%; max-width: 100%;">
+                                        <div class="ant-col"
+                                             style="padding-left: 8px; padding-right: 8px; flex: 1 1 auto;">
+                                            <div class="ant-list-item ant-list-item-no-flex list-item mb-2">
+                                                <div class="ant-list-item-meta">
+                                                    <div class="ant-list-item-meta-avatar">
+                                                        <div class="game-img"
+                                                             style="background-image: url(&quot;https://utmall.oss-cn-hongkong.aliyuncs.com/goods/1692694323427main.png&quot;);"></div>
+                                                    </div>
+                                                    <div class="ant-list-item-meta-content">
+                                                        <h4 class="ant-list-item-meta-title">
+                                                            <div class="flex-align-center"><span class="tag px-1 mr-1">游戏币</span>
+                                                                <p class="title mt-2 flex-grow">【当面交易】2900万金币=43.00元</p>
+                                                            </div>
+                                                        </h4>
+                                                        <div class="ant-list-item-meta-description">
+                                                            <div class="description pr-4 flex flex-direction flex-justify-between">
+                                                                <div class="description-span">商品种类：游戏币
+                                                                    游戏/区/服： 地下城与勇士 / 河南区 / 河南1区
+                                                                </div>
+                                                                <span class="price flex-justify-end"> ￥ <i
+                                                                        class="new_price">43.00</i></span></div>
+                                                        </div>
+                                                    </div>
+                                                </div><!----><!----></div>
+                                        </div>
+                                    </div>
+                                    <div style="width: 100%; max-width: 100%;">
+                                        <div class="ant-col"
+                                             style="padding-left: 8px; padding-right: 8px; flex: 1 1 auto;">
+                                            <div class="ant-list-item ant-list-item-no-flex list-item mb-2">
+                                                <div class="ant-list-item-meta">
+                                                    <div class="ant-list-item-meta-avatar">
+                                                        <div class="game-img"
+                                                             style="background-image: url(&quot;https://utmall.oss-cn-hongkong.aliyuncs.com/goods/1692694292350main.png&quot;);"></div>
+                                                    </div>
+                                                    <div class="ant-list-item-meta-content">
+                                                        <h4 class="ant-list-item-meta-title">
+                                                            <div class="flex-align-center"><span class="tag px-1 mr-1">账号</span>
+                                                                <p class="title mt-2 flex-grow">漫游4.75名望外带一个奶妈一个剑魂</p>
+                                                            </div>
+                                                        </h4>
+                                                        <div class="ant-list-item-meta-description">
+                                                            <div class="description pr-4 flex flex-direction flex-justify-between">
+                                                                <div class="description-span">商品种类：游戏帐号
+                                                                    游戏/区/服： 地下城与勇士 / 山东区 / 山东6区
+                                                                </div>
+                                                                <span class="price flex-justify-end"> ￥ <i
+                                                                        class="new_price">800.00</i></span></div>
+                                                        </div>
+                                                    </div>
+                                                </div><!----><!----></div>
+                                        </div>
+                                    </div>
+                                    <div style="width: 100%; max-width: 100%;">
+                                        <div class="ant-col"
+                                             style="padding-left: 8px; padding-right: 8px; flex: 1 1 auto;">
+                                            <div class="ant-list-item ant-list-item-no-flex list-item mb-2">
+                                                <div class="ant-list-item-meta">
+                                                    <div class="ant-list-item-meta-avatar">
+                                                        <div class="game-img"
+                                                             style="background-image: url(&quot;https://utmall.oss-cn-hongkong.aliyuncs.com/goods/1692694264156main.png&quot;);"></div>
+                                                    </div>
+                                                    <div class="ant-list-item-meta-content">
+                                                        <h4 class="ant-list-item-meta-title">
+                                                            <div class="flex-align-center"><span class="tag px-1 mr-1">账号</span>
+                                                                <p class="title mt-2 flex-grow">稀有装扮：金秋特别装扮</p></div>
+                                                        </h4>
+                                                        <div class="ant-list-item-meta-description">
+                                                            <div class="description pr-4 flex flex-direction flex-justify-between">
+                                                                <div class="description-span">商品种类：支付宝活动日
+                                                                    游戏/区/服： 地下城与勇士 / 重庆区 / 重庆1区
+                                                                    稀有装扮：金秋特别装扮（枪手用，带武器装扮）/若梦奇谭装扮（圣法用），2选1a
+                                                                </div>
+                                                                <span class="price flex-justify-end"> ￥ <i
+                                                                        class="new_price">273.98</i></span></div>
+                                                        </div>
+                                                    </div>
+                                                </div><!----><!----></div>
+                                        </div>
+                                    </div>
+                                    <div style="width: 100%; max-width: 100%;">
+                                        <div class="ant-col"
+                                             style="padding-left: 8px; padding-right: 8px; flex: 1 1 auto;">
+                                            <div class="ant-list-item ant-list-item-no-flex list-item mb-2">
+                                                <div class="ant-list-item-meta">
+                                                    <div class="ant-list-item-meta-avatar">
+                                                        <div class="game-img"
+                                                             style="background-image: url(&quot;https://utmall.oss-cn-hongkong.aliyuncs.com/goods/1692694217422main.png&quot;);"></div>
+                                                    </div>
+                                                    <div class="ant-list-item-meta-content">
+                                                        <h4 class="ant-list-item-meta-title">
+                                                            <div class="flex-align-center"><span class="tag px-1 mr-1">游戏币</span>
+                                                                <p class="title mt-2 flex-grow">
+                                                                    【拍卖交易】67000万金币=1000.00元</p></div>
+                                                        </h4>
+                                                        <div class="ant-list-item-meta-description">
+                                                            <div class="description pr-4 flex flex-direction flex-justify-between">
+                                                                <div class="description-span">商品种类：游戏币
+                                                                    游戏/区/服： 地下城与勇士 / 陕西区 / 陕西1区
+                                                                </div>
+                                                                <span class="price flex-justify-end"> ￥ <i
+                                                                        class="new_price">1000.00</i></span></div>
+                                                        </div>
+                                                    </div>
+                                                </div><!----><!----></div>
+                                        </div>
+                                    </div>
+                                    <div style="width: 100%; max-width: 100%;">
+                                        <div class="ant-col"
+                                             style="padding-left: 8px; padding-right: 8px; flex: 1 1 auto;">
+                                            <div class="ant-list-item ant-list-item-no-flex list-item mb-2">
+                                                <div class="ant-list-item-meta">
+                                                    <div class="ant-list-item-meta-avatar">
+                                                        <div class="game-img"
+                                                             style="background-image: url(&quot;https://utmall.oss-cn-hongkong.aliyuncs.com/goods/1692694180369main.png&quot;);"></div>
+                                                    </div>
+                                                    <div class="ant-list-item-meta-content">
+                                                        <h4 class="ant-list-item-meta-title">
+                                                            <div class="flex-align-center"><span class="tag px-1 mr-1">账号</span>
+                                                                <p class="title mt-2 flex-grow">
+                                                                    8件玉荣，玉荣力900点，可刷1-18阶，技能伤害增加300</p></div>
+                                                        </h4>
+                                                        <div class="ant-list-item-meta-description">
+                                                            <div class="description pr-4 flex flex-direction flex-justify-between">
+                                                                <div class="description-span">商品种类：玉荣
+                                                                    游戏/区/服： 地下城与勇士 / 广东区 / 广东2区
+                                                                </div>
+                                                                <span class="price flex-justify-end"> ￥ <i
+                                                                        class="new_price">84.98</i></span></div>
+                                                        </div>
+                                                    </div>
+                                                </div><!----><!----></div>
+                                        </div>
+                                    </div>
+                                    <div style="width: 100%; max-width: 100%;">
+                                        <div class="ant-col"
+                                             style="padding-left: 8px; padding-right: 8px; flex: 1 1 auto;">
+                                            <div class="ant-list-item ant-list-item-no-flex list-item mb-2">
+                                                <div class="ant-list-item-meta">
+                                                    <div class="ant-list-item-meta-avatar">
+                                                        <div class="game-img"
+                                                             style="background-image: url(&quot;https://utmall.oss-cn-hongkong.aliyuncs.com/goods/1692694136098main.png&quot;);"></div>
+                                                    </div>
+                                                    <div class="ant-list-item-meta-content">
+                                                        <h4 class="ant-list-item-meta-title">
+                                                            <div class="flex-align-center"><span class="tag px-1 mr-1">游戏币</span>
+                                                                <p class="title mt-2 flex-grow">
+                                                                    【邮寄交易】10440万金币=145.00元【在线发货，方</p></div>
+                                                        </h4>
+                                                        <div class="ant-list-item-meta-description">
+                                                            <div class="description pr-4 flex flex-direction flex-justify-between">
+                                                                <div class="description-span">商品种类：游戏币
+                                                                    游戏/区/服： 地下城与勇士 / 广东区 / 广东7区
+                                                                </div>
+                                                                <span class="price flex-justify-end"> ￥ <i
+                                                                        class="new_price">145.00</i></span></div>
+                                                        </div>
+                                                    </div>
+                                                </div><!----><!----></div>
+                                        </div>
+                                    </div>
+                                    <div style="width: 100%; max-width: 100%;">
+                                        <div class="ant-col"
+                                             style="padding-left: 8px; padding-right: 8px; flex: 1 1 auto;">
+                                            <div class="ant-list-item ant-list-item-no-flex list-item mb-2">
+                                                <div class="ant-list-item-meta">
+                                                    <div class="ant-list-item-meta-avatar">
+                                                        <div class="game-img"
+                                                             style="background-image: url(&quot;https://utmall.oss-cn-hongkong.aliyuncs.com/goods/1692694110758main.png&quot;);"></div>
+                                                    </div>
+                                                    <div class="ant-list-item-meta-content">
+                                                        <h4 class="ant-list-item-meta-title">
+                                                            <div class="flex-align-center"><span class="tag px-1 mr-1">账号</span>
+                                                                <p class="title mt-2 flex-grow">
+                                                                    红11红12红3武器新双至尊龙袍复仇5.1w+</p></div>
+                                                        </h4>
+                                                        <div class="ant-list-item-meta-description">
+                                                            <div class="description pr-4 flex flex-direction flex-justify-between">
+                                                                <div class="description-span">商品种类：游戏帐号
+                                                                    游戏/区/服： 地下城与勇士 / 广西区 / 广西3区
+                                                                    A找回包赔号-10套春节红11连体14个C奶3套龙袍信用分高！红11红12红3武器新双至尊龙袍复仇5.1w+红10奶爸男大枪奶萝
+                                                                </div>
+                                                                <span class="price flex-justify-end"> ￥ <i
+                                                                        class="new_price">2288.00</i></span></div>
+                                                        </div>
+                                                    </div>
+                                                </div><!----><!----></div>
+                                        </div>
+                                    </div>
+                                    <div style="width: 100%; max-width: 100%;">
+                                        <div class="ant-col"
+                                             style="padding-left: 8px; padding-right: 8px; flex: 1 1 auto;">
+                                            <div class="ant-list-item ant-list-item-no-flex list-item mb-2">
+                                                <div class="ant-list-item-meta">
+                                                    <div class="ant-list-item-meta-avatar">
+                                                        <div class="game-img"
+                                                             style="background-image: url(&quot;https://utmall.oss-cn-hongkong.aliyuncs.com/goods/1692694062318main.png&quot;);"></div>
+                                                    </div>
+                                                    <div class="ant-list-item-meta-content">
+                                                        <h4 class="ant-list-item-meta-title">
+                                                            <div class="flex-align-center"><span class="tag px-1 mr-1">装备</span>
+                                                                <p class="title mt-2 flex-grow">
+                                                                    神器玉荣/全套共8个（玉荣力1500点）可刷18阶，邮寄闪发</p></div>
+                                                        </h4>
+                                                        <div class="ant-list-item-meta-description">
+                                                            <div class="description pr-4 flex flex-direction flex-justify-between">
+                                                                <div class="description-span">商品种类：玉荣
+                                                                    游戏/区/服： 地下城与勇士 / 上海区 / 上海1区
+                                                                </div>
+                                                                <span class="price flex-justify-end"> ￥ <i
+                                                                        class="new_price">158.00</i></span></div>
+                                                        </div>
+                                                    </div>
+                                                </div><!----><!----></div>
+                                        </div>
+                                    </div>
+                                    <div style="width: 100%; max-width: 100%;">
+                                        <div class="ant-col"
+                                             style="padding-left: 8px; padding-right: 8px; flex: 1 1 auto;">
+                                            <div class="ant-list-item ant-list-item-no-flex list-item mb-2">
+                                                <div class="ant-list-item-meta">
+                                                    <div class="ant-list-item-meta-avatar">
+                                                        <div class="game-img"
+                                                             style="background-image: url(&quot;https://utmall.oss-cn-hongkong.aliyuncs.com/goods/1692694034744main.png&quot;);"></div>
+                                                    </div>
+                                                    <div class="ant-list-item-meta-content">
+                                                        <h4 class="ant-list-item-meta-title">
+                                                            <div class="flex-align-center"><span class="tag px-1 mr-1">装备</span>
+                                                                <p class="title mt-2 flex-grow">
+                                                                    100个稀有辟邪玉，分解可解300个辟邪玉魂，邮寄发货！</p></div>
+                                                        </h4>
+                                                        <div class="ant-list-item-meta-description">
+                                                            <div class="description pr-4 flex flex-direction flex-justify-between">
+                                                                <div class="description-span">商品种类：玉荣
+                                                                    游戏/区/服： 地下城与勇士 / 广东区 / 广东6区
+                                                                </div>
+                                                                <span class="price flex-justify-end"> ￥ <i
+                                                                        class="new_price">29.80</i></span></div>
+                                                        </div>
+                                                    </div>
+                                                </div><!----><!----></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!---->
+                        <div class="loading-more flex-center py-2">
+                            <button class="ant-btn ant-btn-text" type="button" style="color: rgba(0, 0, 0, 0.3);">
+                                <!----><span>点击加载更多</span></button>
+                        </div>
+                    </div><!-- <GoodItem v-for="item in 20" :key="item"></GoodItem> --></div>
+                <div class="ant-back-top" style="display: none;">
+                    <div class="ant-back-top-content">
+                        <div class="ant-back-top-icon"><span role="img" aria-label="vertical-align-top"
+                                                             class="anticon anticon-vertical-align-top"><svg
+                                focusable="false" class="" data-icon="vertical-align-top" width="1em" height="1em"
+                                fill="currentColor" aria-hidden="true" viewBox="64 64 896 896"><path
+                                d="M859.9 168H164.1c-4.5 0-8.1 3.6-8.1 8v60c0 4.4 3.6 8 8.1 8h695.8c4.5 0 8.1-3.6 8.1-8v-60c0-4.4-3.6-8-8.1-8zM518.3 355a8 8 0 00-12.6 0l-112 141.7a7.98 7.98 0 006.3 12.9h73.9V848c0 4.4 3.6 8 8 8h60c4.4 0 8-3.6 8-8V509.7H624c6.7 0 10.4-7.7 6.3-12.9L518.3 355z"></path></svg></span>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </section>
+    </section>
+</div>
+
+
+<div>
+    <div class="ant-modal-root">
+        <div class="ant-modal-mask"></div>
+        <div tabindex="-1" class="ant-modal-wrap" role="dialog">
+            <div class="ant-modal" role="document" style="width: 400px; transform-origin: 1022px -68px;">
+                <div tabindex="0" aria-hidden="true"
+                     style="width: 0px; height: 0px; overflow: hidden; outline: none;"></div>
+                <div class="ant-modal-content">
+                    <button type="button" aria-label="Close" class="ant-modal-close"><span
+                            class="ant-modal-close-x"><span role="img" aria-label="close"
+                                                            class="anticon anticon-close ant-modal-close-icon"><svg
+                            focusable="false" class="" data-icon="close" width="1em" height="1em" fill="currentColor"
+                            aria-hidden="true" fill-rule="evenodd" viewBox="64 64 896 896"><path
+                            d="M799.86 166.31c.02 0 .04.02.08.06l57.69 57.7c.04.03.05.05.06.08a.12.12 0 010 .06c0 .03-.02.05-.06.09L569.93 512l287.7 287.7c.04.04.05.06.06.09a.12.12 0 010 .07c0 .02-.02.04-.06.08l-57.7 57.69c-.03.04-.05.05-.07.06a.12.12 0 01-.07 0c-.03 0-.05-.02-.09-.06L512 569.93l-287.7 287.7c-.04.04-.06.05-.09.06a.12.12 0 01-.07 0c-.02 0-.04-.02-.08-.06l-57.69-57.7c-.04-.03-.05-.05-.06-.07a.12.12 0 010-.07c0-.03.02-.05.06-.09L454.07 512l-287.7-287.7c-.04-.04-.05-.06-.06-.09a.12.12 0 010-.07c0-.02.02-.04.06-.08l57.7-57.69c.03-.04.05-.05.07-.06a.12.12 0 01.07 0c.03 0 .05.02.09.06L512 454.07l287.7-287.7c.04-.04.06-.05.09-.06a.12.12 0 01.07 0z"></path></svg></span></span>
+                    </button><!---->
+                    <div class="ant-modal-body">
+                        <div data-v-02899a6b="" class="login-form py-2 px-4">
+                            <div data-v-02899a6b="" class="title flex-center pb-4"><h2 data-v-02899a6b=""
+                                                                                       class="title"></h2>
+                                <div data-v-02899a6b="" class="ant-tabs ant-tabs-top ant-tabs-centered"
+                                     style="width: 100%;">
+                                    <div role="tablist" class="ant-tabs-nav"><!---->
+                                        <div class="ant-tabs-nav-wrap">
+                                            <div class="ant-tabs-nav-list" style="transform: translate(0px, 0px);">
+                                                <div class="ant-tabs-tab ant-tabs-tab-active">
+                                                    <div role="tab" aria-selected="true" class="ant-tabs-tab-btn"
+                                                         tabindex="0" id="rc-tabs-0-tab-2"
+                                                         aria-controls="rc-tabs-0-panel-2">短信登录
+                                                    </div><!----></div>
+                                                <div class="ant-tabs-tab">
+                                                    <div role="tab" aria-selected="false" class="ant-tabs-tab-btn"
+                                                         tabindex="0" id="rc-tabs-0-tab-3"
+                                                         aria-controls="rc-tabs-0-panel-3">邮箱登录
+                                                    </div>
+                                                    <!----></div><!---->
+                                                <div class="ant-tabs-ink-bar ant-tabs-ink-bar-animated"
+                                                     style="left: 0px; width: 56px;"></div>
+                                            </div>
+                                        </div>
+                                        <div class="ant-tabs-nav-operations ant-tabs-nav-operations-hidden">
+                                            <!---->
+                                            <button type="button" class="ant-tabs-nav-more" tabindex="-1"
+                                                    aria-hidden="true" aria-haspopup="listbox"
+                                                    aria-controls="rc-tabs-0-more-popup" id="rc-tabs-0-more"
+                                                    aria-expanded="false" style="visibility: hidden; order: 1;">
+<span role="img" aria-label="ellipsis" class="anticon anticon-ellipsis"><svg focusable="false" class=""
+                                                                             data-icon="ellipsis"
+                                                                             width="1em" height="1em"
+                                                                             fill="currentColor" aria-hidden="true"
+                                                                             viewBox="64 64 896 896"><path d="M176 511a56 56 0 10112
+0 56 56 0 10-112 0zm280 0a56 56 0 10112 0 56 56 0 10-112 0zm280 0a56 56 0 10112 0 56 56 0 10-112 0z"></path></svg></span>
+                                            </button><!----></div><!----><!----></div>
+                                    <div class="ant-tabs-content-holder">
+                                        <div class="ant-tabs-content ant-tabs-content-top">
+                                            <div data-v-02899a6b="" role="tabpanel" tabindex="0" aria-hidden="false"
+                                                 class="ant-tabs-tabpane ant-tabs-tabpane-active" id="rc-tabs-0-panel-2"
+                                                 aria-labelledby="rc-tabs-0-tab-2">
+                                                <div data-v-02899a6b="" class="ant-spin-nested-loading full-width">
+                                                    <!---->
+                                                    <div class="ant-spin-container">
+                                                        <form class="ant-form ant-form-horizontal ft-form">
+                                                            <div class="ant-row"
+                                                                 style="margin-left: -4px; margin-right: -4px; row-gap: 0px;">
+                                                                <div class="ant-col ant-col-24 phone"
+                                                                     style="padding-left: 4px; padding-right: 4px;">
+                                                                    <div class="ant-row ant-form-item"
+                                                                         style="row-gap: 0px;"><!---->
+                                                                        <div class="ant-col ant-form-item-control">
+                                                                            <div class="ant-form-item-control-input">
+                                                                                <div class="ant-form-item-control-input-content">
+                                                                                    <div class="flex"><span
+                                                                                            class="ant-input-affix-wrapper"><!----><input
+                                                                                            placeholder="请输入您的手机号"
+                                                                                            maxlength="11" type="text"
+                                                                                            id="form_item_phone"
+                                                                                            class="ant-input"><span
+                                                                                            class="ant-input-suffix"><span
+                                                                                            role="button"
+                                                                                            aria-label="close-circle"
+                                                                                            tabindex="-1"
+                                                                                            class="anticon anticon-close-circle ant-input-clear-icon-hidden ant-input-clear-icon-has-suffix ant-input-clear-icon"><svg
+                                                                                            focusable="false" class=""
+                                                                                            data-icon="close-circle"
+                                                                                            width="1em" height="1em"
+                                                                                            fill="currentColor"
+                                                                                            aria-hidden="true"
+                                                                                            fill-rule="evenodd"
+                                                                                            viewBox="64 64 896 896"><path
+                                                                                            d="M512 64c247.4 0 448 200.6 448 448S759.4 960 512 960 64 759.4 64 512 264.6 64 512 64zm127.98 274.82h-.04l-.08.06L512 466.75 384.14 338.88c-.04-.05-.06-.06-.08-.06a.12.12 0 00-.07 0c-.03 0-.05.01-.09.05l-45.02 45.02a.2.2 0 00-.05.09.12.12 0 000 .07v.02a.27.27 0 00.06.06L466.75 512 338.88 639.86c-.05.04-.06.06-.06.08a.12.12 0 000 .07c0 .03.01.05.05.09l45.02 45.02a.2.2 0 00.09.05.12.12 0 00.07 0c.02 0 .04-.01.08-.05L512 557.25l127.86 127.87c.04.04.06.05.08.05a.12.12 0 00.07 0c.03 0 .05-.01.09-.05l45.02-45.02a.2.2 0 00.05-.09.12.12 0 000-.07v-.02a.27.27 0 00-.05-.06L557.25 512l127.87-127.86c.04-.04.05-.06.05-.08a.12.12 0 000-.07c0-.03-.01-.05-.05-.09l-45.02-45.02a.2.2 0 00-.09-.05.12.12 0 00-.07 0z"></path></svg></span>
+                                                                                        <!----></span></span></div>
+                                                                                </div><!----></div><!----><!----></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="ant-row"
+                                                                 style="margin-left: -4px; margin-right: -4px; row-gap: 0px;">
+                                                                <div class="ant-col ant-col-24 verifyCode"
+                                                                     style="padding-left: 4px; padding-right: 4px;">
+                                                                    <div class="ant-row ant-form-item"
+                                                                         style="row-gap: 0px;"><!---->
+                                                                        <div class="ant-col ant-form-item-control">
+                                                                            <div class="ant-form-item-control-input">
+                                                                                <div class="ant-form-item-control-input-content">
+                                                                                    <div data-v-b92cff1b=""
+                                                                                         class="flex verification-code">
+                                                                                        <span data-v-b92cff1b=""
+                                                                                              class="ant-input-group-wrapper"><span
+                                                                                                class="ant-input-wrapper ant-input-group"><!----><span
+                                                                                                class="ant-input-affix-wrapper"><!----><input
+                                                                                                placeholder="请输入验证码"
+                                                                                                type="text"
+                                                                                                id="form_item_verifyCode"
+                                                                                                class="ant-input"><span
+                                                                                                class="ant-input-suffix"><span
+                                                                                                role="button"
+                                                                                                aria-label="close-circle"
+                                                                                                tabindex="-1"
+                                                                                                class="anticon anticon-close-circle ant-input-clear-icon-hidden ant-input-clear-icon-has-suffix ant-input-clear-icon"><svg
+                                                                                                focusable="false"
+                                                                                                class=""
+                                                                                                data-icon="close-circle"
+                                                                                                width="1em" height="1em"
+                                                                                                fill="currentColor"
+                                                                                                aria-hidden="true"
+                                                                                                fill-rule="evenodd"
+                                                                                                viewBox="64 64 896 896"><path
+                                                                                                d="M512 64c247.4 0 448 200.6 448 448S759.4 960 512 960 64 759.4 64 512 264.6 64 512 64zm127.98 274.82h-.04l-.08.06L512 466.75 384.14 338.88c-.04-.05-.06-.06-.08-.06a.12.12 0 00-.07 0c-.03 0-.05.01-.09.05l-45.02 45.02a.2.2 0 00-.05.09.12.12 0 000 .07v.02a.27.27 0 00.06.06L466.75 512 338.88 639.86c-.05.04-.06.06-.06.08a.12.12 0 000 .07c0 .03.01.05.05.09l45.02 45.02a.2.2 0 00.09.05.12.12 0 00.07 0c.02 0 .04-.01.08-.05L512 557.25l127.86 127.87c.04.04.06.05.08.05a.12.12 0 00.07 0c.03 0 .05-.01.09-.05l45.02-45.02a.2.2 0 00.05-.09.12.12 0 000-.07v-.02a.27.27 0 00-.05-.06L557.25 512l127.87-127.86c.04-.04.05-.06.05-.08a.12.12 0 000-.07c0-.03-.01-.05-.05-.09l-45.02-45.02a.2.2 0 00-.09-.05.12.12 0 00-.07 0z"></path></svg></span>
+                                                                                            <!----></span></span><span
+                                                                                                class="ant-input-group-addon"><div
+                                                                                                data-v-b92cff1b=""><img
+                                                                                                data-v-b92cff1b=""
+                                                                                                height="30"
+                                                                                                src="./UT游戏装备交易商城_files/verificationCode"></div></span></span></span>
+                                                                                    </div>
+                                                                                </div><!----></div><!----><!----></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="ant-row"
+                                                                 style="margin-left: -4px; margin-right: -4px; row-gap: 0px;">
+                                                                <div class="ant-col ant-col-24 code"
+                                                                     style="padding-left: 4px; padding-right: 4px;">
+                                                                    <div class="ant-row ant-form-item"
+                                                                         style="row-gap: 0px;"><!---->
+                                                                        <div class="ant-col ant-form-item-control">
+                                                                            <div class="ant-form-item-control-input">
+                                                                                <div class="ant-form-item-control-input-content">
+                                                                                    <div data-v-562760dc=""
+                                                                                         class="phone pb-4 pl-2"></div>
+                                                                                    <div data-v-562760dc=""
+                                                                                         class="flex phone-code"><span
+                                                                                            data-v-562760dc=""
+                                                                                            class="ant-input-group-wrapper"><span
+                                                                                            class="ant-input-wrapper ant-input-group"><!----><span
+                                                                                            class="ant-input-affix-wrapper"><!----><input
+                                                                                            placeholder="请输入短信动态密码"
+                                                                                            maxlength="6" type="text"
+                                                                                            loading="false"
+                                                                                            id="form_item_code"
+                                                                                            class="ant-input"><span
+                                                                                            class="ant-input-suffix"><span
+                                                                                            role="button"
+                                                                                            aria-label="close-circle"
+                                                                                            tabindex="-1"
+                                                                                            class="anticon anticon-close-circle ant-input-clear-icon-hidden ant-input-clear-icon-has-suffix ant-input-clear-icon"><svg
+                                                                                            focusable="false" class=""
+                                                                                            data-icon="close-circle"
+                                                                                            width="1em" height="1em"
+                                                                                            fill="currentColor"
+                                                                                            aria-hidden="true"
+                                                                                            fill-rule="evenodd"
+                                                                                            viewBox="64 64 896 896"><path
+                                                                                            d="M512 64c247.4 0 448 200.6 448 448S759.4 960 512 960 64 759.4 64 512 264.6 64 512 64zm127.98 274.82h-.04l-.08.06L512 466.75 384.14 338.88c-.04-.05-.06-.06-.08-.06a.12.12 0 00-.07 0c-.03 0-.05.01-.09.05l-45.02 45.02a.2.2 0 00-.05.09.12.12 0 000 .07v.02a.27.27 0 00.06.06L466.75 512 338.88 639.86c-.05.04-.06.06-.06.08a.12.12 0 000 .07c0 .03.01.05.05.09l45.02 45.02a.2.2 0 00.09.05.12.12 0 00.07 0c.02 0 .04-.01.08-.05L512 557.25l127.86 127.87c.04.04.06.05.08.05a.12.12 0 00.07 0c.03 0 .05-.01.09-.05l45.02-45.02a.2.2 0 00.05-.09.12.12 0 000-.07v-.02a.27.27 0 00-.05-.06L557.25 512l127.87-127.86c.04-.04.05-.06.05-.08a.12.12 0 000-.07c0-.03-.01-.05-.05-.09l-45.02-45.02a.2.2 0 00-.09-.05.12.12 0 00-.07 0z"></path></svg></span>
+                                                                                        <!----></span></span><span
+                                                                                            class="ant-input-group-addon"><div
+                                                                                            data-v-562760dc="">获取动态码</div></span></span></span>
+                                                                                    </div><!--v-if--></div><!----></div>
+                                                                            <!----><!----></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div data-v-02899a6b="" role="tabpanel" tabindex="-1" aria-hidden="true"
+                                                 class="ant-tabs-tabpane" id="rc-tabs-0-panel-3"
+                                                 aria-labelledby="rc-tabs-0-tab-3" style="display: none;"><!----></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button data-v-02899a6b="" class="ant-btn ant-btn-primary ant-btn-block mt-2" type="button">
+                                <!----><span>登 录</span></button>
+                        </div>
+                    </div><!----></div>
+                <div tabindex="0" aria-hidden="true"
+                     style="width: 0px; height: 0px; overflow: hidden; outline: none;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
+
+
+
+

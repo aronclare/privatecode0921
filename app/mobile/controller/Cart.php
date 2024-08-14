@@ -23,6 +23,7 @@ class Cart extends  Base
     public function index(){
 
         $userSessionData = $this->isLogin();
+
         $cartData=[];
         $cartDataTmp=Db::name('cart')->where('user_id',$userSessionData['id'])->order('id desc')->select()->toArray();
         foreach($cartDataTmp as $k=>$v){
@@ -40,9 +41,10 @@ class Cart extends  Base
                 $cartData[$k]['goods_price']=Db::name('goods_standard')->where('goods_id',$v['goods_id'])->where('sku',$v['sku'])->value('goods_price');
             }
 
-            
         }
 
+
+var_dump($cartData);die;
         $total_price=0;
         return view('',[
             'total_price'=>$total_price,
