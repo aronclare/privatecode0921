@@ -2325,6 +2325,7 @@ post
 }
 
 //添加购物车
+http://code0921.com/index.php/mobile/cart/add_to_cart
 post      
 goods_id  5  user_id    amount  20  sku   2,6,24   sku为商品型号
 
@@ -2332,7 +2333,7 @@ goods_id  5  user_id    amount  20  sku   2,6,24   sku为商品型号
 http://code0921.com/index.php/mobile/cart/update_cart_status
 参数  购物车列表id    status  选中状态
 
-购物车删除一条记录
+购物车删除一条记录    //移除购物车
 http://code0921.com/index.php/mobile/cart/delete_to_cart
 id
 //清空购物车
@@ -2344,6 +2345,103 @@ status  =0 或1
 //购物车数量增减
 http://code0921.com/index.php/mobile/cart/update_cart_amount
 id   amount
+
+//订单预览
+{
+	"address": {
+		"id": 5,
+		"shou_name": "sfsfsf",  title
+		"shou_address": "sfdsfsfsf",
+		"shou_mobile": "32554353535",
+		"isdefault": 1,
+		"user_id": 39,
+		"province": "北京市",
+		"city": "北京市市辖区",
+		"district": "东城区",
+		"create_at": null,
+		"update_at": null
+	},
+	"carts": [
+		{
+			"id": 52,
+			"status": 1,  is_locked
+			"goods_id": 5,
+			"amount": 297,
+			"sku": "128G,玫瑰粉,标准套餐",
+			"created_at": "1723709968",
+			"updated_at": "1723709968",
+			"user_id": 39,
+			"num": "3",
+			"goods": {
+				"goods_id": 5,
+				"goods_name": "智睿LED灯泡 10只装",
+				"goods_thumb": "/public/upload/20200625/b014f074c410cd1f72b2c05e5dc37d04.jpg",
+				"goods_price": "99",
+				"single_standard": 1
+			},
+			"goods_price": "99"
+		},
+		{
+			"id": 51,
+			"status": 1,
+			"goods_id": 5,
+			"amount": 218,
+			"sku": "64G,玫瑰粉,豪华套餐",
+			"created_at": "1723709105",
+			"updated_at": "1723709105",
+			"user_id": 39,
+			"num": "2",
+			"goods": {
+				"goods_id": 5,
+				"goods_name": "智睿LED灯泡 10只装",
+				"goods_thumb": "/public/upload/20200625/b014f074c410cd1f72b2c05e5dc37d04.jpg",
+				"goods_price": "99",
+				"single_standard": 1
+			},
+			"goods_price": "99"
+		},
+		{
+			"id": 47,
+			"status": 1,
+			"goods_id": 12,
+			"amount": 1,
+			"sku": "43寸,黑色",
+			"created_at": null,
+			"updated_at": null,
+			"user_id": 39,
+			"num": "1",
+			"goods": {
+				"goods_id": 12,
+				"goods_name": "全面屏电视E43K",
+				"goods_thumb": "/public/upload/20200921/266ea6ccc529110760cb3b238b8528da.jpg",
+				"goods_price": "1300",
+				"single_standard": 2
+			},
+			"goods_price": "1300"
+		},
+		{
+			"id": 46,
+			"status": 1,
+			"goods_id": 6,
+			"amount": 2,
+			"sku": "128G,玫瑰粉,标准套餐",
+			"created_at": null,
+			"updated_at": null,
+			"user_id": 39,
+			"num": "1",
+			"goods": {
+				"goods_id": 6,
+				"goods_name": "小米33",
+				"goods_thumb": "/public/upload/20200810/7c2921c04fda2943e8b4d41011ea99d1.jpg",
+				"goods_price": "1900",
+				"single_standard": 2
+			},
+			"goods_price": "2000"
+		}
+	]
+}
+
+
 
 地址列表、添加地址   数据为空显示地址列表，不为空为添加地址
 http://code09211.cc/mobile/order/address

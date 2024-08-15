@@ -31,7 +31,7 @@ export const apiUpdateAddress = (id,params) => http.put(`/api/address/${id}`,par
 
 
 //以下五个接口需要实际支付场景
-export const apiTrade = () => http.get('/api/orders/preview')   //preview预览
+export const apiTrade = () => http.get('/api/orders/preview')   //preview 订单预览
 export const apiSubmitTrade = params => http.post(`/api/orders`,params)// 提交订单
 export const apiTradeList = params => http.get(`/api/orders`,{params})// 订单列表
 export const apiorderDetail = (order,params) => http.get(`/api/orders/${order}`,{params})// 订单详细

@@ -145,7 +145,7 @@ class User extends Base
     public function avatar()
     {
 
-        if (request()->isPost()) {
+        if (request()->isPost()){
             $data = request()->post();
             if (!empty($_FILES['avatar']['name'])) {
                 // 上传图片
@@ -173,7 +173,10 @@ class User extends Base
     public function login()
 
     {
+
+
         $sessionUserData = session('sessionUserData');
+
         if (!empty($sessionUserData)) {
             return redirect('index');
         }
@@ -237,13 +240,9 @@ class User extends Base
 "expires_in": 360000
 }*/
             return json(['status' => 1, 'message' => '登录成功!', 'access_token' => '123456', 'token_type' => 'Bearer', 'expires_in' => '360000']);
-
             //  return alert('登录成功','index',6);
-
         } else {
-
             return json(['status' => 0, 'message' => '请使用正确的请求方式!']);
-
             // return view('login_username');
         }
     }

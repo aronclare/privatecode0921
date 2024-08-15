@@ -36,6 +36,7 @@ class Cart extends  Base
             $goodsData=Db::name('goods')->find($v['goods_id']);
             $cartData[$k]['goods_thumb']=$goodsData['goods_thumb'];
             $cartData[$k]['goods_name']=$goodsData['goods_name'];
+            $cartData[$k]['num']=$v['num'];
             if($goodsData['single_standard']==1){
                 $cartData[$k]['goods_price']=$goodsData['goods_price'];
             }else{
@@ -63,13 +64,19 @@ class Cart extends  Base
             return json(['status'=>0,'message'=>'请登录后再操作！']);
         }
         $data=input('post.');
-        //先查找数据表有没有相同记录，有就更新数量，没有再插入记录    //sku位商品型号，大小，尺寸
-        $cartData=Db::name('cart')->field('amount,id')->where('user_id',$userSessionData['id'])->where('goods_id',$data['goods_id'])->where('sku',$data['sku'])->find();
+        //先查找数据表有没有相同记录，有就更新数量，没有再插入记录    //sku为商品型号，大小，尺寸
+        $cartData=Db::name('cart')->field('amount,id,num')->where('user_id',$userSessionData['id'])->where('goods_id',$data['goods_id'])->where('sku',$data['sku'])->find();
+
 
         if($cartData){
-            $amount=$data['amount']+$cartData['amount'];
+
+            $amount=$data['amount']+$cartData['amount'];  // 总金额
+            $num  = 1;  //数量
+
             $res=Db::name('cart')->where('id',$cartData['id'])->update([
-                'amount'=>$amount
+                'amount'=>$amount,
+                'num'=>$cartData['num']+$num,
+                'updated_at'=>time()
             ]);
             if($res){
                 return json(['status'=>1,'message'=>'添加购物车成功!']);
@@ -81,7 +88,9 @@ class Cart extends  Base
                 'goods_id'=>$data['goods_id'],
                 'user_id'=>$userSessionData['id'],
                 'sku'=>$data['sku'],
-                'amount'=>$data['amount']
+                'amount'=>$data['amount'],
+                'num'=>1,
+                'created_at'=>time()
             ]);
             
             if($res){
@@ -169,14 +178,13 @@ class Cart extends  Base
     public function update_cart_amount(){
 
         $userSessionData = $this->isLogin();
-
+        //传入购物车列表id    商品金额
         $id = input('request.id');
-
+            //更新金额
         $amount = intval(input('request.amount'));
-
-        $res  =   Db::name("cart")->where('id',$id)->update(['amount'=>$amount]);
-
-
+            //更新数量
+        $num = intval(input('request.num'));
+        $res  =   Db::name("cart")->where('id',$id)->update(['amount'=>$amount,'num'=>$num]);
         if($res){
             return json(['status'=>1,'message'=>'操作成功!']);
         }else{

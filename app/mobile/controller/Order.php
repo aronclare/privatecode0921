@@ -26,43 +26,51 @@ class Order extends Base
 
 {
     //购物车-确认订单页面
+    //订单预览
     function index()
-
     {
-      // return view();
         $sessionUserData=$this->isLogin();
 
         $addressDefaultData=Db::name('address')->where('user_id',$sessionUserData['id'])->where('isdefault',1)->find();
-
         $addressData=Db::name('address')->where('user_id',$sessionUserData['id'])->where('isdefault',0)->limit(3)->order('id desc')->select();
         $cartData=[];
         $cartDataTmp=Db::name('cart')->where('user_id',$sessionUserData['id'])->where('status',1)->order('id desc')->select()->toArray();
-   // var_dump($cartDataTmp);die;
+        //var_dump($cartDataTmp);die;
         if($cartDataTmp){
+
             foreach($cartDataTmp as $k=>$v){
                 $cartData[$k]['id']=$v['id'];
+                $cartData[$k]['status']=$v['status'];
                 $cartData[$k]['goods_id']=$v['goods_id'];
                 $cartData[$k]['amount']=$v['amount'];
                 $cartData[$k]['sku']=$this->getAttrBySku($v['sku']);
-                $goodsData=Db::name('goods')->find($v['goods_id']);
-                $cartData[$k]['goods_thumb']=$goodsData['goods_thumb'];
-                $cartData[$k]['goods_name']=$goodsData['goods_name'];
-                $cartData[$k]['post_money']=$goodsData['post_money'];
+                $goodsData=Db::name('goods')->field('goods_id,goods_name,goods_thumb,goods_price,single_standard')->find($v['goods_id']);
+                $cartData[$k]['created_at']=$v['created_at'];
+                $cartData[$k]['updated_at']=$v['created_at'];
+                $cartData[$k]['user_id']=$sessionUserData['id'];
+                $cartData[$k]['num']=$v['num'];
+
+                $cartData[$k]['goods'] = $goodsData;
+
                 if($goodsData['single_standard']==1){
                     $cartData[$k]['goods_price']=$goodsData['goods_price'];
                 }else{
                     $cartData[$k]['goods_price']=Db::name('goods_standard')->where('goods_id',$v['goods_id'])->where('sku',$v['sku'])->value('goods_price');
                 }
             }
+            $total_price=0;
+            return json(['address' => $addressDefaultData, 'carts' =>$cartData]);
         }
 
-     //   var_dump($cartData);die;
+
+
+     /*   var_dump($cartData);die;
         return view('',[
             'cartData'=>$cartData,
             'sessionUserData'=>$sessionUserData,
             'addressDefaultData'=>$addressDefaultData,
             'addressData'=>$addressData
-        ]);
+        ]);*/
 
     }
 
@@ -167,38 +175,44 @@ class Order extends Base
     }
 
         //创建订单,购物车购买
+       //提交订单
     function order_create(){
         $sessionUserData=session('sessionUserData');
-        if(empty($sessionUserData)){
+
+
+      /*  if(empty($sessionUserData)){
             return json(['msg'=>'请登录','status'=>-2]);
         }
-
         //order $data
         $data['address_id']=input('post.address_id');
         if(!intval($data['address_id'])){
             return json(['msg'=>'请完善收货地址信息','status'=>0]);
-        }
+        }*/
+        $data['address_id']= 2;
 
         $data['user_id']=$sessionUserData['id'];
         $data['time']=time();
-        $data['pay_method']=input('post.pay_method');
-        $data['content']=input('post.content');
-        $data['out_trade_no']=md5(time().'ab');
+        $data['pay_method']=input('post.pay_method');//支付方式
+        $data['content']=input('post.content'); //留言
+        $data['out_trade_no']=md5(time().'ab'); //订单号
 
         //order_goods $data2
         $total_price=0;
         $cartDataTmp=Db::name('cart')->where('user_id',$sessionUserData['id'])->where('status',1)->order('id desc')->select()->toArray();
 
+
+     //   var_dump($cartDataTmp);die;
         if(empty($cartDataTmp)){
             return json(['msg'=>'订单异常','status'=>-1]);
         }
 
+
         foreach($cartDataTmp as $k=>$v){
             $data2[$k]['goods_id']=$v['goods_id'];
-            $data2[$k]['amount']=$v['amount'];
+            $data2[$k]['amount']=$v['amount'];  //商品数量
             $data2[$k]['sku']=$this->getAttrBySku($v['sku']);
             $goodsData=Db::name('goods')->find($v['goods_id']);
-            $data2[$k]['post_money']=$goodsData['post_money'];
+            $data2[$k]['post_money']=$goodsData['post_money'];   //post_money为邮费
             if($goodsData['single_standard']==1){
                 $data2[$k]['goods_price']=$goodsData['goods_price'];
             }else{
@@ -210,24 +224,28 @@ class Order extends Base
 
         }
 
-        $data['total_price']=$total_price;
+            $data['total_price']=$total_price;  //总金额
 
+        $order_id=Db::name('order')->insertGetId($data);
+
+      //  var_dump($order_id);die;
+
+        
         //入库
         Db::startTrans();
         try{
             $order_id=Db::name('order')->insertGetId($data);
+
+          var_dump($order_id);die;
             if($order_id){
                 foreach($data2 as $k=>$v){
                     $v['order_id']=$order_id;
                     $res=Db::name('order_goods')->insertGetId($v);
                 }
-
             }
             //删除购物车信息
             Db::name('cart')->where('user_id',$sessionUserData['id'])->where('status',1)->delete();
-
             //减少库存操作
-
             //提交事务
             Db::commit();
         }catch (\Exception $e) {
@@ -236,9 +254,7 @@ class Order extends Base
             return json(['msg'=>'订单异常','status'=>-1]);
         }
 
-
         if($order_id && $res){
-
             //微信支付
             if($data['pay_method']==1){
                 return json(['msg'=>'订单提交成功！','status'=>1,'out_trade_no'=>$data['out_trade_no']]);
@@ -246,13 +262,10 @@ class Order extends Base
             //支付宝支付
             if($data['pay_method']==2){
                 return json(['msg'=>'订单提交成功！','status'=>2,'out_trade_no'=>$data['out_trade_no']]);
-
             }
         }
     }
-
     /* 从商品详情页直接购买，方法提交到这里
-
     ** 提交过来参数：goods_id、amount、sku   sku为产品规格 例如产品颜色，大小，型号
     */
     public function buy(){
@@ -351,6 +364,8 @@ class Order extends Base
             Db::rollback();
             return json(['msg'=>'订单异常','status'=>-1]);
         }
+
+        //此处去支付
         if($order_id && $res){
 
             //微信支付
