@@ -21,11 +21,12 @@ class Cart extends  Base
     //购物车商品列表（不分页）
 
     public function index(){
-
+        //传user_id   获得购物车所有商品
         $userSessionData = $this->isLogin();
-
         $cartData=[];
         $cartDataTmp=Db::name('cart')->where('user_id',$userSessionData['id'])->order('id desc')->select()->toArray();
+
+      //  var_dump($cartDataTmp);die;
         foreach($cartDataTmp as $k=>$v){
             $cartData[$k]['id']=$v['id'];
             $cartData[$k]['status']=$v['status'];
@@ -40,87 +41,73 @@ class Cart extends  Base
             }else{
                 $cartData[$k]['goods_price']=Db::name('goods_standard')->where('goods_id',$v['goods_id'])->where('sku',$v['sku'])->value('goods_price');
             }
-
         }
 
-
-var_dump($cartData);die;
         $total_price=0;
-        return view('',[
-            'total_price'=>$total_price,
-            'cartData'=>$cartData
-        ]);
+        return json(['total_price' => $total_price, 'cartData' =>$cartData]);
+
+        /*   return view('',[
+               'total_price'=>$total_price,
+               'cartData'=>$cartData
+           ]);*/
 
     }
 
 
-    //商品添加购物车加
+    //添加购物车
 
     public function add_to_cart(){
 
         $userSessionData =session('sessionUserData');
         if(empty($userSessionData)){
-            return json(['status'=>-1]);
+            return json(['status'=>0,'message'=>'请登录后再操作！']);
         }
-
         $data=input('post.');
+        //先查找数据表有没有相同记录，有就更新数量，没有再插入记录    //sku位商品型号，大小，尺寸
+        $cartData=Db::name('cart')->field('amount,id')->where('user_id',$userSessionData['id'])->where('goods_id',$data['goods_id'])->where('sku',$data['sku'])->find();
 
-        
-      //  var_dump($data);die;
-        //先查找数据表有没有相同记录，有就更新数量，没有再插入记录
-        $cartData=Db::name('cart')->field('amount,id')->where('user_id',$userSessionData['id'])->where('goods_id',$data['goods_id'])->where('sku',$data['standard_value_id'])->find();
         if($cartData){
             $amount=$data['amount']+$cartData['amount'];
             $res=Db::name('cart')->where('id',$cartData['id'])->update([
                 'amount'=>$amount
             ]);
             if($res){
-                return json(['status'=>1]);
+                return json(['status'=>1,'message'=>'添加购物车成功!']);
             }else{
-                return json(['status'=>0]);
+                return json(['status'=>0,'message'=>'添加购物车失败!']);
             }
         }else{
            $res= Db::name('cart')->insert([
                 'goods_id'=>$data['goods_id'],
                 'user_id'=>$userSessionData['id'],
-                'sku'=>$data['standard_value_id'],
+                'sku'=>$data['sku'],
                 'amount'=>$data['amount']
             ]);
             
             if($res){
-                return json(['status'=>1]);
+                return json(['status'=>1,'message'=>'添加购物车成功!']);
             }else{
-                return json(['status'=>0]);
+                return json(['status'=>0,'message'=>'添加购物车失败!']);
             }
         }
-
-        $user_id=$userSessionData['id'];
-
-
     }
 
-
     //更改购物车清单状态，1：选中，0：未选中
-
     public function update_cart_status(){
-
-
-        var_dump('update_cart_status');die;
-
         $userSessionData = $this->isLogin();
 
         $id = input('request.id');
-
         $status = intval(input('request.status'));
+      $res =  Db::name("cart")->where('id',$id)->update(['status'=>$status]);
 
-        Db::name("cart")->where('id',$id)->update(['status'=>$status]);
-
-        return ['msg'=>'操作成功','status'=>1];
-
+      if ($res==1){
+          return json(['status'=>1,'message'=>'操作成功!']);
+      }else{
+          return json(['status'=>0,'message'=>'操作失败!']);
+      }
     }
 
      //购物车删除一条记录
-
      public function delete_to_cart(){
 
         $userSessionData = $this->isLogin();
@@ -128,23 +115,16 @@ var_dump($cartData);die;
         $id = input('request.id',0);
 
         if($id == 0){
-
-            ajaxmsg('非法数据', -1);
-
+            return json(['status'=>0,'message'=>'非法数据!']);
         }
-
-
 
         $res = Db::name("cart")->where("id={$id} and user_id={$userSessionData['id']}")->delete();
 
         if($res){
-
-            return ['msg'=>'操作成功','status'=>1];
+            return json(['status'=>1,'message'=>'操作成功!']);
 
         }else{
-
-            return ['msg'=>'操作失败','status'=>0];
-
+            return json(['status'=>0,'message'=>'操作失败!']);
         }
 
     }
@@ -153,31 +133,16 @@ var_dump($cartData);die;
     public function delete_all_cart(){
 
         $userSessionData = $this->isLogin();
-
-
-
         $id = input('request.id',0);
-
         if($id == 0){
-
-            ajaxmsg('非法数据', -1);
-
+            return json(['status'=>0,'message'=>'非法数据!']);
         }
-
-
-
         $res = Db::name("cart")->where("user_id={$userSessionData['id']}")->delete();
-
         if($res){
-
-            return ['msg'=>'操作成功','status'=>1];
-
+            return json(['status'=>1,'message'=>'操作成功!']);
         }else{
-
-            return ['msg'=>'操作失败','status'=>0];
-
+            return json(['status'=>0,'message'=>'操作失败!']);
         }
-
     }
 
     //购物车全选，全不选，设置购物车清单选中状态
@@ -188,12 +153,16 @@ var_dump($cartData);die;
 
         $status = intval(input('request.status'));
 
-        Db::name("cart")->where("user_id={$userSessionData['id']}")->update(['status'=>$status]);
+        $res=  Db::name("cart")->where("user_id={$userSessionData['id']}")->update(['status'=>$status]);
 
-        return ['msg'=>'操作成功','status'=>1];
+
+        if($res){
+            return json(['status'=>1,'message'=>'操作成功!']);
+        }else{
+            return json(['status'=>0,'message'=>'操作失败!']);
+        }
 
     }
-
 
     //购物车数量增减
 
@@ -205,9 +174,14 @@ var_dump($cartData);die;
 
         $amount = intval(input('request.amount'));
 
-        Db::name("cart")->where('id',$id)->update(['amount'=>$amount]);
+        $res  =   Db::name("cart")->where('id',$id)->update(['amount'=>$amount]);
 
-        return ['msg'=>'操作成功','status'=>1];
+
+        if($res){
+            return json(['status'=>1,'message'=>'操作成功!']);
+        }else{
+            return json(['status'=>0,'message'=>'操作失败!']);
+        }
 
     }
 

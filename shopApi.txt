@@ -908,6 +908,52 @@ email:admin@gmail.com
 password:adminadmin
 password_confirmation:adminadmin     //二次确认密码一致
 
+
+
+本地接口
+
+
+
+//购物车列表
+http://code0921.com/index.php/mobile/cart/index
+
+{
+	"total_price": 0,
+	"cartData": [
+		{
+			"id": 51,
+			"status": 1,
+			"goods_id": 10,
+			"amount": 30,
+			"sku": "128G",
+			"goods_thumb": "/public/upload/20200919/702a1b47fd2d89863efb072179c9d4d3.jpg",
+			"goods_name": "洋气网红上衣春秋季2020新款秋装短款针织开衫粗线很仙的毛衣外套",
+			"goods_price": null
+		},
+		{
+			"id": 50,
+			"status": 1,
+			"goods_id": 10,
+			"amount": 30,
+			"sku": "64G",
+			"goods_thumb": "/public/upload/20200919/702a1b47fd2d89863efb072179c9d4d3.jpg",
+			"goods_name": "洋气网红上衣春秋季2020新款秋装短款针织开衫粗线很仙的毛衣外套",
+			"goods_price": null
+		},
+		{
+			"id": 48,
+			"status": 1,
+			"goods_id": 10,
+			"amount": 5,
+			"sku": "L,酒红色",
+			"goods_thumb": "/public/upload/20200919/702a1b47fd2d89863efb072179c9d4d3.jpg",
+			"goods_name": "洋气网红上衣春秋季2020新款秋装短款针织开衫粗线很仙的毛衣外套",
+			"goods_price": "2"
+		}
+	]
+}
+
+//加入购物车
 api/collects/goods                    user/add_goods_collect
 
 get('/api/orders/preview')   //preview预览apiTrade
@@ -1085,6 +1131,12 @@ get('/api/auth/oss/token')// 获取阿里云OSS Token，用于前端直传文件
 
 
 已完成编译接口
+
+用户注册
+http://code0921.com/index.php/mobile/user/register
+post
+username  admin3@gmail.com
+password  admin123456
 登录
 http://code09211.cc/mobile/user/login
 post
@@ -1104,27 +1156,1194 @@ get
 	"status": 1,
 	"message": "您已成功退出!"
 }
-get请求获取用户信息
-http://code09211.cc/mobile/user/index
+
+get获取用户信息
+http://code0921.com/index.php/mobile/user/index
 {
-	"id": 22493,
-	"name": "admin",    
-	"email": "admin@gmail.com",    //username
+	"id": 2,
+	"username": "admin123456",
+	"name": null,
+	"email": "admin@qq.com",    username
 	"phone": null,
 	"avatar": null,
-	"openid": null,
-	"total": 10,
-	"unum": 0,
-	"avatar_url": "https://api.shop.eduwork.cn/imgs/avatar.png",
-	"is_locked": 0,   //status
-	"created_at": "2024-07-20 09:24:14",  //add_time
-	"updated_at": "2024-07-20 09:24:14" //updated_time
+	"status": 1,                                is_locked
+	"created_at": null,
+	"updated_at": 1707980452,
+	"last_login_time": 1723643767
 }
-修改用户名
-http://code09211.cc/mobile/user/user_update
 
+用户信息更新 
+修改用户名、或用户信息
+http://code0921.com/index.php/mobile/user/userUpdate
+
+// 参数 id username password   email  avatar   phone 
+post
 修改头像
 http://code09211.cc/mobile/user/avatar
+post
+参数avatar
+
+get请求，获取首页数据
+
+
+
+{
+	"goods": [
+		{
+			"goods_id": 1,
+			"goods_name": "小米11",
+			"goods_price": "1600",
+			"stock": 0,
+			"selnumber": 1,
+			"goods_thumb": "/public/upload/20200812/ee3efe2b59b4f924b27f3939c74348bc.jpg",
+			"description": "",
+			"collects_count": null,
+			"cover_url": null
+		},
+		{
+			"goods_id": 2,
+			"goods_name": "小米22",
+			"goods_price": "1600",
+			"stock": 0,
+			"selnumber": 5,
+			"goods_thumb": "/public/upload/20200625/cd4055e97782ef3b2d60fea5076c1572.jpg",
+			"description": "",
+			"collects_count": null,
+			"cover_url": null
+		},
+		{
+			"goods_id": 3,
+			"goods_name": "华为111",
+			"goods_price": "0.01",
+			"stock": 0,
+			"selnumber": 0,
+			"goods_thumb": "/public/upload/20200625/d4df8f952223634d1fec851dd0522107.jpg",
+			"description": "",
+			"collects_count": null,
+			"cover_url": null
+		},
+		{
+			"goods_id": 4,
+			"goods_name": "电视机11",
+			"goods_price": "5888",
+			"stock": 0,
+			"selnumber": 12,
+			"goods_thumb": "/public/upload/20200625/0759f34f3c05e3e800fe811f8d94c2e6.jpg",
+			"description": "",
+			"collects_count": null,
+			"cover_url": null
+		},
+		{
+			"goods_id": 5,
+			"goods_name": "智睿LED灯泡 10只装",
+			"goods_price": "99",
+			"stock": 100,
+			"selnumber": 2,
+			"goods_thumb": "/public/upload/20200625/b014f074c410cd1f72b2c05e5dc37d04.jpg",
+			"description": "",
+			"collects_count": null,
+			"cover_url": null
+		},
+		{
+			"goods_id": 6,
+			"goods_name": "小米33",
+			"goods_price": "1900",
+			"stock": 0,
+			"selnumber": 4,
+			"goods_thumb": "/public/upload/20200810/7c2921c04fda2943e8b4d41011ea99d1.jpg",
+			"description": "5000mAh长循环大电量 / 6.53\"超大护眼屏幕 / G25八核处理器 / 大音量扬声器 / 1300万 AI相机 / 人脸解锁 / 最高支持512GB存储扩展",
+			"collects_count": null,
+			"cover_url": null
+		},
+		{
+			"goods_id": 7,
+			"goods_name": "Redmi手环",
+			"goods_price": "99",
+			"stock": 0,
+			"selnumber": 0,
+			"goods_thumb": "/public/upload/20200904/bc87fb6becf47e9afabfc0ee61a6c3bd.jpg",
+			"description": "1.08英寸大屏彩显 / 14天续航，快拆直插充电 / 腕上信息提醒，一目了然 / 科学算法，守护你的健康",
+			"collects_count": null,
+			"cover_url": null
+		},
+		{
+			"goods_id": 8,
+			"goods_name": "小米户外蓝牙音箱",
+			"goods_price": "0.02",
+			"stock": 0,
+			"selnumber": 0,
+			"goods_thumb": "/public/upload/20200904/d0aa10a258d17ec93e6bd03ea5d80719.jpg",
+			"description": "大音量 / 长续航 / 轻盈便携 / 360°环绕立体声 / IP55防尘防水 / 双麦克风降噪通话 / 蓝牙5.0 / type-c接口",
+			"collects_count": null,
+			"cover_url": null
+		},
+		{
+			"goods_id": 9,
+			"goods_name": "2020鼠年卡通创意滴胶小老鼠可爱钥匙扣挂件钥匙链情侣网红包挂件",
+			"goods_price": "1",
+			"stock": 0,
+			"selnumber": 0,
+			"goods_thumb": "/public/upload/20200919/324f03e92af57a6f1dbbec0e04f29870.jpg",
+			"description": "",
+			"collects_count": null,
+			"cover_url": null
+		},
+		{
+			"goods_id": 10,
+			"goods_name": "洋气网红上衣春秋季2020新款秋装短款针织开衫粗线很仙的毛衣外套",
+			"goods_price": "2",
+			"stock": 0,
+			"selnumber": 0,
+			"goods_thumb": "/public/upload/20200919/702a1b47fd2d89863efb072179c9d4d3.jpg",
+			"description": "",
+			"collects_count": null,
+			"cover_url": null
+		},
+		{
+			"goods_id": 11,
+			"goods_name": "MLB官方 男女卫衣复古老花系列长袖宽松运动休闲潮流圆领秋季MTM1",
+			"goods_price": "1.5",
+			"stock": 0,
+			"selnumber": 0,
+			"goods_thumb": "/public/upload/20200919/3ab5ae38ba4b52b26bddb09f5d32c2ea.jpg",
+			"description": "",
+			"collects_count": null,
+			"cover_url": null
+		},
+		{
+			"goods_id": 12,
+			"goods_name": "全面屏电视E43K",
+			"goods_price": "1300",
+			"stock": 0,
+			"selnumber": 0,
+			"goods_thumb": "/public/upload/20200921/266ea6ccc529110760cb3b238b8528da.jpg",
+			"description": "",
+			"collects_count": null,
+			"cover_url": null
+		},
+		{
+			"goods_id": 13,
+			"goods_name": "高腰打底裤女裤外穿春秋冬款紧身显瘦百搭小脚黑色铅笔魔术小黑裤",
+			"goods_price": "65",
+			"stock": 0,
+			"selnumber": 0,
+			"goods_thumb": "/public/upload/20200921/0f857bc7876c24ab07aabb5589b8b716.jpg",
+			"description": "",
+			"collects_count": null,
+			"cover_url": null
+		}
+	],
+	"slides": [
+		{
+			"id": 1,
+			"title": "618免单来袭",
+			"url": "https://baidu.com",
+			"thumb": "http://code0921.com/public/upload/20200801/3f9d2a71a0e976eb8daf3208c983d9ac.jpg",
+			"status": 1,
+			"seq": "1",
+			"created_at": null,
+			"updated_at": null,
+			"img_url": "/public/upload/20200801/3f9d2a71a0e976eb8daf3208c983d9ac.jpg"
+		},
+		{
+			"id": 2,
+			"title": "1万份免单派发中",
+			"url": "#",
+			"thumb": "http://code0921.com/public/upload/20200801/968730140783b13d831cf1705efeadf7.jpg",
+			"status": 1,
+			"seq": "2",
+			"created_at": null,
+			"updated_at": null,
+			"img_url": "/public/upload/20200801/968730140783b13d831cf1705efeadf7.jpg"
+		}
+	],
+	"links": [
+		{
+			"id": 1,
+			"url": "https://baidu.com",
+			"thumb": "http://code0921.com/public/upload/20200801/3f9d2a71a0e976eb8daf3208c983d9ac.jpg",
+			"status": 1,
+			"seq": "1",
+			"created_at": null,
+			"updated_at": null,
+			"img_url": "/public/upload/20200801/3f9d2a71a0e976eb8daf3208c983d9ac.jpg",
+			"name": "618免单来袭"
+		},
+		{
+			"id": 2,
+			"url": "#",
+			"thumb": "http://code0921.com/public/upload/20200801/968730140783b13d831cf1705efeadf7.jpg",
+			"status": 1,
+			"seq": "2",
+			"created_at": null,
+			"updated_at": null,
+			"img_url": "/public/upload/20200801/968730140783b13d831cf1705efeadf7.jpg",
+			"name": "1万份免单派发中"
+		}
+	]
+}
+
+
+
+//商品列表、分类列表
+http://code0921.com/index.php/mobile/goods/goods
+{
+	"goodsList": [
+		{
+			"goods_id": 1,
+			"goods_name": "小米11",
+			"goods_price": "1600",
+			"goods_thumb": "/public/upload/20200812/ee3efe2b59b4f924b27f3939c74348bc.jpg",
+			"goods_cate_id": 16,
+			"selnumber": 1,
+			"time": 1597200669,
+			"comments_count": 1
+		},
+		{
+			"goods_id": 3,
+			"goods_name": "华为111",
+			"goods_price": "0.01",
+			"goods_thumb": "/public/upload/20200625/d4df8f952223634d1fec851dd0522107.jpg",
+			"goods_cate_id": 28,
+			"selnumber": 0,
+			"time": 1600656726,
+			"comments_count": 1
+		},
+		{
+			"goods_id": 4,
+			"goods_name": "电视机11",
+			"goods_price": "5888",
+			"goods_thumb": "/public/upload/20200625/0759f34f3c05e3e800fe811f8d94c2e6.jpg",
+			"goods_cate_id": 156,
+			"selnumber": 12,
+			"time": 1593080663,
+			"comments_count": 3
+		},
+		{
+			"goods_id": 5,
+			"goods_name": "智睿LED灯泡 10只装",
+			"goods_price": "99",
+			"goods_thumb": "/public/upload/20200625/b014f074c410cd1f72b2c05e5dc37d04.jpg",
+			"goods_cate_id": 158,
+			"selnumber": 2,
+			"time": 1593080706,
+			"comments_count": 3
+		},
+		{
+			"goods_id": 6,
+			"goods_name": "小米33",
+			"goods_price": "1900",
+			"goods_thumb": "/public/upload/20200810/7c2921c04fda2943e8b4d41011ea99d1.jpg",
+			"goods_cate_id": 16,
+			"selnumber": 4,
+			"time": 1597049554,
+			"comments_count": 1
+		},
+		{
+			"goods_id": 7,
+			"goods_name": "Redmi手环",
+			"goods_price": "99",
+			"goods_thumb": "/public/upload/20200904/bc87fb6becf47e9afabfc0ee61a6c3bd.jpg",
+			"goods_cate_id": 33,
+			"selnumber": 0,
+			"time": 1599181773,
+			"comments_count": 1
+		},
+		{
+			"goods_id": 8,
+			"goods_name": "小米户外蓝牙音箱",
+			"goods_price": "0.02",
+			"goods_thumb": "/public/upload/20200904/d0aa10a258d17ec93e6bd03ea5d80719.jpg",
+			"goods_cate_id": 59,
+			"selnumber": 0,
+			"time": 1600508382,
+			"comments_count": 1
+		}
+	],
+	"cate": [
+		{
+			"id": 1,
+			"parent_id": 0,
+			"cate_name": "女装 / 内衣",
+			"children": [
+				{
+					"id": 2,
+					"parent_id": 1,
+					"cate_name": "浪漫裙装",
+					"children": [
+						{
+							"id": 82,
+							"parent_id": 2,
+							"cate_name": "连衣裙"
+						},
+						{
+							"id": 83,
+							"parent_id": 2,
+							"cate_name": "半身裙"
+						},
+						{
+							"id": 84,
+							"parent_id": 2,
+							"cate_name": "A字裙"
+						},
+						{
+							"id": 85,
+							"parent_id": 2,
+							"cate_name": "荷叶边裙"
+						},
+						{
+							"id": 86,
+							"parent_id": 2,
+							"cate_name": "大摆裙"
+						},
+						{
+							"id": 87,
+							"parent_id": 2,
+							"cate_name": "包臀裙"
+						},
+						{
+							"id": 88,
+							"parent_id": 2,
+							"cate_name": "百褶裙"
+						},
+						{
+							"id": 89,
+							"parent_id": 2,
+							"cate_name": "长袖"
+						},
+						{
+							"id": 90,
+							"parent_id": 2,
+							"cate_name": "连衣裙"
+						},
+						{
+							"id": 91,
+							"parent_id": 2,
+							"cate_name": "棉麻连衣裙"
+						},
+						{
+							"id": 92,
+							"parent_id": 2,
+							"cate_name": "牛仔裙"
+						},
+						{
+							"id": 93,
+							"parent_id": 2,
+							"cate_name": "蕾丝连衣裙"
+						},
+						{
+							"id": 94,
+							"parent_id": 2,
+							"cate_name": "真丝连衣裙"
+						},
+						{
+							"id": 95,
+							"parent_id": 2,
+							"cate_name": "印花连衣裙"
+						}
+					]
+				},
+				{
+					"id": 6,
+					"parent_id": 1,
+					"cate_name": "家居服",
+					"children": [
+						{
+							"id": 98,
+							"parent_id": 6,
+							"cate_name": "莫代尔家居服"
+						},
+						{
+							"id": 99,
+							"parent_id": 6,
+							"cate_name": "真丝家居服"
+						},
+						{
+							"id": 100,
+							"parent_id": 6,
+							"cate_name": "春夏睡裙"
+						},
+						{
+							"id": 101,
+							"parent_id": 6,
+							"cate_name": "男士家居服"
+						},
+						{
+							"id": 102,
+							"parent_id": 6,
+							"cate_name": "情侣家居服"
+						},
+						{
+							"id": 103,
+							"parent_id": 6,
+							"cate_name": "性感睡裙"
+						},
+						{
+							"id": 133,
+							"parent_id": 6,
+							"cate_name": "家居服A"
+						},
+						{
+							"id": 134,
+							"parent_id": 6,
+							"cate_name": "家居服B"
+						}
+					]
+				},
+				{
+					"id": 63,
+					"parent_id": 1,
+					"cate_name": "精选上装",
+					"children": [
+						{
+							"id": 67,
+							"parent_id": 63,
+							"cate_name": "毛呢外套"
+						},
+						{
+							"id": 68,
+							"parent_id": 63,
+							"cate_name": "羽绒服"
+						},
+						{
+							"id": 69,
+							"parent_id": 63,
+							"cate_name": "棉服"
+						},
+						{
+							"id": 70,
+							"parent_id": 63,
+							"cate_name": "丝绒卫衣"
+						},
+						{
+							"id": 71,
+							"parent_id": 63,
+							"cate_name": "毛针织衫"
+						},
+						{
+							"id": 72,
+							"parent_id": 63,
+							"cate_name": "皮毛一体"
+						},
+						{
+							"id": 73,
+							"parent_id": 63,
+							"cate_name": "皮草"
+						},
+						{
+							"id": 74,
+							"parent_id": 63,
+							"cate_name": "毛衣"
+						},
+						{
+							"id": 75,
+							"parent_id": 63,
+							"cate_name": "衬衫"
+						},
+						{
+							"id": 76,
+							"parent_id": 63,
+							"cate_name": "卫衣"
+						},
+						{
+							"id": 77,
+							"parent_id": 63,
+							"cate_name": "针织衫"
+						},
+						{
+							"id": 78,
+							"parent_id": 63,
+							"cate_name": "T恤"
+						},
+						{
+							"id": 79,
+							"parent_id": 63,
+							"cate_name": "短外套"
+						},
+						{
+							"id": 80,
+							"parent_id": 63,
+							"cate_name": "小西装"
+						},
+						{
+							"id": 81,
+							"parent_id": 63,
+							"cate_name": "风衣"
+						}
+					]
+				},
+				{
+					"id": 64,
+					"parent_id": 1,
+					"cate_name": "女士下装",
+					"children": [
+						{
+							"id": 104,
+							"parent_id": 64,
+							"cate_name": "休闲裤"
+						},
+						{
+							"id": 105,
+							"parent_id": 64,
+							"cate_name": "阔腿裤"
+						},
+						{
+							"id": 106,
+							"parent_id": 64,
+							"cate_name": "牛仔裤"
+						},
+						{
+							"id": 107,
+							"parent_id": 64,
+							"cate_name": "打底裤"
+						},
+						{
+							"id": 108,
+							"parent_id": 64,
+							"cate_name": "开叉运动裤"
+						},
+						{
+							"id": 109,
+							"parent_id": 64,
+							"cate_name": "哈伦裤"
+						},
+						{
+							"id": 110,
+							"parent_id": 64,
+							"cate_name": "背带裤"
+						},
+						{
+							"id": 111,
+							"parent_id": 64,
+							"cate_name": "小脚裤"
+						},
+						{
+							"id": 112,
+							"parent_id": 64,
+							"cate_name": "西装裤"
+						},
+						{
+							"id": 113,
+							"parent_id": 64,
+							"cate_name": "短裤"
+						}
+					]
+				},
+				{
+					"id": 65,
+					"parent_id": 1,
+					"cate_name": "特色女装",
+					"children": [
+						{
+							"id": 114,
+							"parent_id": 65,
+							"cate_name": "时尚套装"
+						},
+						{
+							"id": 115,
+							"parent_id": 65,
+							"cate_name": "休闲套装"
+						},
+						{
+							"id": 116,
+							"parent_id": 65,
+							"cate_name": "日系女装"
+						},
+						{
+							"id": 117,
+							"parent_id": 65,
+							"cate_name": "精选妈妈装"
+						},
+						{
+							"id": 118,
+							"parent_id": 65,
+							"cate_name": "大码女装"
+						},
+						{
+							"id": 119,
+							"parent_id": 65,
+							"cate_name": "职业套装"
+						},
+						{
+							"id": 120,
+							"parent_id": 65,
+							"cate_name": "优雅旗袍"
+						},
+						{
+							"id": 121,
+							"parent_id": 65,
+							"cate_name": "精致礼服"
+						},
+						{
+							"id": 122,
+							"parent_id": 65,
+							"cate_name": "婚纱"
+						},
+						{
+							"id": 123,
+							"parent_id": 65,
+							"cate_name": "唐装"
+						},
+						{
+							"id": 124,
+							"parent_id": 65,
+							"cate_name": "小码女装"
+						}
+					]
+				},
+				{
+					"id": 66,
+					"parent_id": 1,
+					"cate_name": "文胸塑身",
+					"children": [
+						{
+							"id": 125,
+							"parent_id": 66,
+							"cate_name": "光面文胸"
+						},
+						{
+							"id": 126,
+							"parent_id": 66,
+							"cate_name": "运动文胸"
+						},
+						{
+							"id": 127,
+							"parent_id": 66,
+							"cate_name": "美背文胸"
+						},
+						{
+							"id": 128,
+							"parent_id": 66,
+							"cate_name": "聚拢文胸"
+						},
+						{
+							"id": 129,
+							"parent_id": 66,
+							"cate_name": "大杯文胸"
+						},
+						{
+							"id": 130,
+							"parent_id": 66,
+							"cate_name": "轻薄塑身"
+						}
+					]
+				},
+				{
+					"id": 131,
+					"parent_id": 1,
+					"cate_name": "家居服"
+				},
+				{
+					"id": 132,
+					"parent_id": 1,
+					"cate_name": "精选上衣"
+				}
+			]
+		},
+		{
+			"id": 14,
+			"parent_id": 0,
+			"cate_name": "手机 / 数码",
+			"children": [
+				{
+					"id": 18,
+					"parent_id": 14,
+					"cate_name": "热门手机",
+					"children": [
+						{
+							"id": 16,
+							"parent_id": 18,
+							"cate_name": "小米"
+						},
+						{
+							"id": 17,
+							"parent_id": 18,
+							"cate_name": "荣耀"
+						},
+						{
+							"id": 26,
+							"parent_id": 18,
+							"cate_name": "Iphone"
+						},
+						{
+							"id": 27,
+							"parent_id": 18,
+							"cate_name": "魅族"
+						},
+						{
+							"id": 28,
+							"parent_id": 18,
+							"cate_name": "华为"
+						},
+						{
+							"id": 29,
+							"parent_id": 18,
+							"cate_name": "OPPO"
+						}
+					]
+				},
+				{
+					"id": 19,
+					"parent_id": 14,
+					"cate_name": "电脑整机",
+					"children": [
+						{
+							"id": 20,
+							"parent_id": 19,
+							"cate_name": "笔记本"
+						},
+						{
+							"id": 21,
+							"parent_id": 19,
+							"cate_name": "平板电脑"
+						},
+						{
+							"id": 22,
+							"parent_id": 19,
+							"cate_name": "台式机"
+						},
+						{
+							"id": 23,
+							"parent_id": 19,
+							"cate_name": "一体机"
+						},
+						{
+							"id": 24,
+							"parent_id": 19,
+							"cate_name": "游戏本"
+						},
+						{
+							"id": 25,
+							"parent_id": 19,
+							"cate_name": "iPad"
+						}
+					]
+				},
+				{
+					"id": 30,
+					"parent_id": 14,
+					"cate_name": "智能数码",
+					"children": [
+						{
+							"id": 31,
+							"parent_id": 30,
+							"cate_name": "智能设备"
+						},
+						{
+							"id": 32,
+							"parent_id": 30,
+							"cate_name": "智能手表"
+						},
+						{
+							"id": 33,
+							"parent_id": 30,
+							"cate_name": "智能手环"
+						},
+						{
+							"id": 34,
+							"parent_id": 30,
+							"cate_name": "VR眼镜"
+						},
+						{
+							"id": 35,
+							"parent_id": 30,
+							"cate_name": "智能摄像"
+						},
+						{
+							"id": 36,
+							"parent_id": 30,
+							"cate_name": "智能健康"
+						},
+						{
+							"id": 37,
+							"parent_id": 30,
+							"cate_name": "智能机器人"
+						}
+					]
+				},
+				{
+					"id": 38,
+					"parent_id": 14,
+					"cate_name": "硬件存储",
+					"children": [
+						{
+							"id": 39,
+							"parent_id": 38,
+							"cate_name": "显示器"
+						},
+						{
+							"id": 40,
+							"parent_id": 38,
+							"cate_name": "机械键盘"
+						},
+						{
+							"id": 41,
+							"parent_id": 38,
+							"cate_name": "固态硬盘"
+						},
+						{
+							"id": 42,
+							"parent_id": 38,
+							"cate_name": "CPU"
+						},
+						{
+							"id": 43,
+							"parent_id": 38,
+							"cate_name": "显卡"
+						},
+						{
+							"id": 44,
+							"parent_id": 38,
+							"cate_name": "主板"
+						},
+						{
+							"id": 45,
+							"parent_id": 38,
+							"cate_name": "高速U盘"
+						},
+						{
+							"id": 46,
+							"parent_id": 38,
+							"cate_name": "路由器"
+						}
+					]
+				},
+				{
+					"id": 47,
+					"parent_id": 14,
+					"cate_name": "摄影摄像",
+					"children": [
+						{
+							"id": 48,
+							"parent_id": 47,
+							"cate_name": "相机"
+						},
+						{
+							"id": 49,
+							"parent_id": 47,
+							"cate_name": "单反"
+						},
+						{
+							"id": 50,
+							"parent_id": 47,
+							"cate_name": "单电微单"
+						},
+						{
+							"id": 51,
+							"parent_id": 47,
+							"cate_name": "摄像机"
+						},
+						{
+							"id": 52,
+							"parent_id": 47,
+							"cate_name": "自拍神器"
+						},
+						{
+							"id": 53,
+							"parent_id": 47,
+							"cate_name": "拍立得"
+						},
+						{
+							"id": 54,
+							"parent_id": 47,
+							"cate_name": "镜头"
+						},
+						{
+							"id": 55,
+							"parent_id": 47,
+							"cate_name": "自拍杆"
+						}
+					]
+				},
+				{
+					"id": 56,
+					"parent_id": 14,
+					"cate_name": "影音娱乐",
+					"children": [
+						{
+							"id": 57,
+							"parent_id": 56,
+							"cate_name": "耳机"
+						},
+						{
+							"id": 58,
+							"parent_id": 56,
+							"cate_name": "天猫魔盒"
+						},
+						{
+							"id": 59,
+							"parent_id": 56,
+							"cate_name": "数码影音"
+						},
+						{
+							"id": 60,
+							"parent_id": 56,
+							"cate_name": "家庭影院"
+						},
+						{
+							"id": 61,
+							"parent_id": 56,
+							"cate_name": "蓝牙耳机"
+						},
+						{
+							"id": 62,
+							"parent_id": 56,
+							"cate_name": "网络播放器"
+						}
+					]
+				},
+				{
+					"id": 159,
+					"parent_id": 14,
+					"cate_name": "办公文教"
+				}
+			]
+		},
+		{
+			"id": 3,
+			"parent_id": 0,
+			"cate_name": "美妆 / 护理",
+			"children": [
+				{
+					"id": 5,
+					"parent_id": 3,
+					"cate_name": "护肤品"
+				},
+				{
+					"id": 7,
+					"parent_id": 3,
+					"cate_name": "彩妆"
+				}
+			]
+		},
+		{
+			"id": 4,
+			"parent_id": 0,
+			"cate_name": "生活电器",
+			"children": [
+				{
+					"id": 8,
+					"parent_id": 4,
+					"cate_name": "洗衣机"
+				},
+				{
+					"id": 9,
+					"parent_id": 4,
+					"cate_name": "电冰箱"
+				},
+				{
+					"id": 155,
+					"parent_id": 4,
+					"cate_name": "电视机",
+					"children": [
+						{
+							"id": 156,
+							"parent_id": 155,
+							"cate_name": "液晶电视机"
+						},
+						{
+							"id": 161,
+							"parent_id": 155,
+							"cate_name": "等离子电视机"
+						}
+					]
+				},
+				{
+					"id": 157,
+					"parent_id": 4,
+					"cate_name": "灯饰照明",
+					"children": [
+						{
+							"id": 158,
+							"parent_id": 157,
+							"cate_name": "灯泡"
+						}
+					]
+				}
+			]
+		},
+		{
+			"id": 13,
+			"parent_id": 0,
+			"cate_name": "零食 / 茶酒",
+			"children": [
+				{
+					"id": 138,
+					"parent_id": 13,
+					"cate_name": "进口零食"
+				},
+				{
+					"id": 139,
+					"parent_id": 13,
+					"cate_name": "休闲零食"
+				},
+				{
+					"id": 140,
+					"parent_id": 13,
+					"cate_name": "酒类"
+				},
+				{
+					"id": 141,
+					"parent_id": 13,
+					"cate_name": "茶叶1"
+				},
+				{
+					"id": 142,
+					"parent_id": 13,
+					"cate_name": "茶叶2"
+				},
+				{
+					"id": 143,
+					"parent_id": 13,
+					"cate_name": ""
+				}
+			]
+		},
+		{
+			"id": 15,
+			"parent_id": 0,
+			"cate_name": "腕表 / 首饰"
+		},
+		{
+			"id": 12,
+			"parent_id": 0,
+			"cate_name": "图书 / 音像",
+			"children": [
+				{
+					"id": 144,
+					"parent_id": 12,
+					"cate_name": "大牌乐器"
+				},
+				{
+					"id": 145,
+					"parent_id": 12,
+					"cate_name": "儿童读书"
+				},
+				{
+					"id": 146,
+					"parent_id": 12,
+					"cate_name": "儿童读物1"
+				},
+				{
+					"id": 148,
+					"parent_id": 12,
+					"cate_name": "儿童读书2"
+				},
+				{
+					"id": 149,
+					"parent_id": 12,
+					"cate_name": "儿童读书3"
+				}
+			]
+		},
+		{
+			"id": 10,
+			"parent_id": 0,
+			"cate_name": "家居 / 建材"
+		},
+		{
+			"id": 11,
+			"parent_id": 0,
+			"cate_name": "母婴 / 玩具",
+			"children": [
+				{
+					"id": 150,
+					"parent_id": 11,
+					"cate_name": "玩具",
+					"children": [
+						{
+							"id": 160,
+							"parent_id": 150,
+							"cate_name": "婴儿玩具"
+						}
+					]
+				},
+				{
+					"id": 151,
+					"parent_id": 11,
+					"cate_name": "童装"
+				},
+				{
+					"id": 153,
+					"parent_id": 11,
+					"cate_name": "婴儿服"
+				},
+				{
+					"id": 154,
+					"parent_id": 11,
+					"cate_name": "奶粉"
+				}
+			]
+		}
+	]
+}
+
+商品详情
+http://code0921.com/index.php/mobile/goods/index
+get  参数goods_id =5
+
+{
+	"goods_details": {
+		"goods_id": 5,
+		"goods_name": "智睿LED灯泡 10只装",
+		"goods_price": "99",
+		"is_recommend": "1",
+		"collection_count": 2,
+		"content": "",
+		"stock": 100,
+		"selnumber": 2,
+		"goods_cate_id": 158,
+		"goods_thumb": "/public/upload/20200625/b014f074c410cd1f72b2c05e5dc37d04.jpg",
+		"user_id": 39
+	}
+}
+收藏 is_collect
+http://code0921.com/index.php/mobile/goods/collect
+//此接口可无返回值
+{
+	"is_collect": 1,
+	"message": "收藏成功!"
+}
+
+//购物车列表
+http://code0921.com/index.php/mobile/cart/index
+post
+{
+	"total_price": 0,
+	"cartData": [
+		{
+			"id": 48,
+			"status": 1,
+			"goods_id": 10,
+			"amount": 5,
+			"sku": "L,酒红色",
+			"goods_thumb": "/public/upload/20200919/702a1b47fd2d89863efb072179c9d4d3.jpg",
+			"goods_name": "洋气网红上衣春秋季2020新款秋装短款针织开衫粗线很仙的毛衣外套",
+			"goods_price": "2"
+		}
+	]
+}
+
+//添加购物车
+post      
+goods_id  5  user_id    amount  20  sku   2,6,24   sku为商品型号
+
+更改购物车清单状态，1：选中，0：未选中
+http://code0921.com/index.php/mobile/cart/update_cart_status
+参数  购物车列表id    status  选中状态
+
+购物车删除一条记录
+http://code0921.com/index.php/mobile/cart/delete_to_cart
+id
+//清空购物车
+http://code0921.com/index.php/mobile/cart/delete_all_cart
+id
+//购物车全选，全不选，设置购物车清单选中状态
+http://code0921.com/index.php/mobile/cart/update_allcart_status
+status  =0 或1
+//购物车数量增减
+http://code0921.com/index.php/mobile/cart/update_cart_amount
+id   amount
 
 地址列表、添加地址   数据为空显示地址列表，不为空为添加地址
 http://code09211.cc/mobile/order/address

@@ -22,15 +22,11 @@ class User extends Base
         $user_id = $userSessionData['id'];
         //获取有没有搜索关键字，用于填充
         $search_key = input('request.search_key');
-        $mer_Data = Db::name('merchant')->alias('a')->where('a.store_name', 'like', '%' . $search_key . '%')->where('user_id', '=', "$user_id")->order('add_time desc')->paginate(10);
-
         $domain = $this->request->domain();
         //http://code0921.com/index/user/register?code=YJ1596269352
         $recommend_link = $domain . '/mobile/user/register?code=' . $userSessionData['code'];
 
-        return json_encode($userSessionData);
-
-
+        //  json_encode($userSessionData);
         //链接生成二维码并在新窗口打开
         /*echo "<!DOCTYPE html>
 <html lang=\"en\">
@@ -104,196 +100,50 @@ class User extends Base
         //当前用户(有效)推荐人数，所推荐的人至少采集过一个满足条件的商户
         $user_code = $userSessionData['code'];
         $user_count = Db::name('user')->where('recommender', '=', $user_code)->where('mer_count', '>', 0)->select()->count();
-
         //后续佣金逻辑
         $rewards = $user_count * 15;
-        $user_data = ['user_count' => $user_count, 'all_count' => $all_count, 'rewards' => $rewards];
-        //var_dump($mer_Data);die;
+    //  $userData = ['user_count' => $user_count, 'all_count' => $all_count, 'rewards' => $rewards];
+        $userData = Db::name('user')->field('id,username,name,email,phone,avatar,status,unum,total,created_at,updated_at,last_login_time')->where('id',$userSessionData['id'])->find();
+        //
+        return json($userData);
+
         return view('', [
             'mer_Data' => $mer_Data,
             'search_key' => $search_key,
             'recommend_link' => $recommend_link,
-            'user_data' => $user_data
+            'userData' => $user_data
         ]);
 
         return view();
     }
 
-
-    public function merchant_add()
+    //用户信息更新
+    public function userUpdate()
     {
-        $userSessionData = $this->isLogin();
-
         if (request()->isPost()) {
-
             $data = request()->post();
-
-            $data['submit_ip'] = $this->request->ip();
-            $data['user_id'] = $userSessionData['id'];
-            $data['add_time'] = time();
-
-            // 上传图片
-            $store_pic = $this->request->file('store_pic');
-            $payment_code_pic = $this->request->file('payment_code_pic');
-
-            if (empty($store_pic) || empty($payment_code_pic)) {
-
-                return alert('图片不能为空!', 'index', 5);
-            }
-            $upload = new Uploader();
-            $store_pic_path = $upload->uploadimg($store_pic);
-            $payment_path = $upload->uploadimg2($payment_code_pic);
-
-            $path1 = json_decode($store_pic_path, true);
-            $path2 = json_decode($payment_path, true);
-            //获取图片路径
-            $data['store_pic'] = $path1['path'];
-            $data['payment_code_pic'] = $path2['path'];
-
-            $res_mer = Db::name('merchant')->insert($data);
-
-
-            if ($res_mer) {
-                $userdata = Db::name('user')->where('username', '=', $userSessionData['username'])->find();
-                $userdata['mer_count'] = $userdata['mer_count'] + 1;
-                $user_res = Db::name('user')->update($userdata);  //更新商户个数
-
-                return alert('操作成功', 'index', 6);
-            } else {
-                return alert('操作失败', 'index', 5);
-            }
-        }
-        return view();
-    }
-
-
-    /*修改*/
-
-    public function merchant_edit()
-    {
-        //先取出填充的数据
-        $id = input('request.id');
-        $mer_Data = Db::name('merchant')->find($id);
-        //  var_dump($mer_Data);die;
-        return view('', [
-            'merdd_Data' => $mer_Data,
-        ]);
-    }
-
-    public function merchant_update()
-    {
-
-        if (request()->isPost()) {
-
-            $data = request()->post();
-
             $data['submit_ip'] = $this->request->ip();
             $data['update_time'] = time();
-            //  var_dump($_FILES['store_pic']);die;
-
-            if (!empty($_FILES['store_pic']['name']) || !empty($_FILES['payment_code_pic']['name'])) {
-                // 上传图片
-                $store_pic = $this->request->file('store_pic');
-                $payment_code_pic = $this->request->file('payment_code_pic');
-                $upload = new Uploader();
-                $store_pic_path = $upload->uploadimg($store_pic);
-                $payment_path = $upload->uploadimg2($payment_code_pic);
-
-                $path1 = json_decode($store_pic_path, true);
-                $path2 = json_decode($payment_path, true);
-
-                //获取图片路径
-                $data['store_pic'] = $path1['path'];
-                $data['payment_code_pic'] = $path2['path'];
-            } else {
-                return alert('图片不能为空', 'merchant_edit', 5);
-
-            }
-
-            $res = Db::name('merchant')->update($data);
-
-            if ($res) {
-                return alert('操作成功', 'index', 6);
-            } else {
-                return alert('操作失败', 'index', 5);
-            }
-        }
-    }
-
-    //user data
-    public function user_edit()
-    {
-
-        $userSessionData = $this->isLogin();
-
-        //  var_dump($userSessionData);die;
-        $user_Data = Db::name('user')->find($userSessionData['id']);
-
-        return view('', [
-
-            'user_Data' => $user_Data,
-
-        ]);
-
-        return view();
-    }
-
-
-    //会员信息更新
-    public function userinfo()
-    {
-
-
-    }
-
-    public function user_update()
-    {
-
-        if (request()->isPost()) {
-
-            $data = request()->post();
-
-            $data['submit_ip'] = $this->request->ip();
-            $data['update_time'] = time();
-
-           /* if (!empty($_FILES['id_front_pic']['name']) || !empty($_FILES['id_back_pic']['name']) || !empty($_FILES['self_pic']['name'])) {
-                // 上传图片
-                $store_pic = $this->request->file('id_front_pic');
-                $payment_code_pic = $this->request->file('id_back_pic');
-                $self_pic = $this->request->file('self_pic');
-
-
-                $upload = new Uploader();
-                $store_pic_path = $upload->uploadimg($store_pic);
-                $payment_path = $upload->uploadimg2($payment_code_pic);
-                $self_pic_path = $upload->uploadimg($self_pic);
-
-                $path1 = json_decode($store_pic_path, true);
-                $path2 = json_decode($payment_path, true);
-                $path3 = json_decode($self_pic_path, true);
-
-                //获取图片路径
-                $data['id_front_pic'] = $path1['path'];
-                $data['id_back_pic'] = $path2['path'];
-                $data['self_pic'] = $path3['path'];
-
-            } else {
-                return alert('图片不能为空', 'user_edit', 5);
-            }*/
-
+            //上传用户头像 avatar
+            /* $avatar= $this->request->file('avatar');
+             $upload = new Uploader();
+             $avatarPath = $upload->uploadimg($avatar);
+             $path = json_decode($avatarPath, true);
+             //获取图片路径
+             $data['avatar'] = $path['path'];*/
+            $data['password'] = $this->password_salt($data['password']);
             $res = Db::name('user')->update($data);
-
             if ($res) {
                 return json(['status' => 1, 'message' => '用户信息更新成功!']);
             } else {
                 return json(['status' => 0, 'message' => '用户信息更新失败!']);
             }
         }
-
-
     }
+
     //更新用户头像 avatar   需传入id 和 图片
-    public function avatar(){
+    public function avatar()
+    {
 
         if (request()->isPost()) {
             $data = request()->post();
@@ -314,59 +164,8 @@ class User extends Base
             if (!$res) {
                 return json(['status' => 0, 'message' => '头像上传失败!']);
             }
-        }else{
+        } else {
             return json(['status' => 0, 'message' => '请使用正确的请求方式!']);
-        }
-    }
-
-    public function car_edit()
-    {
-        //先取出填充的数据
-        $id = input('request.id');
-        $cardd_Data = Db::name('merchant')->find($id);
-
-        return view('', [
-
-            'cardd_Data' => $cardd_Data,
-
-        ]);
-    }
-
-    public function car_update()
-    {
-
-        if (request()->isPost()) {
-
-            $data = request()->post();
-
-            $data['submit_ip'] = $this->request->ip();
-            $data['update_time'] = time();
-            //  var_dump($_FILES['store_pic']);die;
-
-            if (!empty($_FILES['car_pic']['name'])) {
-                // 上传图片
-                $store_pic = $this->request->file('car_pic');
-                $upload = new Uploader();
-                $store_pic_path = $upload->uploadimg($store_pic);
-
-                $path1 = json_decode($store_pic_path, true);
-
-                //获取图片路径
-                $data['car_pic'] = $path1['path'];
-            } else {
-
-                return alert('图片不能为空', 'car_edit', 5);
-
-            }
-
-
-            $res = Db::name('merchant')->update($data);
-
-            if ($res) {
-                return alert('操作成功', 'index', 6);
-            } else {
-                return alert('操作失败', 'index', 5);
-            }
         }
     }
 
@@ -450,7 +249,7 @@ class User extends Base
     }
 
     //退出登录
-    public function login_out()
+    public function loginOut()
     {
 
         session('sessionUserData', null);
@@ -497,75 +296,62 @@ class User extends Base
         halt($userData);
     }
 
+    //用户注册
     public function register()
     {
-
-
-        /* if(request()->isPost()) {
-             $data=input('post.');
-             if (empty($data['username'])){
-                 return alert('用户名不能为空，请输入用户名!','register',5);
-             }
-             if (empty($data['password'])){
-                 return alert('密码不能为空,请输入密码！!','register',5);
-             }
-             $data['add_time'] = time();
-             $data['submit_ip'] = $this->request->ip();
-             $res=Db::name('user')->insert($data);
-         }*/
-
-
         if (request()->isPost()) {
             $data = input('post.');
             $code = input('get.code');//推荐码
 
-            //判断该手机号状态
+            if (empty($data['username'])) {
+                return json(['status' => 0, 'message' => '用户名不能为空，请输入用户名!']);
+            }
+
+            if (empty($data['password'])) {
+                return json(['status' => 0, 'message' => '密码不能为空,请输入密码!']);
+            }
+
+            //判断该用户状态
             $userData = Db::name('user')->where('username', $data['username'])->find();
             if ($userData['status'] == 1) {
-                return alert('该用户名已经注册过了，请登录', 'login', 5);
+                return json(['status' => 0, 'message' => '该用户名已经注册过了，请登录!']);
             }
             if ($userData['status'] == -1) {
-                return alert('该账户已经封号，请更换其他账号', 'register', 5);
+                return json(['status' => 0, 'message' => '该账户已经封号，请更换其他账号!']);
             }
             if (empty($data['username'])) {
-                return alert('用户名不能为空，请输入用户名!', 'register', 5);
+                return json(['status' => 0, 'message' => '用户名不能为空，请输入用户名!']);
             }
             if (empty($data['password'])) {
-                return alert('密码不能为空,请输入密码！!', 'register', 5);
+                return json(['status' => 0, 'message' => '密码不能为空,请输入密码!']);
             }
 
             //密码加密
             $data['password'] = $this->password_salt($data['password']);
             $data['add_time'] = time();
             $data['time'] = time();
-
+            $data['submit_ip'] = $this->request->ip();
 
             $data['code'] = 'YJ' . time();
-
-
             if ($code) {
                 $data['recommender'] = $code;
             }
-
-
             //  var_dump($data);die;
-
-            $newUserId = Db::name('user')->insertGetId($data);
-
+            $newUserId = Db::name('user')->insertGetId($data);  //获取最后一条插入数据的id
 
             if ($newUserId) {
-                return alert('注册成功，请登录', 'login', 6);
+                return json(['status' => 1, 'message' => '注册成功，请登录!']);
 
             } else {
-                return alert('注册失败', 'register', 5);
-
+                return json(['status' => 0, 'message' => '注册失败!']);
             }
 
         } else {
-            return view();
+            return json(['status' => 0, 'message' => '请输入用户名和密码!']);
         }
 
     }
+
 
     public function fenyongScore($newUserId, $code)
     {

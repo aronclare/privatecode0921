@@ -3,14 +3,14 @@ Navicat MySQL Data Transfer
 
 Source Server         : users
 Source Server Version : 50726
-Source Host           : localhost:3306
+Source Host           : 127.0.0.1:3306
 Source Database       : code0921
 
 Target Server Type    : MYSQL
 Target Server Version : 50726
 File Encoding         : 65001
 
-Date: 2024-08-13 18:52:58
+Date: 2024-08-15 11:06:24
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -179,7 +179,7 @@ CREATE TABLE `qing_cart` (
   `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1：选中，0：未选中',
   PRIMARY KEY (`id`),
   KEY `member_id` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=50 DEFAULT CHARSET=utf8 COMMENT='购物车';
+) ENGINE=MyISAM AUTO_INCREMENT=51 DEFAULT CHARSET=utf8 COMMENT='购物车';
 
 -- ----------------------------
 -- Records of qing_cart
@@ -380,7 +380,7 @@ CREATE TABLE `qing_collect` (
   `time` int(11) NOT NULL,
   `user_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COMMENT='商品收藏';
+) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COMMENT='商品收藏';
 
 -- ----------------------------
 -- Records of qing_collect
@@ -389,6 +389,7 @@ INSERT INTO `qing_collect` VALUES ('15', '1', '1596103600', '1');
 INSERT INTO `qing_collect` VALUES ('16', '2', '1596103607', '1');
 INSERT INTO `qing_collect` VALUES ('17', '5', '1596103627', '1');
 INSERT INTO `qing_collect` VALUES ('18', '5', '1596103627', '2');
+INSERT INTO `qing_collect` VALUES ('20', '9', '1723644919', '2');
 
 -- ----------------------------
 -- Table structure for qing_comment
@@ -628,7 +629,7 @@ INSERT INTO `qing_goods` VALUES ('1', '小米11', '享12期分期免息，赠小
 INSERT INTO `qing_goods` VALUES ('2', '小米22', ' 4500mAh+33W闪充', '/public/upload/20200625/cd4055e97782ef3b2d60fea5076c1572.jpg', '1600', '1', '16', '1800', '', '', '1600656761', '1', '0', '1', '1', null, '1', '14_18_16', '0', '2', '1', '0', '5', '18', null, null, null);
 INSERT INTO `qing_goods` VALUES ('3', '华为111', '120Hz弹出全面屏', '/public/upload/20200625/d4df8f952223634d1fec851dd0522107.jpg', '0.01', '1', '28', '0.02', '', '', '1600656726', '1', '0', '1', '1', null, '2', '14_18_28', '0', '2', '0', '0', '0', '52', null, null, null);
 INSERT INTO `qing_goods` VALUES ('4', '电视机11', '', '/public/upload/20200625/0759f34f3c05e3e800fe811f8d94c2e6.jpg', '5888', '1', '156', '8000', '', '', '1593080663', '3', '0', '1', '1', null, '0', '4_155_156', '0', '2', '0', '0', '12', '26', null, null, null);
-INSERT INTO `qing_goods` VALUES ('5', '智睿LED灯泡 10只装', '', '/public/upload/20200625/b014f074c410cd1f72b2c05e5dc37d04.jpg', '99', '1', '158', '199', '', '', '1593080706', '0', '0', '1', '1', null, '1', '4_157_158', '0', '1', '0', '100', '2', '57', null, null, null);
+INSERT INTO `qing_goods` VALUES ('5', '智睿LED灯泡 10只装', '', '/public/upload/20200625/b014f074c410cd1f72b2c05e5dc37d04.jpg', '99', '1', '158', '199', '', '', '1593080706', '0', '0', '1', '1', null, '1', '4_157_158', '0', '1', '0', '100', '2', '58', null, null, null);
 INSERT INTO `qing_goods` VALUES ('6', '小米33', '「6GB+128GB到手价仅1399元；8GB+128GB到手价仅1599元；8GB+256GB到手价仅1799元」', '/public/upload/20200810/7c2921c04fda2943e8b4d41011ea99d1.jpg', '1900', '1', '16', '2100', '', '5000mAh长循环大电量 / 6.53\"超大护眼屏幕 / G25八核处理器 / 大音量扬声器 / 1300万 AI相机 / 人脸解锁 / 最高支持512GB存储扩展', '1597049554', '1', '0', '1', '1', null, '0', '14_18_16', '0', '2', '11', '0', '4', '68', null, null, null);
 INSERT INTO `qing_goods` VALUES ('7', 'Redmi手环', '', '/public/upload/20200904/bc87fb6becf47e9afabfc0ee61a6c3bd.jpg', '99', '1', '33', '149', '', '1.08英寸大屏彩显 / 14天续航，快拆直插充电 / 腕上信息提醒，一目了然 / 科学算法，守护你的健康', '1599181773', '0', '0', '1', '1', null, '0', '14_30_33', '0', '1', '0', '0', '0', '35', null, null, null);
 INSERT INTO `qing_goods` VALUES ('8', '小米户外蓝牙音箱', '', '/public/upload/20200904/d0aa10a258d17ec93e6bd03ea5d80719.jpg', '0.02', '1', '59', '199', '', '大音量 / 长续航 / 轻盈便携 / 360°环绕立体声 / IP55防尘防水 / 双麦克风降噪通话 / 蓝牙5.0 / type-c接口', '1600508382', '0', '0', '1', '1', null, '0', '14_56_59', '0', '1', '0', '0', '0', '16', null, null, null);
@@ -1605,6 +1606,7 @@ DROP TABLE IF EXISTS `qing_user`;
 CREATE TABLE `qing_user` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(20) NOT NULL DEFAULT 'qing',
+  `name` varchar(20) DEFAULT NULL,
   `password` char(32) NOT NULL DEFAULT '',
   `email` varchar(100) DEFAULT NULL,
   `phone` varchar(20) DEFAULT NULL COMMENT 'phone',
@@ -1626,16 +1628,12 @@ CREATE TABLE `qing_user` (
   `code` varchar(50) NOT NULL COMMENT '分佣推荐码',
   `nicname` varchar(20) DEFAULT NULL COMMENT '昵称',
   `real_name` varchar(20) DEFAULT NULL,
-  `id_front_pic` varchar(200) DEFAULT NULL,
-  `id_back_pic` varchar(200) DEFAULT NULL,
-  `self_pic` varchar(200) DEFAULT NULL,
-  `add_time` int(10) DEFAULT NULL,
-  `update_time` int(10) DEFAULT NULL,
+  `created_at` int(10) DEFAULT NULL,
+  `updated_at` int(10) DEFAULT NULL,
   `check_status` tinyint(1) DEFAULT '0' COMMENT '0待审核1审核通过2审核不通过',
   `referral_code` varchar(50) DEFAULT NULL COMMENT '推荐人码',
   `id_number` varchar(50) DEFAULT NULL,
   `remark` varchar(200) DEFAULT NULL,
-  `cash_address` varchar(150) DEFAULT '',
   `submit_ip` varchar(50) DEFAULT NULL,
   `recommender` varchar(50) DEFAULT NULL COMMENT '推荐人',
   `mer_count` int(10) DEFAULT '0',
@@ -1646,21 +1644,23 @@ CREATE TABLE `qing_user` (
   UNIQUE KEY `code` (`code`),
   UNIQUE KEY `mobile` (`mobile`),
   KEY `code_2` (`code`)
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of qing_user
 -- ----------------------------
-INSERT INTO `qing_user` VALUES ('2', 'admin123456', 'a8a5c404e3927315ccb6e028d4372ac8', 'admin@qq.com', null, null, null, null, null, null, null, '1721638692', '15100000001', '1', '1707983653', null, null, '3', null, '0', 'YJ1596269352', null, '老九', '\\public\\upload/20240215\\6b53bbb474985ab7357d235becfc999b.png', '\\public\\upload/20240215\\ad49bd1fdcfe4ab4753d84ac7f891eeb.png', '\\public\\upload/20240215\\d6122dcbd4ea95cb83bb12dee5463f63.png', null, '1707980452', '0', null, '513232198710160820', '该会员条件不错，审核通过。', 'usdtqwrqrqqrqrqrqrqwrqwsfsfs', '127.0.0.1', '', '7', null);
-INSERT INTO `qing_user` VALUES ('30', '15100000009', 'ae71b36a06b355ec6e4967afc57be73d', null, null, null, null, null, null, null, null, '1711007565', '15100000009', '1', '1596275329', null, null, '3', null, '0', 'YJ1596275329', null, null, null, null, null, null, null, '0', null, null, null, null, null, null, '0', null);
-INSERT INTO `qing_user` VALUES ('33', '15100000011', 'a8a5c404e3927315ccb6e028d4372ac8', null, null, null, null, null, null, null, null, '1720429846', '15100000011', '1', '1596275434', null, null, '3', null, '1', 'YJ1596275434', null, null, null, null, null, null, null, '0', null, null, null, null, null, null, '0', null);
-INSERT INTO `qing_user` VALUES ('34', '17615342771', 'a8a5c404e3927315ccb6e028d4372ac8', null, null, null, null, null, null, null, null, '1598255654', '17615342771', '1', '1598255643', null, null, '3', null, '1', 'YJ1598255643', null, null, null, null, null, null, null, '0', null, null, null, null, null, null, '0', null);
-INSERT INTO `qing_user` VALUES ('36', '15100000010', 'a8a5c404e3927315ccb6e028d4372ac8', null, null, null, null, null, null, null, null, '1598344289', '15100000010', '1', '1598344219', null, null, '3', null, '1', 'YJ1598344219', null, null, null, null, null, null, null, '0', null, null, null, null, null, null, '0', null);
-INSERT INTO `qing_user` VALUES ('37', '15100000012', 'a8a5c404e3927315ccb6e028d4372ac8', null, null, null, null, null, null, null, null, '1598345048', '15100000012', '1', '1598345040', null, null, '3', null, '1', 'YJ1598345040', null, null, null, null, null, null, null, '0', null, null, null, null, null, 'YJ1596269352', '2', null);
-INSERT INTO `qing_user` VALUES ('38', '15100000013', 'admin123456', null, null, null, null, null, null, null, null, '1598345659', '15100000013', '1', '1598345648', null, null, '3', null, '1', 'YJ1598345648', null, null, null, null, null, null, null, '0', null, null, null, null, null, 'YJ1596269352', '2', null);
-INSERT INTO `qing_user` VALUES ('39', 'admin@gmail.com', 'a8a5c404e3927315ccb6e028d4372ac8', '15100000001@qq.com', null, null, null, null, null, 'https://api.shop.eduwork.cn/imgs/avatar.png', '0', '1723545850', '15280832018', '1', '1707985712', null, null, '3', null, '0', 'YJ1707927651', null, '老九', '\\public\\upload/20240215\\4278604c5efd1b54e9d58a1666318d86.png', '\\public\\upload/20240215\\52d6ba6fa6d3bc1a9b9ceecf8132589a.png', '\\public\\upload/20240215\\72149581f5a80f5171f7cc7dd6b6f5a8.png', '1707927651', '1723001127', '0', null, '512828187620231028', '豆腐干大概', '', '127.0.0.1', 'YJ1596269352', '1', null);
-INSERT INTO `qing_user` VALUES ('43', 'admintest', 'a8a5c404e3927315ccb6e028d4372ac8', null, null, null, null, null, null, null, null, '1707929221', null, '1', '1707928648', null, null, '3', null, '0', 'YJ1707928648', null, null, null, null, null, '1707928648', null, '0', null, null, null, '', null, 'YJ1596269352', '0', null);
-INSERT INTO `qing_user` VALUES ('44', '15100000002', 'a8a5c404e3927315ccb6e028d4372ac8', null, null, null, null, null, null, null, null, '1711787327', null, '1', '1710915525', null, null, '3', null, '0', 'YJ1710915525', null, null, null, null, null, '1710915525', null, '0', null, null, null, '', null, null, '0', null);
+INSERT INTO `qing_user` VALUES ('2', 'admin123456', null, 'a8a5c404e3927315ccb6e028d4372ac8', 'admin@qq.com', null, null, null, null, null, null, null, '1723643767', '15100000001', '1', '1707983653', null, null, '3', null, '0', 'YJ1596269352', null, '老九', null, '1707980452', '0', null, '513232198710160820', '该会员条件不错，审核通过。', '127.0.0.1', '', '7', null);
+INSERT INTO `qing_user` VALUES ('30', '15100000009', null, 'ae71b36a06b355ec6e4967afc57be73d', null, null, null, null, null, null, null, null, '1711007565', '15100000009', '1', '1596275329', null, null, '3', null, '0', 'YJ1596275329', null, null, null, null, '0', null, null, null, null, null, '0', null);
+INSERT INTO `qing_user` VALUES ('33', '15100000011', null, 'a8a5c404e3927315ccb6e028d4372ac8', null, null, null, null, null, null, null, null, '1720429846', '15100000011', '1', '1596275434', null, null, '3', null, '1', 'YJ1596275434', null, null, null, null, '0', null, null, null, null, null, '0', null);
+INSERT INTO `qing_user` VALUES ('34', '17615342771', null, 'a8a5c404e3927315ccb6e028d4372ac8', null, null, null, null, null, null, null, null, '1598255654', '17615342771', '1', '1598255643', null, null, '3', null, '1', 'YJ1598255643', null, null, null, null, '0', null, null, null, null, null, '0', null);
+INSERT INTO `qing_user` VALUES ('36', '15100000010', null, 'a8a5c404e3927315ccb6e028d4372ac8', null, null, null, null, null, null, null, null, '1598344289', '15100000010', '1', '1598344219', null, null, '3', null, '1', 'YJ1598344219', null, null, null, null, '0', null, null, null, null, null, '0', null);
+INSERT INTO `qing_user` VALUES ('37', '15100000012', null, 'a8a5c404e3927315ccb6e028d4372ac8', null, null, null, null, null, null, null, null, '1598345048', '15100000012', '1', '1598345040', null, null, '3', null, '1', 'YJ1598345040', null, null, null, null, '0', null, null, null, null, 'YJ1596269352', '2', null);
+INSERT INTO `qing_user` VALUES ('38', '15100000013', null, 'admin123456', null, null, null, null, null, null, null, null, '1598345659', '15100000013', '1', '1598345648', null, null, '3', null, '1', 'YJ1598345648', null, null, null, null, '0', null, null, null, null, 'YJ1596269352', '2', null);
+INSERT INTO `qing_user` VALUES ('39', 'admin@gmail.com', null, 'a8a5c404e3927315ccb6e028d4372ac8', '15100000001@qq.com', null, null, null, null, null, 'https://api.shop.eduwork.cn/imgs/avatar.png', '0', '1723545850', '15280832018', '1', '1707985712', null, null, '3', null, '0', 'YJ1707927651', null, '老九', '1707927651', '1723001127', '0', null, '512828187620231028', '豆腐干大概', '127.0.0.1', 'YJ1596269352', '1', null);
+INSERT INTO `qing_user` VALUES ('43', 'admintest', null, 'a8a5c404e3927315ccb6e028d4372ac8', null, null, null, null, null, null, null, null, '1707929221', null, '1', '1707928648', null, null, '3', null, '0', 'YJ1707928648', null, null, '1707928648', null, '0', null, null, null, null, 'YJ1596269352', '0', null);
+INSERT INTO `qing_user` VALUES ('44', '15100000002', null, 'a8a5c404e3927315ccb6e028d4372ac8', null, null, null, null, null, null, null, null, '1711787327', null, '1', '1710915525', null, null, '3', null, '0', 'YJ1710915525', null, null, '1710915525', null, '0', null, null, null, null, null, '0', null);
+INSERT INTO `qing_user` VALUES ('45', 'admin2@gmail.com', null, 'a8a5c404e3927315ccb6e028d4372ac8', null, null, null, null, null, null, null, null, '0', null, '1', '1723646135', null, null, '3', null, '0', 'YJ1723646135', null, null, '1723646135', null, '0', null, null, null, null, null, '0', null);
+INSERT INTO `qing_user` VALUES ('46', 'admin4@gmail.com', null, 'a8a5c404e3927315ccb6e028d4372ac8', null, null, null, null, null, null, null, null, '0', null, '1', '1723646607', null, null, '3', null, '0', 'YJ1723646607', null, null, '1723646607', '1723648045', '0', null, null, null, '127.0.0.1', null, '0', null);
 
 -- ----------------------------
 -- Table structure for qing_user_trace
