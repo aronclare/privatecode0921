@@ -5,11 +5,13 @@ namespace app\mobile\controller;
 use app\common\lib\Uploader;
 use think\Controller;
 use think\facade\Db;
-
 use app\common\validate\User as UserValidate;
-
 use app\common\model\Category as CategoryModel;
-
+// my order
+use think\facade\Cache;
+use think\exception\ValidateException;
+use app\common\lib\Alicms;
+use think\facade\Console;
 
 class User extends Base
 
@@ -381,6 +383,413 @@ class User extends Base
         return true;
 
     }
+
+
+
+    //我的订单  //订单列表
+    public function myorder(){
+        $sessionUserData = $this->isLogin();
+        $this->clearOrderStatus0();
+
+        $orderData=Db::view('order', 'id,total_price,status,time,out_trade_no,pay_method,iscomment')
+            ->view('address', 'shou_name', 'address.id=order.address_id')
+            ->where('order.user_id', $sessionUserData['id'])->order('order.id desc')
+            ->paginate(['list_rows'=> 2,'query'=>request()->param()]);
+        //分页
+        $page = $orderData->render();
+
+        $orderData1=$orderData->items();
+
+        foreach($orderData1 as $k=>$v){
+            $orderData1[$k]['goods']=Db::name('order_goods')->alias('a')->field('a.*,b.goods_name,b.goods_thumb')->join('goods b','a.goods_id=b.goods_id')->where('a.order_id',$v['id'])->select()->toArray();
+        }
+
+
+
+
+
+
+
+
+        var_dump($page);die;
+        return json($orderData1);die;
+
+        //halt($orderData1);
+        return view('',[
+            'left_menu'=>11,
+            'page'=>$page,
+            'orderData1'=>$orderData1,
+            'searchkey'=>''
+        ]);
+    }
+
+
+    //用户订单搜索
+    public function myorder_search(){
+        $sessionUserData = $this->isLogin();
+        $this->clearOrderStatus0();
+        $searchkey=input('searchkey');
+        //先找出有该关键字的所有订单id ,order数据表中的id 1,2
+        //order数据表中查id in 1，2 分页
+
+
+
+        $orderDataTmp=Db::view('order', 'id')
+            ->view('order_goods', 'goods_id', 'order.id=order_goods.order_id')
+            ->view('goods', 'goods_name', 'order_goods.goods_id=goods.goods_id')
+            ->where('order.user_id', $sessionUserData['id'])
+            ->where('goods.goods_name','like','%'.$searchkey.'%')->order('order.id desc')
+            ->select()->toArray();
+
+        if(empty($orderDataTmp)){
+            return alert('没有找到'.$searchkey.'相关搜索结果','myorder',5);
+        }
+
+        foreach($orderDataTmp as $k=>$v){
+            $idArr[]=$v['id'];
+        }
+        $idStr=implode(',',$idArr);
+
+        $orderData = Db::view('order', 'id,total_price,status,time,out_trade_no,pay_method,iscomment')
+            ->view('address', 'shou_name', 'address.id=order.address_id')
+            ->where('order.user_id', $sessionUserData['id'])
+            ->where('order.id','in',$idStr)
+            ->paginate(['list_rows'=> 1,'query'=>request()->param()]);
+
+
+        //分页
+        $page = $orderData->render();
+
+        $orderData1=$orderData->items();
+
+        foreach($orderData1 as $k=>$v){
+            $orderData1[$k]['goods']=Db::name('order_goods')->alias('a')->field('a.*,b.goods_name,b.goods_thumb')->join('goods b','a.goods_id=b.goods_id')->where('a.order_id',$v['id'])->select()->toArray();
+        }
+        //halt($orderData1);
+
+        return view('user/myorder',[
+            'left_menu'=>11,
+            'page'=>$page,
+            'orderData1'=>$orderData1,
+            'searchkey'=>$searchkey
+        ]);
+    }
+
+
+    //清除24小时过时待支付订单
+    public function clearOrderStatus0(){
+
+        $sessionUserData = $this->isLogin();
+
+
+        //待支付订单如何处理
+        //1、被动处理
+        //2、轮回 定时器 占资源
+        //3、队列 redis
+
+        //24小时是86400秒
+
+        $time=time()-86400;
+        $orderDataTmp=Db::name('order')->where('user_id',$sessionUserData['id'])->where('status',0)->where('time','<',$time)->select();
+        foreach($orderDataTmp as $k=>$v){
+            Db::name('order')->where('id',$v['id'])->delete();
+            Db::name('order_goods')->where('order_id',$v['id'])->delete();
+        }
+    }
+
+    //我的订单详情
+    public function myorder_detail(){
+        //0 待付款 取消订单 立即支付  订单详情
+        //1 已经支付待发货  订单详情
+        //4 待确认收货  确认收货  订单详情
+        //2 已完成  商品评价  订单详情 联系客服  删除订单
+        $sessionUserData = $this->isLogin();
+        $id=input('id');
+        //订单数据
+        $orderData=Db::name('order')->find($id);
+        if(empty($orderData)){
+            return redirect('myorder');
+        }
+
+        //商品订单数据
+        $orderGoodsData=Db::name('order_goods')->alias('a')->field('a.*,b.goods_name,b.goods_thumb')->join('goods b','a.goods_id=b.goods_id')->where('a.order_id',$orderData['id'])->select()->toArray();
+
+        $post_money=0;
+        $goods_price=0;
+
+        //caculate price计算价格
+        foreach($orderGoodsData as $k=>$v){
+            $post_money=$v['post_money']+$post_money;
+            $goods_price=$goods_price+$v['goods_price']*$v['amount'];
+        }
+
+
+        //post_money 每件商品省下的钱   累加得到总共省下的钱
+        //收货信息
+
+        $addressData=Db::name('address')->find($orderData['address_id']);
+
+
+
+        var_dump($orderGoodsData);die;
+        return view('',[
+            'left_menu'=>11,
+            'orderData'=>$orderData,
+            'orderGoodsData'=>$orderGoodsData,
+            'addressData'=>$addressData,
+            'post_money'=>$post_money,
+            'goods_price'=>$goods_price
+        ]);
+    }
+
+    //我的订单--待收货4
+    public function myorder4(){
+        $sessionUserData = $this->isLogin();
+        $orderData=Db::view('order', 'id,total_price,status,time,out_trade_no,pay_method')
+            ->view('address', 'shou_name', 'address.id=order.address_id')
+            ->where('order.user_id', $sessionUserData['id'])
+            ->where('order.status',4)->order('order.id desc')
+            ->paginate(['list_rows'=> 1,'query'=>request()->param()]);
+
+
+        //分页
+        $page = $orderData->render();
+
+        $orderData1=$orderData->items();
+
+        foreach($orderData1 as $k=>$v){
+            $orderData1[$k]['goods']=Db::name('order_goods')->alias('a')->field('a.*,b.goods_name,b.goods_thumb')->join('goods b','a.goods_id=b.goods_id')->where('a.order_id',$v['id'])->select()->toArray();
+        }
+        //halt($orderData1);
+        return view('',[
+            'left_menu'=>12,
+            'page'=>$page,
+            'orderData1'=>$orderData1
+        ]);
+    }
+
+
+    //我的订单--待支付0
+    public function myorder0(){
+        $sessionUserData = $this->isLogin();
+
+        //清除24小时过时待支付订单
+        $this->clearOrderStatus0();
+
+
+
+        $orderData=Db::view('order', 'id,total_price,status,time,out_trade_no,pay_method')
+            ->view('address', 'shou_name', 'address.id=order.address_id')
+            ->where('order.user_id', $sessionUserData['id'])
+            ->where('order.status',0)->order('order.id desc')
+            ->paginate(['list_rows'=> 1,'query'=>request()->param()]);
+
+
+        //分页
+        $page = $orderData->render();
+
+        $orderData1=$orderData->items();
+
+        foreach($orderData1 as $k=>$v){
+            $orderData1[$k]['goods']=Db::name('order_goods')->alias('a')->field('a.*,b.goods_name,b.goods_thumb')->join('goods b','a.goods_id=b.goods_id')->where('a.order_id',$v['id'])->select()->toArray();
+        }
+        //halt($orderData1);
+        return view('',[
+            'left_menu'=>13,
+            'page'=>$page,
+            'orderData1'=>$orderData1
+        ]);
+    }
+
+    //我的订单-确认收货
+    public function order_status2(){
+        $id=input('id');
+        $res=Db::name('order')->where('id',$id)->update(['status'=>2]);
+        if($res){
+            return alert('操作成功','myorder',6);
+        }else{
+            return alert('操作失败','myorder',5);
+        }
+    }
+
+    //我的订单-取消订单-删除订单
+    public function order_delete(){
+        $id=input('id');
+        $res=Db::name('order')->where('id',$id)->delete();
+        Db::name('order_goods')->where('order_id',$id)->delete();
+        if($res){
+            return alert('操作成功','myorder',6);
+        }else{
+            return alert('操作失败','myorder',5);
+        }
+    }
+
+
+
+    //我的订单发表评价
+    public function myorder_comment(){
+        $sessionUserData = $this->isLogin();
+        $id=input('id');
+        $orderData=Db::name('order')->find($id);
+
+        //做下判断
+        if(empty($orderData) || $orderData['status']!=2){
+            return redirect('myorder');
+        }
+
+        //获取商品数据
+        $orderGoodsData=Db::name('order_goods')->alias('a')->field('a.order_id,b.goods_id,b.goods_thumb')->join('goods b','a.goods_id=b.goods_id')->where('order_id',$id)->where('a.iscomment',0)->select();
+
+        return view('',[
+            'left_menu'=>11,
+            'orderGoodsData'=>$orderGoodsData
+        ]);
+    }
+
+    //我的评论-发布评论
+    public function myorder_comment_add(){
+        $sessionUserData = $this->isLogin();
+        $data=input('post.');
+        $data['time']=time();
+        $data['user_id']=$sessionUserData['id'];
+        $res=Db::name('comment')->insert($data);
+        if($res){
+            //更改order_goods表中评论状态
+            Db::name('order_goods')->where('order_id',$data['order_id'])->where('goods_id',$data['goods_id'])->update(['iscomment'=>1]);
+
+            //查找是否还有没有评论的商品，如果都评论了，更新order中的iscomment
+            $orderGoods=Db::name('order_goods')->where('order_id',$data['order_id'])->where('iscomment',0)->find();
+            if(empty($orderGoods)){
+                Db::name('order')->where('id',$data['order_id'])->update(['iscomment'=>1]);
+            }
+
+            return alert('操作成功','myorder',6);
+        }else{
+            return alert('操作失败','myorder',5);
+        }
+
+
+        halt($data);
+
+    }
+
+    //我的评论列表
+    public function comment_list(){
+        $sessionUserData = $this->isLogin();
+        $commentData=Db::view('comment', 'id,content,star,time')
+            ->view('goods', 'goods_thumb,goods_id', 'comment.goods_id=goods.goods_id')
+            ->view('user', 'username', 'comment.user_id=user.id')
+            ->where('comment.user_id',$sessionUserData['id'])
+            ->order('comment.id desc')
+            ->paginate(10);
+
+        return view('',[
+            'left_menu'=>23,
+            'commentData'=>$commentData
+        ]);
+    }
+
+    //sleep
+    //默认好评 默认收货
+    //现在有1万个会员，自动判断到期，而且会给用户发消息
+    //域名、主机、服务器
+    //未支付订单的处理，过了1天仍然没有支付，那就自动取消订单
+    //redis 有序队列
+    //2
+    //3
+    public function text(){
+        while(true){
+            //order status 2 没有评论的，
+            $this->comment_add_auto();
+            //order status 4 已经发货的，15天用户也没有确认收货按钮，处理成已经收货完成，默认好评
+
+            $this->order_status_auto();
+            sleep(1);
+        }
+    }
+
+    //已经确认收货，没有评论，默认添加评论
+    public function comment_add_auto(){
+        $time=time()-60*60*24;//一天24小时
+        $orderGoodsData=Db::view('order_goods', 'id,order_id,goods_id')
+            ->view('order', 'time', 'order_goods.order_id=order.id')
+            ->where('order.status',2)
+            ->where('order_goods.iscomment',0)
+            ->where('order.time','<',$time)
+            ->order('order.time asc')
+            ->find();
+        //好评 comment iscoment 1
+
+
+        if($orderGoodsData){
+            $sessionUserData = $this->isLogin();
+            $data['order_id']=$orderGoodsData['order_id'];
+            $data['user_id']=$sessionUserData['id'];
+            $data['goods_id']=$orderGoodsData['goods_id'];
+            $data['time']=time();
+            $data['star']=5;
+            $data['content']='好评';
+
+            $res=Db::name('comment')->insert($data);
+            if($res){
+                //更改order_goods表中评论状态
+                Db::name('order_goods')->where('order_id',$data['order_id'])->where('goods_id',$data['goods_id'])->update(['iscomment'=>1]);
+
+                //查找是否还有没有评论的商品，如果都评论了，更新order中的iscomment
+                $orderGoods=Db::name('order_goods')->where('order_id',$data['order_id'])->where('iscomment',0)->find();
+                if(empty($orderGoods)){
+                    Db::name('order')->where('id',$data['order_id'])->update(['iscomment'=>1]);
+                }
+
+            }
+        }
+    }
+
+    //已经确认收货，没有评论，默认添加评论
+    public function order_status_auto(){
+        $time=time()-60*60*24;//一天24小时
+        $orderGoodsData=Db::view('order_goods', 'id,order_id,goods_id')
+            ->view('order', 'time', 'order_goods.order_id=order.id')
+            ->where('order.status',4)
+            ->where('order_goods.iscomment',0)
+            ->where('order.time','<',$time)
+            ->order('order.time asc')
+            ->find();
+        //好评 comment iscoment 1
+
+
+        if($orderGoodsData){
+
+            $sessionUserData = $this->isLogin();
+            $data['order_id']=$orderGoodsData['order_id'];
+            $data['user_id']=$sessionUserData['id'];
+            $data['goods_id']=$orderGoodsData['goods_id'];
+            $data['time']=time();
+            $data['star']=5;
+            $data['content']='好评';
+
+            $res=Db::name('comment')->insert($data);
+            Db::name('order')->where('id',$orderGoodsData['order_id'])->update(['status'=>2]);
+            if($res){
+                //更改order_goods表中评论状态
+                Db::name('order_goods')->where('order_id',$data['order_id'])->where('goods_id',$data['goods_id'])->update(['iscomment'=>1]);
+
+                //查找是否还有没有评论的商品，如果都评论了，更新order中的iscomment
+                $orderGoods=Db::name('order_goods')->where('order_id',$data['order_id'])->where('iscomment',0)->find();
+                if(empty($orderGoods)){
+                    Db::name('order')->where('id',$data['order_id'])->update(['iscomment'=>1]);
+                }
+
+            }
+        }
+    }
+
+    public function hello($name)
+    {
+        $output = Console::call('hello', [$name]);
+        return $output->fetch();
+    }
+
 
 
 }

@@ -189,7 +189,6 @@ class Order extends Base
             return json(['msg'=>'请完善收货地址信息','status'=>0]);
         }*/
         $data['address_id']= 2;
-
         $data['user_id']=$sessionUserData['id'];
         $data['time']=time();
         $data['pay_method']=input('post.pay_method');//支付方式
@@ -223,20 +222,14 @@ class Order extends Base
             $total_price=$total_price+$price+$goodsData['post_money'];
 
         }
-
             $data['total_price']=$total_price;  //总金额
 
-        $order_id=Db::name('order')->insertGetId($data);
 
-      //  var_dump($order_id);die;
-
-        
         //入库
         Db::startTrans();
         try{
             $order_id=Db::name('order')->insertGetId($data);
-
-          var_dump($order_id);die;
+        //  var_dump($order_id);die;
             if($order_id){
                 foreach($data2 as $k=>$v){
                     $v['order_id']=$order_id;
@@ -251,7 +244,7 @@ class Order extends Base
         }catch (\Exception $e) {
             // 回滚事务
             Db::rollback();
-            return json(['msg'=>'订单异常','status'=>-1]);
+            return json(['msg'=>'订单异常','status'=>-3]);
         }
 
         if($order_id && $res){
@@ -301,8 +294,6 @@ class Order extends Base
         ]);
 
     }
-
-
     //buy直接购买确认订单
     public function order_create2(){
 
@@ -353,7 +344,6 @@ class Order extends Base
 
             }
 
-
             //减少库存操作
 
             //提交事务
@@ -370,13 +360,21 @@ class Order extends Base
 
             //微信支付
             if($data['pay_method']==1){
-                return json(['msg'=>'订单提交成功！','status'=>1,'out_trade_no'=>$data['out_trade_no']]);
+                return json(['msg'=>'订单提交微信支付成功！','status'=>1,'out_trade_no'=>$data['out_trade_no']]);
             }
 
             //支付宝支付
             if($data['pay_method']==2){
-                return json(['msg'=>'订单提交成功！','status'=>2,'out_trade_no'=>$data['out_trade_no']]);
+                return json(['msg'=>'订单提交支付宝支付成功！','status'=>2,'out_trade_no'=>$data['out_trade_no']]);
             }
+
+            //usdt支付
+            if($data['pay_method']==3){
+
+
+                return json(['msg'=>'订单提交usdt支付成功！','status'=>2,'out_trade_no'=>$data['out_trade_no']]);
+            }
+
         }
     }
 
@@ -385,28 +383,49 @@ class Order extends Base
         $sessionUserData=session('sessionUserData');
         //没有登录
         if(empty($sessionUserData)){
-            return json(['status'=>-2]);
+
+            return json(['status'=>0,'message'=>'请登录后再操作!']);
         }
         $out_trade_no=input('post.out_trade_no');
         //订单异常
         $orderData=Db::name('order')->where('out_trade_no',$out_trade_no)->find();
         if(empty($orderData)){
-            return json(['status'=>-1]);
+            return json(['status'=>0,'message'=>'该订单号不存在!']);
         }
         //已经支付成功
         if($orderData['status']==1){
-            return json(['status'=>1]);
+            return json(['status'=>1,'message'=>'订单已支付成功!']);
         }
         //未支付
-        return json(['status'=>0]);
+        return json(['status'=>0,'message'=>'订单未支付!']);
     }
     //取消订单
     public  function order_cancel(){
         $mid = $this->is_login();    //用户user_id
         $id = input("request.id",0);  //订单id
-        Db::name('order')->where("user_id={$mid} and id={$id}")->delete();
-        Db::name('order_goods')->where("order_id={$id}")->delete();
-        ajaxmsg('取消成功',1);
+      $res1 =   Db::name('order')->where("user_id={$mid} and id={$id}")->delete();
+      $res2 =   Db::name('order_goods')->where("order_id={$id}")->delete();
+
+
+      if ($res1 && $res2){
+          return json(['status'=>1,'message'=>'订单取消成功!']);
+
+      }else{
+          return json(['status'=>0,'message'=>'订单不存在或已经被取消!']);
+
+      }
+
+    }
+    //订单列表
+    public function  orderList(){
+        //参数  id  cover_url title description price num
+
+    }
+
+    //获取订单详情
+    public function orderDetails(){
+
+
     }
 
     //查看订单物流信息

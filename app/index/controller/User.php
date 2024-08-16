@@ -1058,6 +1058,7 @@ class User extends  Base
         //order数据表中查id in 1，2 分页
 
 
+
         $orderDataTmp=Db::view('order', 'id')
         ->view('order_goods', 'goods_id', 'order.id=order_goods.order_id')
         ->view('goods', 'goods_name', 'order_goods.goods_id=goods.goods_id')
@@ -1074,7 +1075,7 @@ class User extends  Base
         }
         $idStr=implode(',',$idArr);
         
-        $orderData=Db::view('order', 'id,total_price,status,time,out_trade_no,pay_method,iscomment')
+        $orderData = Db::view('order', 'id,total_price,status,time,out_trade_no,pay_method,iscomment')
         ->view('address', 'shou_name', 'address.id=order.address_id')
         ->where('order.user_id', $sessionUserData['id'])
         ->where('order.id','in',$idStr)

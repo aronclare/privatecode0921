@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50726
 File Encoding         : 65001
 
-Date: 2024-08-15 18:59:35
+Date: 2024-08-16 18:42:49
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -190,10 +190,6 @@ CREATE TABLE `qing_cart` (
 INSERT INTO `qing_cart` VALUES ('26', '3', '2,6,24', '33', '2', '1', '1', null, null);
 INSERT INTO `qing_cart` VALUES ('28', '11', '26,14', '33', '1222222', '1', '1', null, null);
 INSERT INTO `qing_cart` VALUES ('48', '10', '7,14', '2', '5', '1', '1', null, null);
-INSERT INTO `qing_cart` VALUES ('47', '12', '27,28', '39', '1', '1', '1', null, null);
-INSERT INTO `qing_cart` VALUES ('46', '6', '3,6,23', '39', '2', '1', '1', null, null);
-INSERT INTO `qing_cart` VALUES ('51', '5', '2,6,24', '39', '218', '1', '2', '1723709105', '1723709944');
-INSERT INTO `qing_cart` VALUES ('52', '5', '3,6,23', '39', '297', '1', '3', '1723709968', '1723710293');
 
 -- ----------------------------
 -- Table structure for qing_category
@@ -996,7 +992,7 @@ CREATE TABLE `qing_order` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `out_trade_no` (`out_trade_no`),
   KEY `out_trade_no_2` (`out_trade_no`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8 COMMENT='定单基本信息';
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8 COMMENT='定单基本信息';
 
 -- ----------------------------
 -- Records of qing_order
@@ -1026,6 +1022,8 @@ INSERT INTO `qing_order` VALUES ('30', '44', '1711784134', '3', '', '2011', '0',
 INSERT INTO `qing_order` VALUES ('31', '39', '1723719286', '2', 'sdfsgfdgdg454', '56296', '0', '2', null, null, '0', '5a357c87d366c77d71c16d101fb1dc0f', null, '0');
 INSERT INTO `qing_order` VALUES ('32', '39', '1723719339', '2', 'sdfsgfdgdg454', '56296', '0', '2', null, null, '0', 'f1df87645f96e801cafd18161f657cbc', null, '0');
 INSERT INTO `qing_order` VALUES ('34', '39', '1723719427', '2', 'sdfsgfdgdg454', '56296', '0', '2', null, null, '0', '3dcfdc592b646a4c365ba11484221962', null, '0');
+INSERT INTO `qing_order` VALUES ('35', '39', '1723779173', '2', 'sdfsgfdgdg454', '56296', '0', '2', null, null, '0', '69aa4b76e6357a1e792ee0ecfc0bc075', null, '0');
+INSERT INTO `qing_order` VALUES ('37', '39', '1723779245', '2', 'sdfsgfdgdg454', '56296', '0', '2', null, null, '0', '4f6e56931ed5973e92d8c5dfcd360e93', null, '0');
 
 -- ----------------------------
 -- Table structure for qing_order_goods
@@ -1041,7 +1039,7 @@ CREATE TABLE `qing_order_goods` (
   `post_money` float NOT NULL DEFAULT '0' COMMENT '邮费',
   `iscomment` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0未评论 1已评论',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8 COMMENT='用户订单商品表';
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8 COMMENT='用户订单商品表';
 
 -- ----------------------------
 -- Records of qing_order_goods
@@ -1084,6 +1082,10 @@ INSERT INTO `qing_order_goods` VALUES ('34', '5', '297', '99', '128G,玫瑰粉,�
 INSERT INTO `qing_order_goods` VALUES ('34', '5', '218', '99', '64G,玫瑰粉,豪华套餐', '46', '0', '0');
 INSERT INTO `qing_order_goods` VALUES ('34', '12', '1', '1300', '43寸,黑色', '47', '0', '0');
 INSERT INTO `qing_order_goods` VALUES ('34', '6', '2', '2000', '128G,玫瑰粉,标准套餐', '48', '11', '0');
+INSERT INTO `qing_order_goods` VALUES ('37', '5', '297', '99', '128G,玫瑰粉,标准套餐', '49', '0', '0');
+INSERT INTO `qing_order_goods` VALUES ('37', '5', '218', '99', '64G,玫瑰粉,豪华套餐', '50', '0', '0');
+INSERT INTO `qing_order_goods` VALUES ('37', '12', '1', '1300', '43寸,黑色', '51', '0', '0');
+INSERT INTO `qing_order_goods` VALUES ('37', '6', '2', '2000', '128G,玫瑰粉,标准套餐', '52', '11', '0');
 
 -- ----------------------------
 -- Table structure for qing_page
@@ -1668,7 +1670,7 @@ INSERT INTO `qing_user` VALUES ('34', '17615342771', null, 'a8a5c404e3927315ccb6
 INSERT INTO `qing_user` VALUES ('36', '15100000010', null, 'a8a5c404e3927315ccb6e028d4372ac8', null, null, null, null, null, null, null, null, '1598344289', '15100000010', '1', '1598344219', null, null, '3', null, '1', 'YJ1598344219', null, null, null, null, '0', null, null, null, null, null, '0', null);
 INSERT INTO `qing_user` VALUES ('37', '15100000012', null, 'a8a5c404e3927315ccb6e028d4372ac8', null, null, null, null, null, null, null, null, '1598345048', '15100000012', '1', '1598345040', null, null, '3', null, '1', 'YJ1598345040', null, null, null, null, '0', null, null, null, null, 'YJ1596269352', '2', null);
 INSERT INTO `qing_user` VALUES ('38', '15100000013', null, 'admin123456', null, null, null, null, null, null, null, null, '1598345659', '15100000013', '1', '1598345648', null, null, '3', null, '1', 'YJ1598345648', null, null, null, null, '0', null, null, null, null, 'YJ1596269352', '2', null);
-INSERT INTO `qing_user` VALUES ('39', 'admin@gmail.com', null, 'a8a5c404e3927315ccb6e028d4372ac8', '15100000001@qq.com', null, null, null, null, null, 'https://api.shop.eduwork.cn/imgs/avatar.png', '0', '1723718671', '15280832018', '1', '1707985712', null, null, '3', null, '0', 'YJ1707927651', null, '老九', '1707927651', '1723001127', '0', null, '512828187620231028', '豆腐干大概', '127.0.0.1', 'YJ1596269352', '1', null);
+INSERT INTO `qing_user` VALUES ('39', 'admin@gmail.com', null, 'a8a5c404e3927315ccb6e028d4372ac8', '15100000001@qq.com', null, null, null, null, null, 'https://api.shop.eduwork.cn/imgs/avatar.png', '0', '1723801081', '15280832018', '1', '1707985712', null, null, '3', null, '0', 'YJ1707927651', null, '老九', '1707927651', '1723001127', '0', null, '512828187620231028', '豆腐干大概', '127.0.0.1', 'YJ1596269352', '1', null);
 INSERT INTO `qing_user` VALUES ('43', 'admintest', null, 'a8a5c404e3927315ccb6e028d4372ac8', null, null, null, null, null, null, null, null, '1707929221', null, '1', '1707928648', null, null, '3', null, '0', 'YJ1707928648', null, null, '1707928648', null, '0', null, null, null, null, 'YJ1596269352', '0', null);
 INSERT INTO `qing_user` VALUES ('44', '15100000002', null, 'a8a5c404e3927315ccb6e028d4372ac8', null, null, null, null, null, null, null, null, '1711787327', null, '1', '1710915525', null, null, '3', null, '0', 'YJ1710915525', null, null, '1710915525', null, '0', null, null, null, null, null, '0', null);
 INSERT INTO `qing_user` VALUES ('45', 'admin2@gmail.com', null, 'a8a5c404e3927315ccb6e028d4372ac8', null, null, null, null, null, null, null, null, '0', null, '1', '1723646135', null, null, '3', null, '0', 'YJ1723646135', null, null, '1723646135', null, '0', null, null, null, null, null, '0', null);
