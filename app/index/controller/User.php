@@ -432,18 +432,10 @@ class User extends  Base
                 session('sessionUserData',$userData);
                 return redirect('index');
             }
-
-            
-            
-            
         }else{
             return view();
         }
-
-        
     }
-
-
 
     //修改密码
     public function edit_password(){

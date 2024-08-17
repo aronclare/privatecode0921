@@ -1,6 +1,7 @@
 <template>
 	<view>
-		<view class="header">欢迎登陆图书商城</view>
+		<view> <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" /></view>
+		<view class="header">欢迎登陆shop商城</view>
 		<view class="content">
 			<!-- 邮箱输入框 -->
 			<view>

@@ -5,7 +5,7 @@ module.exports = (vm) => {
     // 初始化请求配置
     uni.$u.http.setConfig((config) => {
         /* config 为默认全局配置*/
-        config.baseURL = `https://api.shop.eduwork.cn`; /* 根域名 */
+        config.baseURL = `https://code09211.cc`; /* 根域名 */  https://api.shop.eduwork.cn
         return config
     })
     // 请求拦截器

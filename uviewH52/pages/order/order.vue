@@ -105,7 +105,7 @@
 							this.showPay = false
 						}
 						// status等于2时,支付成功
-						if(status == 2){
+						if(status == 1){
 							clearInterval(this.timer)
 							this.$u.route({
 								type:'redirectTo',

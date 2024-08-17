@@ -1,7 +1,7 @@
 const http = uni.$u.http
 // 认证api
-export const apiRegister = params => http.post('/mobile/user/register',params)// post请求，用户注册
-export const apiLogin = params => http.post('/mobile/user/login', params)// post请求，用户登录
+export const apiRegister = params => http.post('/api/auth/register',params)// post请求，用户注册
+export const apiLogin = params => http.post('/api/auth/login', params)// post请求，用户登录
 export const apiLogout = () => http.post('/api/auth/logout')// post请求，用户退出登录
 export const apiOssToken = () => http.get('/api/auth/oss/token')// 获取阿里云OSS Token，用于前端直传文件使用
 export const apiUserInfo = () => http.get('/api/user')// get请求获取用户信息     //已完成接口配对

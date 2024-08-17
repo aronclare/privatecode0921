@@ -13,6 +13,11 @@
 namespace think;
 
 //echo '111';die;
+// 设置 CORS 头部信息
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS, DELETE, PUT");
+header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization");
+header("Access-Control-Allow-Credentials: true");
 
 require __DIR__ . '/vendor/autoload.php';
 

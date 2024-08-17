@@ -16,6 +16,8 @@ use think\facade\Console;
 class User extends Base
 
 {
+
+
     //会员主页
     public function index()
     {
@@ -177,6 +179,11 @@ class User extends Base
     {
 
 
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+        header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+    /*    header('Access-Control-Allow-Origin: *');
+        header("Content-Security-Policy: upgrade-insecure-requests");*/
         $sessionUserData = session('sessionUserData');
 
         if (!empty($sessionUserData)) {
@@ -206,7 +213,7 @@ class User extends Base
 
             //  var_dump($data);die;
             //验证码用户名
-            $userData = Db::name('user')->where('username', $data['username'])->find();
+            $userData = Db::name('user')->where('username', $data['email'])->find();
             if (!$userData) {
 
 
@@ -241,7 +248,7 @@ class User extends Base
 "token_type": "Bearer",
 "expires_in": 360000
 }*/
-            return json(['status' => 1, 'message' => '登录成功!', 'access_token' => '123456', 'token_type' => 'Bearer', 'expires_in' => '360000']);
+            return json(['code' =>200, 'message' => '登录成功!', 'access_token' => '123456', 'token_type' => 'Bearer', 'expires_in' => '360000']);
             //  return alert('登录成功','index',6);
         } else {
             return json(['status' => 0, 'message' => '请使用正确的请求方式!']);
@@ -304,8 +311,20 @@ class User extends Base
             $data = input('post.');
             $code = input('get.code');//推荐码
 
-            if (empty($data['username'])) {
+
+            /*array(3) {
+                      ["name"]=>
+                      string(5) "admin"
+                      ["email"]=>
+                      string(15) "admin@gmail.com"
+                      ["password"]=>
+                      string(10) "adminadmin"
+                    }*/
+            if (empty($data['name'])) {
                 return json(['status' => 0, 'message' => '用户名不能为空，请输入用户名!']);
+            }
+            if (empty($data['email'])) {
+                return json(['status' => 0, 'message' => '邮箱不能为空，请输入用邮箱!']);
             }
 
             if (empty($data['password'])) {
@@ -313,25 +332,20 @@ class User extends Base
             }
 
             //判断该用户状态
-            $userData = Db::name('user')->where('username', $data['username'])->find();
+            $userData = Db::name('user')->where('username', $data['email'])->find();
             if ($userData['status'] == 1) {
-                return json(['status' => 0, 'message' => '该用户名已经注册过了，请登录!']);
+                return json(['status' => 0, 'message' => '该邮箱已经注册过了，请登录!']);
             }
             if ($userData['status'] == -1) {
                 return json(['status' => 0, 'message' => '该账户已经封号，请更换其他账号!']);
             }
-            if (empty($data['username'])) {
-                return json(['status' => 0, 'message' => '用户名不能为空，请输入用户名!']);
-            }
-            if (empty($data['password'])) {
-                return json(['status' => 0, 'message' => '密码不能为空,请输入密码!']);
-            }
 
             //密码加密
             $data['password'] = $this->password_salt($data['password']);
-            $data['add_time'] = time();
+            $data['created_at'] = time();
             $data['time'] = time();
             $data['submit_ip'] = $this->request->ip();
+            $data['username'] = $data['email'];
 
             $data['code'] = 'YJ' . time();
             if ($code) {
@@ -379,12 +393,8 @@ class User extends Base
             'time' => time(),
             'info' => '推荐返佣'
         ]);
-
         return true;
-
     }
-
-
 
     //我的订单  //订单列表
     public function myorder(){
@@ -397,23 +407,12 @@ class User extends Base
             ->paginate(['list_rows'=> 2,'query'=>request()->param()]);
         //分页
         $page = $orderData->render();
-
         $orderData1=$orderData->items();
-
         foreach($orderData1 as $k=>$v){
             $orderData1[$k]['goods']=Db::name('order_goods')->alias('a')->field('a.*,b.goods_name,b.goods_thumb')->join('goods b','a.goods_id=b.goods_id')->where('a.order_id',$v['id'])->select()->toArray();
         }
 
-
-
-
-
-
-
-
-        var_dump($page);die;
-        return json($orderData1);die;
-
+        return json($orderData1);
         //halt($orderData1);
         return view('',[
             'left_menu'=>11,
@@ -424,71 +423,14 @@ class User extends Base
     }
 
 
-    //用户订单搜索
-    public function myorder_search(){
-        $sessionUserData = $this->isLogin();
-        $this->clearOrderStatus0();
-        $searchkey=input('searchkey');
-        //先找出有该关键字的所有订单id ,order数据表中的id 1,2
-        //order数据表中查id in 1，2 分页
-
-
-
-        $orderDataTmp=Db::view('order', 'id')
-            ->view('order_goods', 'goods_id', 'order.id=order_goods.order_id')
-            ->view('goods', 'goods_name', 'order_goods.goods_id=goods.goods_id')
-            ->where('order.user_id', $sessionUserData['id'])
-            ->where('goods.goods_name','like','%'.$searchkey.'%')->order('order.id desc')
-            ->select()->toArray();
-
-        if(empty($orderDataTmp)){
-            return alert('没有找到'.$searchkey.'相关搜索结果','myorder',5);
-        }
-
-        foreach($orderDataTmp as $k=>$v){
-            $idArr[]=$v['id'];
-        }
-        $idStr=implode(',',$idArr);
-
-        $orderData = Db::view('order', 'id,total_price,status,time,out_trade_no,pay_method,iscomment')
-            ->view('address', 'shou_name', 'address.id=order.address_id')
-            ->where('order.user_id', $sessionUserData['id'])
-            ->where('order.id','in',$idStr)
-            ->paginate(['list_rows'=> 1,'query'=>request()->param()]);
-
-
-        //分页
-        $page = $orderData->render();
-
-        $orderData1=$orderData->items();
-
-        foreach($orderData1 as $k=>$v){
-            $orderData1[$k]['goods']=Db::name('order_goods')->alias('a')->field('a.*,b.goods_name,b.goods_thumb')->join('goods b','a.goods_id=b.goods_id')->where('a.order_id',$v['id'])->select()->toArray();
-        }
-        //halt($orderData1);
-
-        return view('user/myorder',[
-            'left_menu'=>11,
-            'page'=>$page,
-            'orderData1'=>$orderData1,
-            'searchkey'=>$searchkey
-        ]);
-    }
-
-
     //清除24小时过时待支付订单
     public function clearOrderStatus0(){
-
         $sessionUserData = $this->isLogin();
-
-
         //待支付订单如何处理
         //1、被动处理
         //2、轮回 定时器 占资源
         //3、队列 redis
-
         //24小时是86400秒
-
         $time=time()-86400;
         $orderDataTmp=Db::name('order')->where('user_id',$sessionUserData['id'])->where('status',0)->where('time','<',$time)->select();
         foreach($orderDataTmp as $k=>$v){
@@ -496,6 +438,7 @@ class User extends Base
             Db::name('order_goods')->where('order_id',$v['id'])->delete();
         }
     }
+
 
     //我的订单详情
     public function myorder_detail(){
@@ -507,50 +450,50 @@ class User extends Base
         $id=input('id');
         //订单数据
         $orderData=Db::name('order')->find($id);
-        if(empty($orderData)){
+       /* if(empty($orderData)){
             return redirect('myorder');
-        }
-
+        }*/
         //商品订单数据
         $orderGoodsData=Db::name('order_goods')->alias('a')->field('a.*,b.goods_name,b.goods_thumb')->join('goods b','a.goods_id=b.goods_id')->where('a.order_id',$orderData['id'])->select()->toArray();
-
-        $post_money=0;
-        $goods_price=0;
-
+        $post_money=0;  $goods_price=0;
         //caculate price计算价格
         foreach($orderGoodsData as $k=>$v){
             $post_money=$v['post_money']+$post_money;
             $goods_price=$goods_price+$v['goods_price']*$v['amount'];
         }
-
-
         //post_money 每件商品省下的钱   累加得到总共省下的钱
         //收货信息
-
         $addressData=Db::name('address')->find($orderData['address_id']);
-
-
-
-        var_dump($orderGoodsData);die;
-        return view('',[
+        return json(['Goods'=>$orderGoodsData,'addressData'=>$addressData,'goods_price'=>$goods_price,'post_money'=>$post_money]);
+       /* return view('',[
             'left_menu'=>11,
             'orderData'=>$orderData,
             'orderGoodsData'=>$orderGoodsData,
             'addressData'=>$addressData,
             'post_money'=>$post_money,
             'goods_price'=>$goods_price
-        ]);
+        ]);*/
     }
 
     //我的订单--待收货4
+    //前端  0待付款 1已支付 2待收货 3已完成 4已过期
+    //后端  0待付款 1支付完成，待发货，2：已完成，4：已发货未签收
+
+    //双层循环   外层订单列表数据   内层商品数据
+    //外层参数 item1   id  orderDetails.data.length总共商品件数   created_at
+    //内层参数 item2   id  cover_url  title description  price num
+
     public function myorder4(){
+
+        $status = input('status');
         $sessionUserData = $this->isLogin();
+        //清除过期未支付的订单
+        $this->clearOrderStatus0();
         $orderData=Db::view('order', 'id,total_price,status,time,out_trade_no,pay_method')
             ->view('address', 'shou_name', 'address.id=order.address_id')
             ->where('order.user_id', $sessionUserData['id'])
-            ->where('order.status',4)->order('order.id desc')
+            ->where('order.status',$status)->order('order.id desc')
             ->paginate(['list_rows'=> 1,'query'=>request()->param()]);
-
 
         //分页
         $page = $orderData->render();
@@ -558,16 +501,22 @@ class User extends Base
         $orderData1=$orderData->items();
 
         foreach($orderData1 as $k=>$v){
-            $orderData1[$k]['goods']=Db::name('order_goods')->alias('a')->field('a.*,b.goods_name,b.goods_thumb')->join('goods b','a.goods_id=b.goods_id')->where('a.order_id',$v['id'])->select()->toArray();
+            $orderData1[$k]['goods']=Db::name('order_goods')->alias('a')
+                ->join('goods b','a.goods_id=b.goods_id')->field('a.*,b.goods_name,b.goods_thumb, b.description')
+                ->where('a.order_id',$v['id'])->select()->toArray();
         }
-        //halt($orderData1);
+
+        //  halt($orderData1);die;
+        //   var_dump($sessionUserData['id']);die;
+
+        return json($orderData1);
+
         return view('',[
             'left_menu'=>12,
             'page'=>$page,
             'orderData1'=>$orderData1
         ]);
     }
-
 
     //我的订单--待支付0
     public function myorder0(){
@@ -576,14 +525,11 @@ class User extends Base
         //清除24小时过时待支付订单
         $this->clearOrderStatus0();
 
-
-
         $orderData=Db::view('order', 'id,total_price,status,time,out_trade_no,pay_method')
             ->view('address', 'shou_name', 'address.id=order.address_id')
             ->where('order.user_id', $sessionUserData['id'])
             ->where('order.status',0)->order('order.id desc')
             ->paginate(['list_rows'=> 1,'query'=>request()->param()]);
-
 
         //分页
         $page = $orderData->render();
@@ -624,7 +570,49 @@ class User extends Base
         }
     }
 
+    //用户订单搜索
+    public function myorder_search(){
+        $sessionUserData = $this->isLogin();
+        $this->clearOrderStatus0();
+        $searchkey=input('searchkey');
+        //先找出有该关键字的所有订单id ,order数据表中的id 1,2
+        //order数据表中查id in 1，2 分页
+        $orderDataTmp=Db::view('order', 'id')
+            ->view('order_goods', 'goods_id', 'order.id=order_goods.order_id')
+            ->view('goods', 'goods_name', 'order_goods.goods_id=goods.goods_id')
+            ->where('order.user_id', $sessionUserData['id'])
+            ->where('goods.goods_name','like','%'.$searchkey.'%')->order('order.id desc')
+            ->select()->toArray();
+        if(empty($orderDataTmp)){
+            return alert('没有找到'.$searchkey.'相关搜索结果','myorder',5);
+        }
+        foreach($orderDataTmp as $k=>$v){
+            $idArr[]=$v['id'];
+        }
+        $idStr=implode(',',$idArr);
+        $orderData = Db::view('order', 'id,total_price,status,time,out_trade_no,pay_method,iscomment')
+            ->view('address', 'shou_name', 'address.id=order.address_id')
+            ->where('order.user_id', $sessionUserData['id'])
+            ->where('order.id','in',$idStr)
+            ->paginate(['list_rows'=> 1,'query'=>request()->param()]);
 
+        //分页
+        $page = $orderData->render();
+
+        $orderData1=$orderData->items();
+
+        foreach($orderData1 as $k=>$v){
+            $orderData1[$k]['goods']=Db::name('order_goods')->alias('a')->field('a.*,b.goods_name,b.goods_thumb')->join('goods b','a.goods_id=b.goods_id')->where('a.order_id',$v['id'])->select()->toArray();
+        }
+        //halt($orderData1);
+
+        return view('user/myorder',[
+            'left_menu'=>11,
+            'page'=>$page,
+            'orderData1'=>$orderData1,
+            'searchkey'=>$searchkey
+        ]);
+    }
 
     //我的订单发表评价
     public function myorder_comment(){

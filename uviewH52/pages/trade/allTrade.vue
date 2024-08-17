@@ -44,15 +44,15 @@
 			return {
 				// tabs标签
 				list: [{
-					name: '代付款',
+					name: '待付款',
 				}, {
 					name: '已支付',
 				}, {
-					name: '待收货'
+					name: '已完成',
 				}, {
-					name: '已完成'
+					name: '已过期',
 				}, {
-					name: '已过期'
+					name: '待收货',
 				}],
 				tradeList:[], //订单列表
 				status:1, //订单状态

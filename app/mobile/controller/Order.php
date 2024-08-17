@@ -108,8 +108,8 @@ class Order extends Base
 
             if (!empty($data)){
                 $data['user_id'] = $sessionUserData['id'];
-                $data['create_at'] = time();
-                $data['update_at'] = time();
+                $data['created_at'] = time();
+                $data['updated_at'] = time();
 
                 $addressData=Db::name('address')->insert($data);
 
@@ -188,6 +188,8 @@ class Order extends Base
         if(!intval($data['address_id'])){
             return json(['msg'=>'请完善收货地址信息','status'=>0]);
         }*/
+
+
         $data['address_id']= 2;
         $data['user_id']=$sessionUserData['id'];
         $data['time']=time();
@@ -225,6 +227,8 @@ class Order extends Base
             $data['total_price']=$total_price;  //总金额
 
 
+
+       // var_dump($data);die;
         //入库
         Db::startTrans();
         try{
@@ -242,6 +246,8 @@ class Order extends Base
             //提交事务
             Db::commit();
         }catch (\Exception $e) {
+
+            echo $e;
             // 回滚事务
             Db::rollback();
             return json(['msg'=>'订单异常','status'=>-3]);
@@ -390,14 +396,26 @@ class Order extends Base
         //订单异常
         $orderData=Db::name('order')->where('out_trade_no',$out_trade_no)->find();
         if(empty($orderData)){
-            return json(['status'=>0,'message'=>'该订单号不存在!']);
+            return json(['status'=>0,'message'=>'订单异常，该订单号不存在!']);
         }
-        //已经支付成功
+        //待支付
+        if($orderData['status']==0){
+            return json(['status'=>0,'message'=>'订单待支付!']);
+        }
+        //已支付
         if($orderData['status']==1){
-            return json(['status'=>1,'message'=>'订单已支付成功!']);
+            return json(['status'=>1,'message'=>'订单已支付!']);
         }
-        //未支付
-        return json(['status'=>0,'message'=>'订单未支付!']);
+        //已完成
+        if($orderData['status']==2){
+            return json(['status'=>1,'message'=>'订单已完成!']);
+        }
+        //待收货
+        if($orderData['status']==4){
+            return json(['status'=>1,'message'=>'订单待收货!']);
+        }
+
+
     }
     //取消订单
     public  function order_cancel(){
@@ -414,17 +432,6 @@ class Order extends Base
           return json(['status'=>0,'message'=>'订单不存在或已经被取消!']);
 
       }
-
-    }
-    //订单列表
-    public function  orderList(){
-        //参数  id  cover_url title description price num
-
-    }
-
-    //获取订单详情
-    public function orderDetails(){
-
 
     }
 

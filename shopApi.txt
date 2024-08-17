@@ -236,8 +236,8 @@
 		}
 	]
 }
-#http://code09211.cc/mobile/Index/index#
 
+#http://code09211.cc/mobile/Index/index#
 get(`/api/goods/${id}`)// 商品详情          直接/api/goods/3   传参格式
 {
 	"goods": {
@@ -908,11 +908,7 @@ email:admin@gmail.com
 password:adminadmin
 password_confirmation:adminadmin     //二次确认密码一致
 
-
-
 本地接口
-
-
 
 //购物车列表
 http://code0921.com/index.php/mobile/cart/index
@@ -1133,7 +1129,7 @@ get('/api/auth/oss/token')// 获取阿里云OSS Token，用于前端直传文件
 已完成编译接口
 
 用户注册
-http://code0921.com/index.php/mobile/user/register
+http://code09211.cc/mobile/user/register
 post
 username  admin3@gmail.com
 password  admin123456
@@ -2440,6 +2436,191 @@ id   amount
 		}
 	]
 }
+
+
+提交订单
+post(`/api/orders`,params)
+http://code09211.cc/mobile/order/order_create
+传递参数  pay_method 1微信支付 2支付宝支付   content 留言  address_id=2 指定地址
+{
+	"msg": "订单提交成功！",
+	"status": 1,
+	"out_trade_no": "ed51200f3f80d4b198ab4c52c6364ea5"
+}
+
+ 订单列表
+get(`/api/orders`,{params})
+http://code09211.cc/mobile/user/myorder
+[
+	{
+		"id": 38,
+		"total_price": "594.06",
+		"status": 0,
+		"time": 1723881115,
+		"out_trade_no": "ed51200f3f80d4b198ab4c52c6364ea5",
+		"pay_method": 1,
+		"iscomment": 0,
+		"shou_name": "fdfd",
+		"goods": [
+			{
+				"order_id": 38,
+				"goods_id": 8,
+				"amount": 3,
+				"goods_price": 0.02,
+				"sku": "64G,玫瑰粉,豪华套餐",
+				"id": 53,
+				"post_money": 0,
+				"iscomment": 0,
+				"goods_name": "小米户外蓝牙音箱",
+				"goods_thumb": "/public/upload/20200904/d0aa10a258d17ec93e6bd03ea5d80719.jpg"
+			},
+			{
+				"order_id": 38,
+				"goods_id": 7,
+				"amount": 3,
+				"goods_price": 99,
+				"sku": "64G,玫瑰粉,豪华套餐",
+				"id": 54,
+				"post_money": 0,
+				"iscomment": 0,
+				"goods_name": "Redmi手环",
+				"goods_thumb": "/public/upload/20200904/bc87fb6becf47e9afabfc0ee61a6c3bd.jpg"
+			},
+			{
+				"order_id": 38,
+				"goods_id": 5,
+				"amount": 3,
+				"goods_price": 99,
+				"sku": "64G,玫瑰粉,豪华套餐",
+				"id": 55,
+				"post_money": 0,
+				"iscomment": 0,
+				"goods_name": "智睿LED灯泡 10只装",
+				"goods_thumb": "/public/upload/20200625/b014f074c410cd1f72b2c05e5dc37d04.jpg"
+			}
+		]
+	},
+	{
+		"id": 30,
+		"total_price": "2011",
+		"status": 3,
+		"time": 1711784134,
+		"out_trade_no": "0dbd92203d6ff110cff99d255cd51c96",
+		"pay_method": 2,
+		"iscomment": 0,
+		"shou_name": "sfsfsf",
+		"goods": [
+			{
+				"order_id": 30,
+				"goods_id": 6,
+				"amount": 1,
+				"goods_price": 2000,
+				"sku": "128G,玫瑰粉,标准套餐",
+				"id": 44,
+				"post_money": 11,
+				"iscomment": 0,
+				"goods_name": "小米33",
+				"goods_thumb": "/public/upload/20200810/7c2921c04fda2943e8b4d41011ea99d1.jpg"
+			}
+		]
+	}
+]
+
+
+订单详细
+get(`/api/orders/${order}`,{params})
+http://code09211.cc/mobile/user/myorder_detail
+传递参数  id = 37
+{
+	"Goods": [
+		{
+			"order_id": 37,
+			"goods_id": 5,
+			"amount": 297,
+			"goods_price": 99,
+			"sku": "128G,玫瑰粉,标准套餐",
+			"id": 49,
+			"post_money": 0,
+			"iscomment": 0,
+			"goods_name": "智睿LED灯泡 10只装",
+			"goods_thumb": "/public/upload/20200625/b014f074c410cd1f72b2c05e5dc37d04.jpg"
+		},
+		{
+			"order_id": 37,
+			"goods_id": 5,
+			"amount": 218,
+			"goods_price": 99,
+			"sku": "64G,玫瑰粉,豪华套餐",
+			"id": 50,
+			"post_money": 0,
+			"iscomment": 0,
+			"goods_name": "智睿LED灯泡 10只装",
+			"goods_thumb": "/public/upload/20200625/b014f074c410cd1f72b2c05e5dc37d04.jpg"
+		},
+		{
+			"order_id": 37,
+			"goods_id": 12,
+			"amount": 1,
+			"goods_price": 1300,
+			"sku": "43寸,黑色",
+			"id": 51,
+			"post_money": 0,
+			"iscomment": 0,
+			"goods_name": "全面屏电视E43K",
+			"goods_thumb": "/public/upload/20200921/266ea6ccc529110760cb3b238b8528da.jpg"
+		},
+		{
+			"order_id": 37,
+			"goods_id": 6,
+			"amount": 2,
+			"goods_price": 2000,
+			"sku": "128G,玫瑰粉,标准套餐",
+			"id": 52,
+			"post_money": 11,
+			"iscomment": 0,
+			"goods_name": "小米33",
+			"goods_thumb": "/public/upload/20200810/7c2921c04fda2943e8b4d41011ea99d1.jpg"
+		}
+	],
+	"addressData": {
+		"id": 2,
+		"shou_name": "fdfd",
+		"shou_address": "fdfd",
+		"shou_mobile": "fdfd",
+		"isdefault": 1,
+		"user_id": 1,
+		"province": "内蒙古自治区",
+		"city": "呼和浩特市",
+		"district": "新城区",
+		"created_at": null,
+		"updated_at": null
+	},
+	"goods_price": 56285,
+	"post_money": 11
+}
+
+
+//查询支付状态
+get(`/api/orders/${orderId}/status`)
+http://code09211.cc/mobile/order/get_pay_status
+//传递参数 out_trade_no  = 8137a641fea70fa7c9200f92b48f834f
+{
+	"status": 1,
+	"message": "已支付!"
+}
+{
+	"status": 0,
+	"message": "待付款!"
+}
+{
+	"status": 2,
+	"message": "已完成!"
+}
+{
+	"status": 4,
+	"message": "待收货!"
+}
+
 
 
 
