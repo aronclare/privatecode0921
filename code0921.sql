@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50726
 File Encoding         : 65001
 
-Date: 2024-08-16 18:42:49
+Date: 2024-08-17 19:01:22
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -56,8 +56,8 @@ CREATE TABLE `qing_address` (
   `province` varchar(100) DEFAULT NULL,
   `city` varchar(100) DEFAULT NULL,
   `district` varchar(200) DEFAULT NULL,
-  `create_at` varchar(50) DEFAULT NULL,
-  `update_at` varchar(50) DEFAULT NULL,
+  `created_at` varchar(50) DEFAULT NULL,
+  `updated_at` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COMMENT='收货地址表';
 
@@ -182,7 +182,7 @@ CREATE TABLE `qing_cart` (
   `updated_at` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `member_id` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=53 DEFAULT CHARSET=utf8 COMMENT='购物车';
+) ENGINE=MyISAM AUTO_INCREMENT=56 DEFAULT CHARSET=utf8 COMMENT='购物车';
 
 -- ----------------------------
 -- Records of qing_cart
@@ -992,38 +992,33 @@ CREATE TABLE `qing_order` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `out_trade_no` (`out_trade_no`),
   KEY `out_trade_no_2` (`out_trade_no`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8 COMMENT='定单基本信息';
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8 COMMENT='定单基本信息';
 
 -- ----------------------------
 -- Records of qing_order
 -- ----------------------------
 INSERT INTO `qing_order` VALUES ('2', '1', '1598427486', '2', '', '99', '2', '2', null, null, '0', '1dfc9cc646e5cc6b4734a6ad7ade3c79', null, '1');
-INSERT INTO `qing_order` VALUES ('3', '1', '1598427511', '2', '', '3811', '2', '1', null, null, '0', 'aa30be8e6f38677635b40e778e272879', '1598514310', '1');
-INSERT INTO `qing_order` VALUES ('4', '1', '1598514361', '2', '', '5888', '2', '1', null, null, '0', 'e90db5aa926d9c56e291d68ed7bf2ad1', null, '1');
-INSERT INTO `qing_order` VALUES ('6', '1', '1599035542', '2', '', '1899', '2', '2', null, null, '0', '61f7f2bf2d2dc72a38a8ebe80e2fc974', null, '1');
-INSERT INTO `qing_order` VALUES ('10', '1', '1599120914', '2', '', '5888', '2', '2', null, null, '0', 'ab0efb33ebc57be99ec0e4fca6ff01fa', null, '1');
-INSERT INTO `qing_order` VALUES ('11', '1', '1599124518', '2', '', '169', '2', '1', null, null, '0', '1a1dd5c799de66c67736ca2d7a2e5305', null, '1');
-INSERT INTO `qing_order` VALUES ('12', '1', '1599124514', '2', '', '1599', '2', '2', null, null, '0', '89f8f42719c5cddcc7be9a293323b08d', null, '1');
-INSERT INTO `qing_order` VALUES ('13', '1', '1599124518', '2', '', '5987', '2', '1', null, null, '0', '0dbd748c6dc4c473edb8af998de21cb3', null, '1');
-INSERT INTO `qing_order` VALUES ('17', '1', '1683006169', '2', '', '1.01', '0', '1', null, null, '0', 'c61d7ef29dac14f49bb284a961a1167e', null, '0');
-INSERT INTO `qing_order` VALUES ('18', '44', '1711006839', '3', '', '0.01', '0', '1', null, null, '0', '96ec30348c95f256c4bc24d2c3f496bd', null, '0');
-INSERT INTO `qing_order` VALUES ('19', '44', '1711007067', '3', '', '0.01', '0', '2', null, null, '0', '8d523e62ecf2ffbd725609ff5d5842d6', null, '0');
-INSERT INTO `qing_order` VALUES ('20', '30', '1711007641', '5', '', '0.01', '0', '1', null, null, '0', '7a1894d34a641f8f83e36d9c33b1efa1', null, '0');
-INSERT INTO `qing_order` VALUES ('21', '30', '1711007667', '5', '', '0.01', '0', '2', null, null, '0', 'b0d8416a3995d9bc303335035eeeb334', null, '0');
-INSERT INTO `qing_order` VALUES ('22', '44', '1711007733', '3', '', '1701.01', '0', '2', null, null, '0', '8137a641fea70fa7c9200f92b48f834f', null, '0');
-INSERT INTO `qing_order` VALUES ('23', '44', '1711007841', '3', '', '1800', '0', '1', null, null, '0', '8931ebc2cad15aa7dcd68a849fd88e60', null, '0');
-INSERT INTO `qing_order` VALUES ('24', '44', '1711008182', '3', '', '0.01', '0', '1', null, null, '0', '1e3fc3a8bf2956573b8d047103a53448', null, '0');
-INSERT INTO `qing_order` VALUES ('25', '44', '1711012045', '3', '', '0.06', '0', '1', null, null, '0', '5a8c9079fd2ba0688ef01f5b4dad4442', null, '0');
-INSERT INTO `qing_order` VALUES ('26', '44', '1711013263', '3', '', '1300', '0', '1', null, null, '0', '8202823163be3f70240ae5081e59caf8', null, '0');
-INSERT INTO `qing_order` VALUES ('27', '44', '1711013477', '3', '', '7287', '0', '1', null, null, '0', '9e9dae99731520177824dd7187370b7c', null, '0');
-INSERT INTO `qing_order` VALUES ('28', '44', '1711098324', '1', '', '5888', '0', '1', null, null, '0', 'af6c81abae9ef00cd23895afda027dad', null, '0');
-INSERT INTO `qing_order` VALUES ('29', '44', '1711443800', '3', '', '2241.02', '0', '1', null, null, '0', 'c16a2bc0f1aff69d5960c7a362ecbce4', null, '0');
-INSERT INTO `qing_order` VALUES ('30', '44', '1711784134', '3', '', '2011', '0', '2', null, null, '0', '0dbd92203d6ff110cff99d255cd51c96', null, '0');
-INSERT INTO `qing_order` VALUES ('31', '39', '1723719286', '2', 'sdfsgfdgdg454', '56296', '0', '2', null, null, '0', '5a357c87d366c77d71c16d101fb1dc0f', null, '0');
-INSERT INTO `qing_order` VALUES ('32', '39', '1723719339', '2', 'sdfsgfdgdg454', '56296', '0', '2', null, null, '0', 'f1df87645f96e801cafd18161f657cbc', null, '0');
-INSERT INTO `qing_order` VALUES ('34', '39', '1723719427', '2', 'sdfsgfdgdg454', '56296', '0', '2', null, null, '0', '3dcfdc592b646a4c365ba11484221962', null, '0');
-INSERT INTO `qing_order` VALUES ('35', '39', '1723779173', '2', 'sdfsgfdgdg454', '56296', '0', '2', null, null, '0', '69aa4b76e6357a1e792ee0ecfc0bc075', null, '0');
-INSERT INTO `qing_order` VALUES ('37', '39', '1723779245', '2', 'sdfsgfdgdg454', '56296', '0', '2', null, null, '0', '4f6e56931ed5973e92d8c5dfcd360e93', null, '0');
+INSERT INTO `qing_order` VALUES ('3', '39', '1598427511', '2', '', '3811', '2', '1', null, null, '0', 'aa30be8e6f38677635b40e778e272879', '1598514310', '1');
+INSERT INTO `qing_order` VALUES ('4', '39', '1598514361', '2', '', '5888', '2', '1', null, null, '0', 'e90db5aa926d9c56e291d68ed7bf2ad1', null, '1');
+INSERT INTO `qing_order` VALUES ('6', '39', '1599035542', '2', '', '1899', '2', '2', null, null, '0', '61f7f2bf2d2dc72a38a8ebe80e2fc974', null, '1');
+INSERT INTO `qing_order` VALUES ('10', '39', '1599120914', '2', '', '5888', '2', '2', null, null, '0', 'ab0efb33ebc57be99ec0e4fca6ff01fa', null, '1');
+INSERT INTO `qing_order` VALUES ('11', '39', '1599124518', '2', '', '169', '2', '1', null, null, '0', '1a1dd5c799de66c67736ca2d7a2e5305', null, '1');
+INSERT INTO `qing_order` VALUES ('12', '39', '1599124514', '2', '', '1599', '2', '2', null, null, '0', '89f8f42719c5cddcc7be9a293323b08d', null, '1');
+INSERT INTO `qing_order` VALUES ('13', '39', '1599124518', '2', '', '5987', '2', '1', null, null, '0', '0dbd748c6dc4c473edb8af998de21cb3', null, '1');
+INSERT INTO `qing_order` VALUES ('18', '39', '1711006839', '3', '', '0.01', '4', '1', null, null, '0', '96ec30348c95f256c4bc24d2c3f496bd', null, '0');
+INSERT INTO `qing_order` VALUES ('19', '39', '1711007067', '3', '', '0.01', '4', '2', null, null, '0', '8d523e62ecf2ffbd725609ff5d5842d6', null, '0');
+INSERT INTO `qing_order` VALUES ('20', '39', '1711007641', '5', '', '0.01', '4', '1', null, null, '0', '7a1894d34a641f8f83e36d9c33b1efa1', null, '0');
+INSERT INTO `qing_order` VALUES ('21', '39', '1711007667', '5', '', '0.01', '1', '2', null, null, '0', 'b0d8416a3995d9bc303335035eeeb334', null, '0');
+INSERT INTO `qing_order` VALUES ('22', '39', '1711007733', '3', '', '1701.01', '1', '2', null, null, '0', '8137a641fea70fa7c9200f92b48f834f', null, '0');
+INSERT INTO `qing_order` VALUES ('23', '39', '1711007841', '3', '', '1800', '1', '1', null, null, '0', '8931ebc2cad15aa7dcd68a849fd88e60', null, '0');
+INSERT INTO `qing_order` VALUES ('24', '39', '1711008182', '3', '', '0.01', '1', '1', null, null, '0', '1e3fc3a8bf2956573b8d047103a53448', null, '0');
+INSERT INTO `qing_order` VALUES ('25', '39', '1711012045', '3', '', '0.06', '1', '1', null, null, '0', '5a8c9079fd2ba0688ef01f5b4dad4442', null, '0');
+INSERT INTO `qing_order` VALUES ('26', '39', '1711013263', '3', '', '1300', '2', '1', null, null, '0', '8202823163be3f70240ae5081e59caf8', null, '0');
+INSERT INTO `qing_order` VALUES ('27', '39', '1711013477', '3', '', '7287', '2', '1', null, null, '0', '9e9dae99731520177824dd7187370b7c', null, '0');
+INSERT INTO `qing_order` VALUES ('28', '39', '1711098324', '1', '', '5888', '2', '1', null, null, '0', 'af6c81abae9ef00cd23895afda027dad', null, '0');
+INSERT INTO `qing_order` VALUES ('29', '39', '1711443800', '3', '', '2241.02', '2', '1', null, null, '0', 'c16a2bc0f1aff69d5960c7a362ecbce4', null, '0');
+INSERT INTO `qing_order` VALUES ('30', '39', '1711784134', '3', '', '2011', '3', '2', null, null, '0', '0dbd92203d6ff110cff99d255cd51c96', null, '0');
+INSERT INTO `qing_order` VALUES ('38', '39', '1723881115', '2', null, '594.06', '0', '1', null, null, '0', 'ed51200f3f80d4b198ab4c52c6364ea5', null, '0');
 
 -- ----------------------------
 -- Table structure for qing_order_goods
@@ -1039,7 +1034,7 @@ CREATE TABLE `qing_order_goods` (
   `post_money` float NOT NULL DEFAULT '0' COMMENT '邮费',
   `iscomment` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0未评论 1已评论',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8 COMMENT='用户订单商品表';
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8 COMMENT='用户订单商品表';
 
 -- ----------------------------
 -- Records of qing_order_goods
@@ -1055,8 +1050,6 @@ INSERT INTO `qing_order_goods` VALUES ('12', '3', '1', '1500', '64G,土豪金', 
 INSERT INTO `qing_order_goods` VALUES ('12', '5', '1', '99', '', '16', '0', '1');
 INSERT INTO `qing_order_goods` VALUES ('13', '7', '1', '99', '', '17', '0', '1');
 INSERT INTO `qing_order_goods` VALUES ('13', '4', '1', '5888', '70寸,灰色', '18', '0', '1');
-INSERT INTO `qing_order_goods` VALUES ('17', '3', '1', '0.01', '64G,土豪金,豪华套餐', '22', '0', '0');
-INSERT INTO `qing_order_goods` VALUES ('17', '9', '1', '1', '', '23', '0', '0');
 INSERT INTO `qing_order_goods` VALUES ('18', '3', '1', '0.01', '64G,玫瑰粉,豪华套餐', '24', '0', '0');
 INSERT INTO `qing_order_goods` VALUES ('19', '3', '1', '0.01', '64G,玫瑰粉,豪华套餐', '25', '0', '0');
 INSERT INTO `qing_order_goods` VALUES ('20', '3', '1', '0.01', '64G,玫瑰粉,豪华套餐', '26', '0', '0');
@@ -1078,14 +1071,9 @@ INSERT INTO `qing_order_goods` VALUES ('29', '13', '2', '65', 'L,黑色', '41', 
 INSERT INTO `qing_order_goods` VALUES ('29', '3', '1', '0.01', '64G,土豪金,豪华套餐', '42', '0', '0');
 INSERT INTO `qing_order_goods` VALUES ('29', '3', '1', '0.01', '64G,玫瑰粉,豪华套餐', '43', '0', '0');
 INSERT INTO `qing_order_goods` VALUES ('30', '6', '1', '2000', '128G,玫瑰粉,标准套餐', '44', '11', '0');
-INSERT INTO `qing_order_goods` VALUES ('34', '5', '297', '99', '128G,玫瑰粉,标准套餐', '45', '0', '0');
-INSERT INTO `qing_order_goods` VALUES ('34', '5', '218', '99', '64G,玫瑰粉,豪华套餐', '46', '0', '0');
-INSERT INTO `qing_order_goods` VALUES ('34', '12', '1', '1300', '43寸,黑色', '47', '0', '0');
-INSERT INTO `qing_order_goods` VALUES ('34', '6', '2', '2000', '128G,玫瑰粉,标准套餐', '48', '11', '0');
-INSERT INTO `qing_order_goods` VALUES ('37', '5', '297', '99', '128G,玫瑰粉,标准套餐', '49', '0', '0');
-INSERT INTO `qing_order_goods` VALUES ('37', '5', '218', '99', '64G,玫瑰粉,豪华套餐', '50', '0', '0');
-INSERT INTO `qing_order_goods` VALUES ('37', '12', '1', '1300', '43寸,黑色', '51', '0', '0');
-INSERT INTO `qing_order_goods` VALUES ('37', '6', '2', '2000', '128G,玫瑰粉,标准套餐', '52', '11', '0');
+INSERT INTO `qing_order_goods` VALUES ('38', '8', '3', '0.02', '64G,玫瑰粉,豪华套餐', '53', '0', '0');
+INSERT INTO `qing_order_goods` VALUES ('38', '7', '3', '99', '64G,玫瑰粉,豪华套餐', '54', '0', '0');
+INSERT INTO `qing_order_goods` VALUES ('38', '5', '3', '99', '64G,玫瑰粉,豪华套餐', '55', '0', '0');
 
 -- ----------------------------
 -- Table structure for qing_page
@@ -1658,7 +1646,7 @@ CREATE TABLE `qing_user` (
   UNIQUE KEY `code` (`code`),
   UNIQUE KEY `mobile` (`mobile`),
   KEY `code_2` (`code`)
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of qing_user
@@ -1670,11 +1658,12 @@ INSERT INTO `qing_user` VALUES ('34', '17615342771', null, 'a8a5c404e3927315ccb6
 INSERT INTO `qing_user` VALUES ('36', '15100000010', null, 'a8a5c404e3927315ccb6e028d4372ac8', null, null, null, null, null, null, null, null, '1598344289', '15100000010', '1', '1598344219', null, null, '3', null, '1', 'YJ1598344219', null, null, null, null, '0', null, null, null, null, null, '0', null);
 INSERT INTO `qing_user` VALUES ('37', '15100000012', null, 'a8a5c404e3927315ccb6e028d4372ac8', null, null, null, null, null, null, null, null, '1598345048', '15100000012', '1', '1598345040', null, null, '3', null, '1', 'YJ1598345040', null, null, null, null, '0', null, null, null, null, 'YJ1596269352', '2', null);
 INSERT INTO `qing_user` VALUES ('38', '15100000013', null, 'admin123456', null, null, null, null, null, null, null, null, '1598345659', '15100000013', '1', '1598345648', null, null, '3', null, '1', 'YJ1598345648', null, null, null, null, '0', null, null, null, null, 'YJ1596269352', '2', null);
-INSERT INTO `qing_user` VALUES ('39', 'admin@gmail.com', null, 'a8a5c404e3927315ccb6e028d4372ac8', '15100000001@qq.com', null, null, null, null, null, 'https://api.shop.eduwork.cn/imgs/avatar.png', '0', '1723801081', '15280832018', '1', '1707985712', null, null, '3', null, '0', 'YJ1707927651', null, '老九', '1707927651', '1723001127', '0', null, '512828187620231028', '豆腐干大概', '127.0.0.1', 'YJ1596269352', '1', null);
+INSERT INTO `qing_user` VALUES ('39', 'admin22@gmail.com', null, 'a8a5c404e3927315ccb6e028d4372ac8', '15100000001@qq.com', null, null, null, null, null, 'https://api.shop.eduwork.cn/imgs/avatar.png', '0', '1723875197', '15280832018', '1', '1707985712', null, null, '3', null, '0', 'YJ1707927651', null, '老九', '1707927651', '1723001127', '0', null, '512828187620231028', '豆腐干大概', '127.0.0.1', 'YJ1596269352', '1', null);
 INSERT INTO `qing_user` VALUES ('43', 'admintest', null, 'a8a5c404e3927315ccb6e028d4372ac8', null, null, null, null, null, null, null, null, '1707929221', null, '1', '1707928648', null, null, '3', null, '0', 'YJ1707928648', null, null, '1707928648', null, '0', null, null, null, null, 'YJ1596269352', '0', null);
 INSERT INTO `qing_user` VALUES ('44', '15100000002', null, 'a8a5c404e3927315ccb6e028d4372ac8', null, null, null, null, null, null, null, null, '1711787327', null, '1', '1710915525', null, null, '3', null, '0', 'YJ1710915525', null, null, '1710915525', null, '0', null, null, null, null, null, '0', null);
-INSERT INTO `qing_user` VALUES ('45', 'admin2@gmail.com', null, 'a8a5c404e3927315ccb6e028d4372ac8', null, null, null, null, null, null, null, null, '0', null, '1', '1723646135', null, null, '3', null, '0', 'YJ1723646135', null, null, '1723646135', null, '0', null, null, null, null, null, '0', null);
-INSERT INTO `qing_user` VALUES ('46', 'admin4@gmail.com', null, 'a8a5c404e3927315ccb6e028d4372ac8', null, null, null, null, null, null, null, null, '0', null, '1', '1723646607', null, null, '3', null, '0', 'YJ1723646607', null, null, '1723646607', '1723648045', '0', null, null, null, '127.0.0.1', null, '0', null);
+INSERT INTO `qing_user` VALUES ('45', 'admin23@gmail.com', null, 'a8a5c404e3927315ccb6e028d4372ac8', null, null, null, null, null, null, null, null, '0', null, '1', '1723646135', null, null, '3', null, '0', 'YJ1723646135', null, null, '1723646135', null, '0', null, null, null, null, null, '0', null);
+INSERT INTO `qing_user` VALUES ('46', 'admin42@gmail.com', null, 'a8a5c404e3927315ccb6e028d4372ac8', null, null, null, null, null, null, null, null, '0', null, '1', '1723646607', null, null, '3', null, '0', 'YJ1723646607', null, null, '1723646607', '1723648045', '0', null, null, null, '127.0.0.1', null, '0', null);
+INSERT INTO `qing_user` VALUES ('47', 'admin@gmail.com', 'admin', 'a8a5c404e3927315ccb6e028d4372ac8', 'admin@gmail.com', null, null, null, null, null, null, null, '1723887760', null, '1', '1723885529', null, null, '3', null, '0', 'YJ1723885529', null, null, '1723885529', null, '0', null, null, null, '127.0.0.1', null, '0', null);
 
 -- ----------------------------
 -- Table structure for qing_user_trace
