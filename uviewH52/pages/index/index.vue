@@ -4,7 +4,7 @@
 		<view>
 			<u-swiper
 					:list="slidesImg"
-					keyName="img_url"
+					keyName="thumb"
 					showTitle
 					height="320rpx"
 					@change="e => current = e.current"

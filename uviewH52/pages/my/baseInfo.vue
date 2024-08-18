@@ -53,13 +53,17 @@
 		onLoad() {
 			// 获取用户名
 			this.model1.userInfo.name = uni.getStorageSync('user').name
+			this.model1.userInfo.id = uni.getStorageSync('user').id
+			
 		},
 		methods: {
 			// 校验
 			submit() {
 				this.$refs.form1.validate().then(async (res) => {
+					
+				//	console.log(this.model1.userInfo.id);
 					uni.$u.toast('修改成功')
-					await apiUpdateUserInfo({name:this.model1.userInfo.name})//更新用户名
+					await apiUpdateUserInfo({name:this.model1.userInfo.name,id:this.model1.userInfo.id})//更新用户名
 					//更新用户信息
 					await updateUser()
 					//返回跳转前的页面

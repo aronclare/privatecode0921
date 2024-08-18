@@ -13,11 +13,11 @@
 			></u-icon>
 			<!-- 自定义组件 -->
 			<navigator :url="`/pages/goods/show?id=${item.id}`">
-				<u--image :showLoading="true" :src="item.cover_url" width="280rpx" height="320rpx"></u--image>
-				<view class='title u-line-1'>{{item.title}}</view>
+				<u--image :showLoading="true" :src="item.goods_thumb" width="280rpx" height="320rpx"></u--image>
+				<view class='title u-line-1'>{{item.goods_name}}</view>
 				<view class='price-sales'>
-					<view class='price'>￥{{item.price}}</view>
-					<view class='sales'>月销量:{{item.sales}}</view>
+					<view class='price'>￥{{item.goods_price}}</view>
+					<view class='sales'>月销量:{{item.selnumber}}</view>
 				</view>
 			</navigator>
 		</u-grid-item>

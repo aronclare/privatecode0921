@@ -124,10 +124,11 @@ class User extends Base
     //用户信息更新
     public function userUpdate()
     {
-        if (request()->isPost()) {
+      //  if (request()->isPost()) {
             $data = request()->post();
+
             $data['submit_ip'] = $this->request->ip();
-            $data['update_time'] = time();
+            $data['updated_at'] = time();
             //上传用户头像 avatar
             /* $avatar= $this->request->file('avatar');
              $upload = new Uploader();
@@ -135,14 +136,20 @@ class User extends Base
              $path = json_decode($avatarPath, true);
              //获取图片路径
              $data['avatar'] = $path['path'];*/
-            $data['password'] = $this->password_salt($data['password']);
+
+            if (!empty($data['password'])){
+                $data['password'] = $this->password_salt($data['password']);
+            }
+
             $res = Db::name('user')->update($data);
+
+
             if ($res) {
-                return json(['status' => 1, 'message' => '用户信息更新成功!']);
+                return json(['status' => 200, 'message' => '用户信息更新成功!']);
             } else {
                 return json(['status' => 0, 'message' => '用户信息更新失败!']);
             }
-        }
+     //   }
     }
 
     //更新用户头像 avatar   需传入id 和 图片
@@ -179,9 +186,6 @@ class User extends Base
     {
 
 
-        header("Access-Control-Allow-Origin: *");
-        header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
-        header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
     /*    header('Access-Control-Allow-Origin: *');
         header("Content-Security-Policy: upgrade-insecure-requests");*/
         $sessionUserData = session('sessionUserData');
@@ -195,7 +199,7 @@ class User extends Base
 
 
             if (!$data) {
-                return json(['status' => 0, 'message' => '请输入邮箱!']);
+                return json(['status' => 0, 'message' => '请输入用户名!']);
 
             }
             // mobile 15100000002   password 1234567
@@ -217,7 +221,7 @@ class User extends Base
             if (!$userData) {
 
 
-                return json(['status' => 0, 'message' => '邮箱不存在或者错误']);
+                return json(['status' => 0, 'message' => '用户名不存在或者错误']);
                 //  return alert('用户名不存在或者错误','login',5);
             }
 
@@ -248,7 +252,7 @@ class User extends Base
 "token_type": "Bearer",
 "expires_in": 360000
 }*/
-            return json(['status' =>200, 'message' => '登录成功!', 'access_token' => '123456', 'token_type' => 'Bearer', 'expires_in' => '360000']);
+            return json(['code' =>200, 'message' => '登录成功!', 'access_token' => '123456', 'token_type' => 'Bearer', 'expires_in' => '360000']);
             //  return alert('登录成功','index',6);
         } else {
             return json(['status' => 0, 'message' => '请使用正确的请求方式!']);

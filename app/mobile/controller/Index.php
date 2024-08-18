@@ -21,6 +21,19 @@ class Index extends  Base{
         //商品数据
         $goods = Db::name('goods')->field('goods_id,goods_name,goods_price,
             stock,selnumber,goods_thumb,description,collects_count,cover_url')->select();
+
+        foreach ($goods as $slide){
+            $slide['goods_thumb'] = $domain.$slide['goods_thumb'];
+            $newGoods[] = $slide;
+        }
+
+        //goods数据商品中包含条件查询  goods_price
+        //  /*              {name:'默认'},
+        //					{name:'销量'},
+        //					{name:'推荐'},
+        //					{name:'最新'}*/
+
+
         //滚动数据
         $slides =  Db::name('ad')->field('id,title,url,thumb,status,seq,created_at,updated_at,img_url')->select();
         foreach ($slides as $slide){
@@ -36,7 +49,7 @@ class Index extends  Base{
             $links[] = $slide;
         }
 
-        $data = ['goods'=>$goods,
+        $data = ['goods'=>['data'=>$newGoods],
                  'slides'=>$newSlides,
                  'links'=>$links ,
                 ];

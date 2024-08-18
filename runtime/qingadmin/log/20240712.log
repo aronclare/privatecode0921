@@ -1,8 +1,0 @@
-[2024-07-12T15:46:55+08:00][sql] CONNECT:[ UseTime:0.001108s ] mysql:host=127.0.0.1;port=3306;dbname=code0921;charset=utf8
-[2024-07-12T15:46:55+08:00][sql] SHOW FULL COLUMNS FROM `qing_auth_rule` [ RunTime:0.003206s ]
-[2024-07-12T15:46:55+08:00][sql] SELECT * FROM `qing_auth_rule` WHERE  `parent_id` = 0  AND `status` = 1 ORDER BY `listorder` ASC [ RunTime:0.000443s ]
-[2024-07-12T15:46:55+08:00][sql] SELECT * FROM `qing_auth_rule` WHERE  `parent_id` = 1  AND `status` = 1 ORDER BY `listorder` ASC [ RunTime:0.000304s ]
-[2024-07-12T15:46:55+08:00][sql] SELECT * FROM `qing_auth_rule` WHERE  `parent_id` = 4  AND `status` = 1 ORDER BY `listorder` ASC [ RunTime:0.000234s ]
-[2024-07-12T15:46:55+08:00][sql] SELECT * FROM `qing_auth_rule` WHERE  `parent_id` = 6  AND `status` = 1 ORDER BY `listorder` ASC [ RunTime:0.000222s ]
-[2024-07-12T15:46:55+08:00][sql] SELECT * FROM `qing_auth_rule` WHERE  `parent_id` = 15  AND `status` = 1 ORDER BY `listorder` ASC [ RunTime:0.000249s ]
-[2024-07-12T15:46:55+08:00][sql] SELECT * FROM `qing_auth_rule` WHERE  `parent_id` = 8  AND `status` = 1 ORDER BY `listorder` ASC [ RunTime:0.000233s ]
