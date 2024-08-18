@@ -3,14 +3,14 @@ Navicat MySQL Data Transfer
 
 Source Server         : users
 Source Server Version : 50726
-Source Host           : localhost:3306
+Source Host           : 127.0.0.1:3306
 Source Database       : code0921
 
 Target Server Type    : MYSQL
 Target Server Version : 50726
 File Encoding         : 65001
 
-Date: 2024-08-17 19:01:22
+Date: 2024-08-18 10:52:59
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -1663,7 +1663,7 @@ INSERT INTO `qing_user` VALUES ('43', 'admintest', null, 'a8a5c404e3927315ccb6e0
 INSERT INTO `qing_user` VALUES ('44', '15100000002', null, 'a8a5c404e3927315ccb6e028d4372ac8', null, null, null, null, null, null, null, null, '1711787327', null, '1', '1710915525', null, null, '3', null, '0', 'YJ1710915525', null, null, '1710915525', null, '0', null, null, null, null, null, '0', null);
 INSERT INTO `qing_user` VALUES ('45', 'admin23@gmail.com', null, 'a8a5c404e3927315ccb6e028d4372ac8', null, null, null, null, null, null, null, null, '0', null, '1', '1723646135', null, null, '3', null, '0', 'YJ1723646135', null, null, '1723646135', null, '0', null, null, null, null, null, '0', null);
 INSERT INTO `qing_user` VALUES ('46', 'admin42@gmail.com', null, 'a8a5c404e3927315ccb6e028d4372ac8', null, null, null, null, null, null, null, null, '0', null, '1', '1723646607', null, null, '3', null, '0', 'YJ1723646607', null, null, '1723646607', '1723648045', '0', null, null, null, '127.0.0.1', null, '0', null);
-INSERT INTO `qing_user` VALUES ('47', 'admin@gmail.com', 'admin', 'a8a5c404e3927315ccb6e028d4372ac8', 'admin@gmail.com', null, null, null, null, null, null, null, '1723887760', null, '1', '1723885529', null, null, '3', null, '0', 'YJ1723885529', null, null, '1723885529', null, '0', null, null, null, '127.0.0.1', null, '0', null);
+INSERT INTO `qing_user` VALUES ('47', 'admin@gmail.com', 'admin', 'a8a5c404e3927315ccb6e028d4372ac8', 'admin@gmail.com', null, null, null, null, null, null, null, '1723949484', null, '1', '1723885529', null, null, '3', null, '0', 'YJ1723885529', null, null, '1723885529', null, '0', null, null, null, '127.0.0.1', null, '0', null);
 
 -- ----------------------------
 -- Table structure for qing_user_trace

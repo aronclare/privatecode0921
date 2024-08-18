@@ -2,11 +2,11 @@ const http = uni.$u.http
 // 认证api
 export const apiRegister = params => http.post('/mobile/user/register',params)// post请求，用户注册
 export const apiLogin = params => http.post('/mobile/user/login', params)// post请求，用户登录
-export const apiLogout = () => http.post('/api/auth/logout')// post请求，用户退出登录
+export const apiLogout = () => http.post('/mobile/user/loginOut')// post请求，用户退出登录
 export const apiOssToken = () => http.get('/api/auth/oss/token')// 获取阿里云OSS Token，用于前端直传文件使用
-export const apiUserInfo = () => http.get('/api/user')// get请求获取用户信息     //已完成接口配对
-export const apiUpdateUserInfo = params => http.put('/api/user',params)// put请求，更改用户名    name=admin   传x-www-form-urlen
-export const apiUpdateUserAvatar = params => http.post('/api/user/avatar',params)// post请求，更新头像
+export const apiUserInfo = () => http.get('/mobile/user/index')// get请求获取用户信息     //已完成接口配对
+export const apiUpdateUserInfo = params => http.put('/mobile/user/userUpdate',params)// put请求，更改用户名    name=admin   传x-www-form-urlen
+export const apiUpdateUserAvatar = params => http.post('/mobile/user/avatar',params)// post请求，更新头像
 // 前台api
 export const apiIndex = params => http.get('/api/index',{params})// get请求，获取首页数据
 export const apiGoodsList = params => http.get('/api/goods',{params})// 商品列表

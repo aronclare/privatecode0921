@@ -195,7 +195,7 @@ class User extends Base
 
 
             if (!$data) {
-                return json(['status' => 0, 'message' => '请输入用户名!']);
+                return json(['status' => 0, 'message' => '请输入邮箱!']);
 
             }
             // mobile 15100000002   password 1234567
@@ -217,7 +217,7 @@ class User extends Base
             if (!$userData) {
 
 
-                return json(['status' => 0, 'message' => '用户名不存在或者错误']);
+                return json(['status' => 0, 'message' => '邮箱不存在或者错误']);
                 //  return alert('用户名不存在或者错误','login',5);
             }
 
@@ -248,7 +248,7 @@ class User extends Base
 "token_type": "Bearer",
 "expires_in": 360000
 }*/
-            return json(['code' =>200, 'message' => '登录成功!', 'access_token' => '123456', 'token_type' => 'Bearer', 'expires_in' => '360000']);
+            return json(['status' =>200, 'message' => '登录成功!', 'access_token' => '123456', 'token_type' => 'Bearer', 'expires_in' => '360000']);
             //  return alert('登录成功','index',6);
         } else {
             return json(['status' => 0, 'message' => '请使用正确的请求方式!']);
