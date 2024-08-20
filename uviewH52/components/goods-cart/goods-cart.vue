@@ -12,7 +12,7 @@
 					:size="22"
 			></u-icon>
 			<!-- 自定义组件 -->
-			<navigator :url="`/pages/goods/show?id=${item.id}`">
+			<navigator :url="`/pages/goods/show?id=${item.goods_id}`">
 				<u--image :showLoading="true" :src="item.goods_thumb" width="280rpx" height="320rpx"></u--image>
 				<view class='title u-line-1'>{{item.goods_name}}</view>
 				<view class='price-sales'>

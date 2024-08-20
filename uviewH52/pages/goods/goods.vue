@@ -37,7 +37,7 @@
 						class="classification" 
 						:style="classificationName.id==categoriesId?style:''"
 					>
-						{{classificationName.name}}
+						{{classificationName.cate_name}}
 					</view>
 				</view>
 			</scroll-view>
@@ -53,15 +53,15 @@
 						:key="index"
 					>	
 						<!-- 点击时跳转到商品详情页 -->
-						<navigator class="goods" :url="`/pages/goods/show?id=${item.id}`">
+						<navigator class="goods" :url="`/pages/goods/show?id=${item.goods_id}`">
 							<u--image
 								class="margin"
 								width="calc((100vh - 400rpx) / 5.4)"
 								height="calc((100vh - 400rpx) / 5.4)"
 								:showLoading="true" 
-								:src="item.cover_url" 
+								:src="item.goods_thumb" 
 							></u--image>
-							<view class="goodsName margin">{{item.title}}</view>
+							<view class="goodsName margin">{{item.goods_name}}</view>
 						</navigator>
 					</u-grid-item>
 				</u-grid>
@@ -124,10 +124,10 @@
 				let res
 				let page = this.page
 				if(this.index===0) res = await apiGoodsList({page,...params})
-				if(this.index===1) res = await apiGoodsList({sales:1,page,...params})
-				if(this.index===2) res = await apiGoodsList({recommend:1,page,...params})
-				if(this.index===3) res = await apiGoodsList({price:1,page,...params})
-				if(this.index===4) res = await apiGoodsList({comments_count:1,page,...params})
+				if(this.index===1) res = await apiGoodsList({tabs:1,page,...params})
+				if(this.index===2) res = await apiGoodsList({tabs:2,page,...params})
+				if(this.index===3) res = await apiGoodsList({tabs:3,page,...params})
+				if(this.index===4) res = await apiGoodsList({tabs:4,page,...params})
 				this.goods.push(...res.goods.data)
 				this.page++
 				this.isLast = res.goods.next_page_url?false:true
@@ -137,7 +137,7 @@
 				this.reset()
 				this.categoriesId = ''
 				// 设置params参数
-				this.params = {title:this.keyword}
+				this.params = {goods_name:this.keyword}
 				this.getData(this.params)
 			},
 			// 选中不同tabs时调用的函数，默认选中第一个

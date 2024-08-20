@@ -3,16 +3,21 @@
 namespace app\mobile\controller;
 
 use app\common\model\Category as CategoryModel;
+//use think\Request;
 use think\facade\Request;
 use think\Controller;
 use think\facade\Db;
+use think\response\Json;
 
 class Goods extends  Base{
+
+    //商品详情
     public function index(){
 
+        // 获取路由参数，假设 2 是 goods_id
+      //  $goods_id = $request->param('id');
 
-        $goods_id=input('goods_id');
-
+        $goods_id=5; input('id');
         $goodsData=Db::name('goods')->find($goods_id);
         if(empty($goodsData) || $goodsData['goods_status']!=1){
             return json(['status' => 0, 'message' => '没有该商品或者该商品已经下架!']);
@@ -22,12 +27,6 @@ class Goods extends  Base{
         $click=$goodsData['click']+1;
         Db::name('goods')->where('goods_id',$goods_id)->update(['click'=>$click]);
 
-        //商品图集
-        $goodsImg=Db::name('goods_img')->where('goods_id',$goods_id)->select();
-
-        //商品详情
-        //$goodsContent=Db::name('goods_content')->where('goods_id',$goods_id)->find();
-
         // 使用联合查询（JOIN）获取商品及其详情
         /*$goodsContents = Db::name('goods')
         ->alias('p')
@@ -35,41 +34,57 @@ class Goods extends  Base{
         ->field('p.goods_id, p.goods_name, p.goods_price， COUNT(c.id) as collects_count, p.stock, p.selnumber,p.goods_cate_id, p.goods_thumb, pd.content')
         ->select();*/
 
-
         // 查询每个商品及其被收藏的次数
         $goodsContents = Db::name('goods')
-            ->alias('p')->join('goods_content gc','gc.goods_id = p.goods_id')
-            ->Join('collect c', 'gc.goods_id = c.goods_id')
-            ->field('p.goods_id, p.goods_name, p.goods_price,p.is_recommend, COUNT(c.goods_id) as collection_count, gc.content, p.stock, p.selnumber, p.goods_cate_id, p.goods_thumb')
+            ->alias('p')->leftjoin('goods_content gc','gc.goods_id = p.goods_id')
+            ->leftJoin('collect c', 'gc.goods_id = c.goods_id')
+            ->field('p.goods_id, p.goods_name, p.goods_price, p.is_recommend, p.goods_status, p.created_at, p.updated_at, COUNT(c.goods_id) as collection_count, gc.content, p.stock, p.selnumber, p.goods_cate_id, p.goods_thumb')
             ->where('p.goods_id',$goods_id)
             ->group('p.goods_id')
             ->find();
-
-
         //获取当前域名
         //构造user_id
         //  $userSessionData = $this->isLogin();
         $user_data = session('sessionUserData');
         $goodsContents['user_id'] = $user_data['id'];
 
-        return json([ 'goods_details' => $goodsContents]);
-        var_dump($goodsContents);die;
-
-        foreach ($goodsContents as $goodsContent){
-
-            $goodsContent['user_id'] = $user_data['id'];
-            $goodsContentdata[]=$goodsContent;
+        //商品是否被当前用户收藏
+        $is_collect = Db::name('collect')
+            ->where('goods_id',$goods_id)
+            ->where('user_id',$user_data['id'])
+            ->find();
+        if ($is_collect){
+            $goodsContents['is_collect'] = 1;
+        }else{
+            $goodsContents['is_collect'] = 0;
         }
+        //查询该商品图片集pics
+        $pics = Db::name('goods_img')
+            ->field('id, image, goods_id')
+            ->where('goods_id',$goods_id)
+            ->select();
 
+        $goodsContents['pics'] =$pics;
 
-        var_dump($goodsContentdata);die;
+        //查询该商品所有评论
+        //comments
+        $comments = Db::name('comment')
+            ->alias('c')
+            ->Join('user u', 'c.user_id = u.id')
+            ->field('c.id, u.name, u.avatar, c.content, c.goods_id, c.user_id')
+            ->where('c.goods_id',$goods_id)
+            ->select();
+
+        // 获取当前域名
+        $domain = Request::domain();
+
+        $goodsContents['goods_thumb'] =$domain.$goodsContents['goods_thumb'];
+        $goodsContents['comments'] =$comments;
+        return json([ 'goods' => $goodsContents,'like_goods'=>[]]);
 
         //商品被收藏的次数 collects_count  需传入goods_id  并统计goods_id数量
         //$collects_count = Db::name('collect')->where('goods_id',$goodsContent['goods_id'])->count();
-
-
         // 查询每个商品及其被收藏的次数
-
         $products = Db::name('goods')
             ->alias('p')
             ->leftJoin('collect c', 'p.goods_id = c.goods_id')
@@ -77,27 +92,12 @@ class Goods extends  Base{
             ->group('p.goods_id')
             ->select();
 
-
-        var_dump($products);die;
-        //   var_dump($goodsContentdata);die;
-
-        $domain = Request::domain();
-        /* foreach ($goodsContents as $goodsContent){
-
-             $goodsContent['user_id'] = $user_id;
-             $goodsContent['goods_thumb'] = $domain.$goodsContent['goods_thumb'];
-             $newSlides[] = $goodsContent;
-         }*/
-        //   var_dump($newSlides);die;
-
         //当前位置
         $positionData=$this->getPositionByCatId($goodsData['goods_cate_id']);
         //商品SKU的获取
         $goodsStandarData=Db::name('goods_standard')->field('sku')->where('goods_id',$goods_id)->select()->toArray();
         $standardList=[];
         $skuDefaultStr='';
-
-
 
         if($goodsStandarData){
             $skuDefaultStr=$this->getAttrBySku($goodsStandarData[0]['sku']);
@@ -199,26 +199,144 @@ class Goods extends  Base{
             'skuDefaultStr'=>$skuDefaultStr
         ]);
     }
+    //收藏is_collect
+    public function  collect(){
+        //收藏接口可无返回值
+        $url = Request::url();
+        // 使用正则表达式从 URL 中提取 ID
+        if (preg_match('/\/collect\/(\d+)$/', $url, $matches)) {
+            $id = $matches[1];
+        }
+        $goods_id= $id;
+        //判断收藏状态
+        $sessionUserData=session('sessionUserData');
+        $collectData=Db::name('collect')->where('goods_id',$goods_id)->where('user_id',$sessionUserData['id'])->find();
+        //  var_dump($collectData);die;
+        if(!empty($collectData)){
+            //则取消收藏  删除收藏记录
+            $collectData=Db::name('collect')->where('goods_id',$goods_id)->where('user_id',$sessionUserData['id'])->delete();
+            if ($collectData){
+                return json(['status' =>'success', 'message' => '取消收藏成功!']);
+            }
+        }else{
+            //为空则插入收藏记录
+            $collect = ['goods_id'=>$goods_id,'time'=>time(),'user_id'=>$sessionUserData['id']];
+            $collectData=Db::name('collect')->insert($collect);
+            if ($collectData){
+                return json(['status' => 'success', 'message' => '收藏成功!']);
+            }
+        }
+    }
 
 
 
     //商品列表
     public function  goods(){
-        //传递分类参数 根据条件销量、推荐、价格、评论查询对应商品
+        //传递分类参数 根据条件销量、推荐、价格、评论查询对应商品  tabs切换点击条件   category_id切换分类
         //1、商品分页列表
+        $name = input('tabs');
+        $category_id  = input('category_id');
+        if (!empty($category_id)){
 
-        //$goodlist=Db::name('goods')->field('goods_id,goods_name,goods_price,goods_thumb,goods_cate_id,selnumber,time')->select();
-        $goodslist = Db::name('goods')
-            ->alias('p')
-            //收藏查询
+            if($name==""){
+                //默认
+                $goodslist = Db::name('goods')
+                    ->alias('p')
+                    ->field('p.goods_id, p.goods_name, p.goods_price, p.goods_thumb, p.goods_cate_id, p.selnumber, p.time')
+                    ->where('goods_cate_id',$category_id)
+                    ->select();
+            }
+            if ($name ==1){
+                //销量排序
+                $goodslist = Db::name('goods')
+                    ->alias('p')
+                    ->field('p.goods_id, p.goods_name, p.goods_price, p.goods_thumb, p.goods_cate_id, p.selnumber, p.time')
+                    ->where('goods_cate_id',$category_id)
+                    ->order('selnumber desc')
+                    ->select();
+            }
 
-            ->field('p.goods_id, p.goods_name, p.goods_price, p.goods_thumb, p.goods_cate_id, p.selnumber, p.time, COUNT(co.goods_id) as comments_count')
-            /*            ->Join('collect c', 'p.goods_id = c.goods_id')*/
-            //评论查询
-            ->Join('comment co','p.goods_id = co.goods_id')
-            ->group('p.goods_id')
-            ->select();
+            if ($name ==2){
+                //推荐  is_recommend = 1
+                $goodslist = Db::name('goods')
+                    ->alias('p')
+                    ->field('p.goods_id, p.goods_name, p.goods_price, p.goods_thumb, p.goods_cate_id, p.selnumber, p.time')
+                    ->where('goods_cate_id',$category_id)
+                    ->where('is_recommend',1)
+                    ->select();
+            }
+            if ($name ==3){
+                //价格排序
+                $goodslist = Db::name('goods')
+                    ->field('goods_id, goods_name, goods_price, goods_thumb, goods_cate_id, selnumber, time')
+                    ->where('goods_cate_id',$category_id)
+                    ->order('goods_price desc')->select();
+            }
+            if($name ==4){
+                // 获取按评论数量排序的商品列表
+                // $goodsList = Db::table('goods')
+                $goodslist = Db::name('goods')
+                    ->alias('g')
+                    ->join('comment c', 'g.goods_id = c.goods_id')
+                    ->field('g.*, COUNT(c.goods_id) as comment_count')
+                    ->where('goods_cate_id',$category_id)
+                    ->group('g.goods_id')
+                    ->order('comment_count', 'desc')
+                    ->select();
+            }
+        }else{
+            if($name==""){
 
+                //  var_dump($name);die;
+
+                //默认
+                $goodslist = Db::name('goods')
+                    ->alias('p')
+                    ->field('p.goods_id, p.goods_name, p.goods_price, p.goods_thumb, p.goods_cate_id, p.selnumber, p.time')
+                    ->select();
+            }
+            if ($name ==1){
+                //销量排序
+                $goodslist = Db::name('goods')
+                    ->alias('p')
+                    ->field('p.goods_id, p.goods_name, p.goods_price, p.goods_thumb, p.goods_cate_id, p.selnumber, p.time')
+                    ->order('selnumber desc')
+                    ->select();
+            }
+
+            if ($name ==2){
+                //推荐  is_recommend = 1
+                $goodslist = Db::name('goods')
+                    ->alias('p')
+                    ->field('p.goods_id, p.goods_name, p.goods_price, p.goods_thumb, p.goods_cate_id, p.selnumber, p.time')
+                    ->where('is_recommend',1)
+                    ->select();
+            }
+            if ($name ==3){
+                //价格排序
+                $goodslist = Db::name('goods')
+                    ->field('goods_id, goods_name, goods_price, goods_thumb, goods_cate_id, selnumber, time')
+                    ->order('goods_price desc')->select();
+            }
+            if($name ==4){
+                // 获取按评论数量排序的商品列表
+                // $goodsList = Db::table('goods')
+                $goodslist = Db::name('goods')
+                    ->alias('g')
+                    ->join('comment c', 'g.goods_id = c.goods_id')
+                    ->field('g.*, COUNT(c.goods_id) as comment_count')
+                    ->group('g.goods_id')
+                    ->order('comment_count', 'desc')
+                    ->select();
+            }
+        }
+
+        //0 默认 1销量 2推荐 3价格 4评论
+        $domain = Request::domain();
+        foreach ($goodslist as $slide){
+            $slide['goods_thumb'] = $domain.$slide['goods_thumb'];
+            $newGoods[] = $slide;
+        }
         // 查询每个商品及其被收藏的次数
         /* $goodsContents = Db::name('goods')
              ->alias('p')->join('goods_content gc','gc.goods_id = p.goods_id')
@@ -233,50 +351,9 @@ class Goods extends  Base{
         $category_model = new CategoryModel();
         $cate=$category_model->getNavCateData();
 
-        $data=['goodsList'=>$goodslist,'cate'=>$cate];
-        return json($data);
+        return json(['goods'=>['data'=>$newGoods],'categories'=>$cate]);
     }
 
-
-    //收藏is_collect
-    public function  collect(){
-        //收藏接口可无返回值
-        $goods_id=input('goods_id');
-
-        //判断收藏状态
-        $sessionUserData=session('sessionUserData');
-        $collectData=Db::name('collect')->where('goods_id',$goods_id)->where('user_id',$sessionUserData['id'])->find();
-
-        if(!empty($collectData)){
-
-            //则取消收藏  删除收藏记录
-            $collectData=Db::name('collect')->where('goods_id',$goods_id)->where('user_id',$sessionUserData['id'])->delete();
-
-            if ($collectData){
-                return json(['is_collect' => 0, 'message' => '取消收藏成功!']);
-
-            }
-        }else{
-
-            //为空则插入收藏记录
-
-            $collect = ['goods_id'=>$goods_id,'time'=>time(),'user_id'=>$sessionUserData['id']];
-
-            $collectData=Db::name('collect')->insert($collect);
-
-            if ($collectData){
-                return json(['is_collect' => 1, 'message' => '收藏成功!']);
-
-            }
-
-
-
-            //  var_dump($collectData);
-
-        }
-
-
-    }
 
 
     //通过sku获取价钱

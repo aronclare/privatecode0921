@@ -672,7 +672,7 @@ get('/api/goods',{params})// 商品列表
 			"children": [
 				{
 					"id": 2,
-					"pid": 1,
+					"pid": 1,  //父级id
 					"name": "区块链",
 					"level": 2,
 					"status": 1,

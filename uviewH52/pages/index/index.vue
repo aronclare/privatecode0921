@@ -103,9 +103,9 @@
 				let page=this.page
 				let res
 				if(this.index===0) res = await apiIndex({page})
-				if(this.index===1) res = await apiIndex({sales:1,page})
-				if(this.index===2) res = await apiIndex({recommend:1,page})
-				if(this.index===3) res = await apiIndex({new:1,page})
+				if(this.index===1) res = await apiIndex({tabs:1,page})
+				if(this.index===2) res = await apiIndex({tabs:2,page})
+				if(this.index===3) res = await apiIndex({tabs:3,page})
 				this.indexList.push(...res.goods.data)
 				//判断当前数据是否是最后一页
 				this.isLast = res.goods.next_page_url?false:true

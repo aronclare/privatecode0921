@@ -4,12 +4,12 @@
 		<!-- 顶部 -->
 		<view class="top">
 			<view class="img padding">
-				<u--image :showLoading="true" :src="goods.cover_url" width="340rpx" height="400rpx" @click="click"></u--image>
+				<u--image :showLoading="true" :src="goods.goods_thumb" width="340rpx" height="400rpx" @click="click"></u--image>
 			</view>
-			<view class="title">{{goods.title}}</view>
+			<view class="title">{{goods.goods_name}}</view>
 			<view class="price-sales">
-				<view class="price">￥ {{goods.price}}</view>
-				<view class="sales">销量 {{goods.sales}}</view>
+				<view class="price">￥ {{goods.goods_price}}</view>
+				<view class="sales">销量 {{goods.selnumber}}</view>
 			</view>
 		</view>
 		
@@ -40,9 +40,9 @@
 		<!-- 商品评论 -->
 		<scroll-view scroll-y class="commentList self-adaption" v-show="isShow===1" ref="comment">
 			<view class="comment" v-for="item in commentList" :key="item.id">
-				<u--image :showLoading="true" :src="item.user.avatar_url" width="80rpx" height="80rpx" @click="click"></u--image>
+				<u--image :showLoading="true" :src="item.avatar" width="80rpx" height="80rpx" @click="click"></u--image>
 				<view class="info">
-					<view class="userName">{{item.user.name}}</view>
+					<view class="userName">{{item.name}}</view>
 					<view class="content">{{item.content}}</view>
 					<view class="time">{{item.created_at}}</view>
 				</view>
@@ -101,17 +101,24 @@
 			}
 		},
 		onLoad(option) {
-			this.getData(option.id)//获取商品信息
+		this.getData(option.id)//获取商品信息
+		
+			 
 		},
 		methods: {
 			// 初始化页面时执行的函数
 			async getData(id){
+				
 				let res = (await apiGoods(id))
+				
+			
 				this.goods = res.goods // 获取商品信息
+				console.log(res.goods.is_collect)
+				
 				this.like_goods = res.like_goods //获取推荐商品列表
 				this.commentList = res.goods.comments
 				this.list[1].badge.value = res.goods.comments.length // 获取商品评论数量
-				this.content = res.goods.details // 获取商品详情
+				this.content = res.goods.content // 获取商品详情
 				this.is_collect = res.goods.is_collect//获取商品是否被收藏
 				let token = uni.getStorageSync('token')
 				// 用户登录后才能获取购物车的商品数量
@@ -126,11 +133,12 @@
 			// 点击收藏调用的函数
 			async collect(){
 				//如果商品未被收藏则收藏，反之则取消收藏
-				await apiCollectsGoods(this.goods.id)
+				
+				await apiCollectsGoods(this.goods.goods_id)
 				if(!this.is_collect){
 					this.is_collect = 1 
 				}else{
-					this.is_collect = 0
+					this.is_collect = 3
 				}
 			},
 			// 点击加入购物车调用的函数
