@@ -3,21 +3,25 @@
 namespace app\mobile\controller;
 
 use app\common\model\Category as CategoryModel;
-//use think\Request;
 use think\facade\Request;
 use think\Controller;
 use think\facade\Db;
 use think\response\Json;
+
 
 class Goods extends  Base{
 
     //商品详情
     public function index(){
 
-        // 获取路由参数，假设 2 是 goods_id
-      //  $goods_id = $request->param('id');
+        $url = Request::url();
 
-        $goods_id=5; input('id');
+        // 使用正则表达式从 URL 中提取 ID
+        if (preg_match('/\/index\/(\d+)$/', $url, $matches)) {
+            $goods_id = $matches[1];
+        }
+
+       // $goods_id=$id; input('id');
         $goodsData=Db::name('goods')->find($goods_id);
         if(empty($goodsData) || $goodsData['goods_status']!=1){
             return json(['status' => 0, 'message' => '没有该商品或者该商品已经下架!']);
@@ -44,20 +48,23 @@ class Goods extends  Base{
             ->find();
         //获取当前域名
         //构造user_id
+
         //  $userSessionData = $this->isLogin();
-        $user_data = session('sessionUserData');
-        $goodsContents['user_id'] = $user_data['id'];
+       // $user_data = session('sessionUserData');
+        $goodsContents['user_id'] = 47 ;
 
         //商品是否被当前用户收藏
         $is_collect = Db::name('collect')
             ->where('goods_id',$goods_id)
-            ->where('user_id',$user_data['id'])
+            ->where('user_id',$goodsContents['user_id'])
             ->find();
+
         if ($is_collect){
             $goodsContents['is_collect'] = 1;
         }else{
             $goodsContents['is_collect'] = 0;
         }
+
         //查询该商品图片集pics
         $pics = Db::name('goods_img')
             ->field('id, image, goods_id')
@@ -80,6 +87,9 @@ class Goods extends  Base{
 
         $goodsContents['goods_thumb'] =$domain.$goodsContents['goods_thumb'];
         $goodsContents['comments'] =$comments;
+
+
+
         return json([ 'goods' => $goodsContents,'like_goods'=>[]]);
 
         //商品被收藏的次数 collects_count  需传入goods_id  并统计goods_id数量
@@ -209,21 +219,22 @@ class Goods extends  Base{
         }
         $goods_id= $id;
         //判断收藏状态
-        $sessionUserData=session('sessionUserData');
+        //$sessionUserData=session('sessionUserData');
+        $sessionUserData['id'] = 47;
         $collectData=Db::name('collect')->where('goods_id',$goods_id)->where('user_id',$sessionUserData['id'])->find();
         //  var_dump($collectData);die;
         if(!empty($collectData)){
             //则取消收藏  删除收藏记录
             $collectData=Db::name('collect')->where('goods_id',$goods_id)->where('user_id',$sessionUserData['id'])->delete();
             if ($collectData){
-                return json(['status' =>'success', 'message' => '取消收藏成功!']);
+                return json(['status' =>'1', 'message' => '取消收藏成功!']);
             }
         }else{
             //为空则插入收藏记录
             $collect = ['goods_id'=>$goods_id,'time'=>time(),'user_id'=>$sessionUserData['id']];
             $collectData=Db::name('collect')->insert($collect);
             if ($collectData){
-                return json(['status' => 'success', 'message' => '收藏成功!']);
+                return json(['status' => '1', 'message' => '收藏成功!']);
             }
         }
     }

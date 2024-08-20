@@ -11,8 +11,8 @@ export const apiUpdateUserAvatar = params => http.post('/mobile/user/avatar',par
 export const apiIndex = params => http.get('/mobile/index/index',{params})// get请求，获取首页数据
 export const apiGoodsList = params => http.get('/mobile/goods/goods',{params})// 商品列表\接口包含分类列表
 export const apiGoods = (id) => http.get(`/mobile/goods/index/${id}`)// 商品详情
-export const apiCollectsGoods = params => http.post(`/mobile/goods/collect`,params)// 收藏或取消收藏 直接goods/3传参
-export const apiCartList = params => http.get('/mobile/cart/index',params)// 购物车列表        //{params}参数格式为id=76
+export const apiCollectsGoods = (id) => http.post(`/mobile/goods/collect/${id}`)// 收藏或取消收藏 直接goods/3传参
+export const apiCartList = params => http.get('/mobile/cart/index',params)// 购物车列表  //{params}参数格式为id=76
 export const apiAddCart = params => http.post('/mobile/cart/add_to_cart',params)// 加入购物车
 export const apiCartChecked = params => http.patch('/mobile/cart/update_cart_status',params)// 购物车改变选中     //is_checked=1   1选中0未选中
 export const apiCartNum = (id,params) => http.put(`/api/carts/${id}`,params)// 购物车某个商品的数量  api/carts/29136//设置id=29136商品的数量为1num=1

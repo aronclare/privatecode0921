@@ -113,7 +113,8 @@
 				
 			
 				this.goods = res.goods // 获取商品信息
-				console.log(res.goods.is_collect)
+				console.log(res.goods)
+				console.log(id)
 				
 				this.like_goods = res.like_goods //获取推荐商品列表
 				this.commentList = res.goods.comments
@@ -138,7 +139,7 @@
 				if(!this.is_collect){
 					this.is_collect = 1 
 				}else{
-					this.is_collect = 3
+					this.is_collect = 0
 				}
 			},
 			// 点击加入购物车调用的函数

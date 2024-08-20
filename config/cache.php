@@ -11,7 +11,7 @@ return [
     // 缓存连接方式配置
     'stores'  => [
         'file' => [
-            // 驱动方式
+            // 驱动方式   // file  redis
             'type'       => 'File',
             // 缓存保存目录
             'path'       => '',
@@ -25,11 +25,14 @@ return [
             'serialize'  => [],
         ],
         'redis' => [
-            // 驱动方式
-            'type' => 'redis',
-            // 服务器地址
-            'host' => '127.0.0.1',
-            ],
+            'type'     => 'redis',
+            'host'     => '127.0.0.1',
+            'port'     => 6379,
+            'password' => '', // 如果没有设置密码，这里留空
+            'select'   => 0,  // Redis 数据库索引
+            'expire'   => 0,  // 默认过期时间，0表示永久有效
+            'prefix'   => '', // 缓存前缀
+        ],
         // 更多的缓存连接
         
     ],

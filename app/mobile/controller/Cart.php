@@ -24,28 +24,64 @@ class Cart extends  Base
         //传user_id   获得购物车所有商品
         $userSessionData = $this->isLogin();
         $cartData=[];
+
+        $userSessionData['id'] =47;
         $cartDataTmp=Db::name('cart')->where('user_id',$userSessionData['id'])->order('id desc')->select()->toArray();
 
       //  var_dump($cartDataTmp);die;
         foreach($cartDataTmp as $k=>$v){
             $cartData[$k]['id']=$v['id'];
-            $cartData[$k]['status']=$v['status'];
+            $cartData[$k]['is_checked']=$v['status'];
             $cartData[$k]['goods_id']=$v['goods_id'];
             $cartData[$k]['amount']=$v['amount'];
             $cartData[$k]['sku']=$this->getAttrBySku($v['sku']);
             $goodsData=Db::name('goods')->find($v['goods_id']);
-            $cartData[$k]['goods_thumb']=$goodsData['goods_thumb'];
-            $cartData[$k]['goods_name']=$goodsData['goods_name'];
+            $cartData[$k]['cover_url']=$goodsData['goods_thumb'];
+            $cartData[$k]['title']=$goodsData['goods_name'];
+            $cartData[$k]['stock']=$goodsData['stock'];
+            $cartData[$k]['description']=$goodsData['description'];
             $cartData[$k]['num']=$v['num'];
+
+            $cartData[$k]['user_id']= 47;$userSessionData['id'];
+
+
             if($goodsData['single_standard']==1){
-                $cartData[$k]['goods_price']=$goodsData['goods_price'];
+                $cartData[$k]['price']=$goodsData['goods_price'];
             }else{
-                $cartData[$k]['goods_price']=Db::name('goods_standard')->where('goods_id',$v['goods_id'])->where('sku',$v['sku'])->value('goods_price');
+                $cartData[$k]['price']=Db::name('goods_standard')->where('goods_id',$v['goods_id'])->where('sku',$v['sku'])->value('goods_price');
             }
         }
 
+        // 获取当前域名
+        $domain = Request::domain();
+        foreach ($cartData as $slide){
+            $slide['cover_url'] = $domain.$slide['cover_url'];
+
+            $goods['id'] = $slide['id'];
+            $goods['is_checked'] = $slide['is_checked'];
+            $goods['user_id'] = $slide['user_id'];
+            $goods['num'] = $slide['num'];
+            $goods['goods_id'] = $slide['goods_id'];
+
+            $goods['goods']['goods_id'] = $slide['goods_id'];
+            $goods['goods']['amount'] = $slide['amount'];
+            $goods['goods']['price'] = $slide['price'];
+
+            $goods['goods']['sku'] = $slide['sku'];
+            $goods['goods']['cover_url'] = $slide['cover_url'];
+            $goods['goods']['title'] = $slide['title'];
+            $goods['goods']['stock'] = $slide['stock'];
+            $goods['goods']['description'] = $slide['description'];
+
+            $newGoods[]= $goods;
+
+        }
+
+
+
+      //  var_dump($newGoods);die;
         $total_price=0;
-        return json(['total_price' => $total_price, 'cartData' =>$cartData]);
+        return json($newGoods);
 
         /*   return view('',[
                'total_price'=>$total_price,

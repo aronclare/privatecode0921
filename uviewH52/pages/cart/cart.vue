@@ -96,8 +96,13 @@
 		methods:{
 			// 每次页面显示时调用的会函数
 			async getData(){
-				let res = (await apiCartList({include:'goods'})).data
-				this.goodsList = res
+				//let res = (await apiCartList({include:'goods'})).data
+			    let res = (await apiCartList())
+				//this.goods = res.item
+				
+				//this.goodsList = res.goods
+				
+				    console.log(res)
 				// 价格
 				let price = []
 				// 数量
