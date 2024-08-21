@@ -97,12 +97,12 @@
 			// 每次页面显示时调用的会函数
 			async getData(){
 				//let res = (await apiCartList({include:'goods'})).data
-			    let res = (await apiCartList())
-				//this.goods = res.item
+				let res = (await apiCartList()).data
 				
-				//this.goodsList = res.goods
+			  //  let res = (await apiCartList())				
+				this.goodsList = res
 				
-				    console.log(res)
+				    
 				// 价格
 				let price = []
 				// 数量
@@ -114,6 +114,8 @@
 				res.map(item => {
 					// 商品被选中时
 					if(item.is_checked && item.goods.stock != 0){
+						
+					//	console.log(item.goods)  
 						price.push(item.goods.price)
 						num.push(item.num)
 					}

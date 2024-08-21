@@ -13,10 +13,10 @@
 		<!-- 商品信息 -->
 		<scroll-view scroll-y>
 			<view class="goodInfo" v-for="good in carts">
-				<image :src="good.goods.cover_url"></image>
+				<image :src="good.goods.goods_thumb"></image>
 				<view class='goodName-price'>
-					<view class="goodName">{{good.goods.title}}</view>
-					<view class="price">￥<span id='price'>{{good.goods.price}}</span></view>
+					<view class="goodName">{{good.goods.goods_name}}</view>
+					<view class="price">￥<span id='price'>{{good.goods.goods_price}}</span></view>
 				</view>
 				<view class="num">
 					x<span>{{good.num}}</span>
@@ -64,14 +64,16 @@
 				let data = await apiTrade()
 				// 获取默认地址
 				let addressInfo = data.address
-				this.addressInfo = addressInfo.filter(item=>{
-					return item.is_default == 1
-				})
+				
+				console.log(data.address)
+				 this.addressInfo = addressInfo.filter(item=>{
+					return item.is_default == 1  //isdefault
+				}) 
 				this.carts = data.carts
 				// 计算总价
 				let total = 0
 				data.carts.map(item => {
-					total += item.num * item.goods.price
+					total += item.num * item.goods.goods_price
 				})
 				this.total = total
 			},

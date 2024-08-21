@@ -22,7 +22,7 @@ class Cart extends  Base
 
     public function index(){
         //传user_id   获得购物车所有商品
-        $userSessionData = $this->isLogin();
+    //    $userSessionData = $this->isLogin();
         $cartData=[];
 
         $userSessionData['id'] =47;
@@ -77,11 +77,10 @@ class Cart extends  Base
 
         }
 
-
-
-      //  var_dump($newGoods);die;
         $total_price=0;
-        return json($newGoods);
+
+
+        return json(['data'=>$newGoods]);
 
         /*   return view('',[
                'total_price'=>$total_price,
@@ -90,47 +89,62 @@ class Cart extends  Base
 
     }
 
-
     //添加购物车
-
     public function add_to_cart(){
-
         $userSessionData =session('sessionUserData');
-        if(empty($userSessionData)){
+      /*  $url = Request::url();
+        if (preg_match('/\/add_to_cart\/(\d+)$/', $url, $matches)) {
+            $goods_id = $matches[1];
+        }*/
+        $user_id = 47;
+        //数据中需包含 goods_id  sku  规格
+       // $data=input('post.');
+        $data = Request::post();
+      /* if(empty($userSessionData)){
             return json(['status'=>0,'message'=>'请登录后再操作！']);
-        }
-        $data=input('post.');
+        }*/
         //先查找数据表有没有相同记录，有就更新数量，没有再插入记录    //sku为商品型号，大小，尺寸
-        $cartData=Db::name('cart')->field('amount,id,num')->where('user_id',$userSessionData['id'])->where('goods_id',$data['goods_id'])->where('sku',$data['sku'])->find();
+       // $cartData=Db::name('cart')->field('amount,id,num')->where('user_id',$user_id)->where('goods_id',$data['goods_id'])->where('sku',$data['sku'])->find();
+        $cartData=Db::name('cart')
+            ->field('amount,id,num')
+            ->where('user_id',$user_id)
+            ->where('goods_id',$data['goods_id']);
 
+        if (!empty($data['sku'])){
+            $cartData = $cartData->where('sku',$data['sku']);
+        }
+        $cartData = $cartData->find();
+        //获取goods_id商品详细数据
+        $goods = Db::name('goods')->field('goods_price,goods_name')->where('goods_id',$data['goods_id'])->find();
 
         if($cartData){
 
-            $amount=$data['amount']+$cartData['amount'];  // 总金额
+          //  $amount = $goods['amount']+$cartData['amount'];  // 总金额
             $num  = 1;  //数量
 
             $res=Db::name('cart')->where('id',$cartData['id'])->update([
-                'amount'=>$amount,
+               // 'amount'=>$amount,
                 'num'=>$cartData['num']+$num,
                 'updated_at'=>time()
             ]);
             if($res){
-                return json(['status'=>1,'message'=>'添加购物车成功!']);
+                return json(['status'=>200,'message'=>'添加购物车成功!']);
             }else{
                 return json(['status'=>0,'message'=>'添加购物车失败!']);
             }
         }else{
-           $res= Db::name('cart')->insert([
+
+            $res= Db::name('cart')->insert([
                 'goods_id'=>$data['goods_id'],
-                'user_id'=>$userSessionData['id'],
-                'sku'=>$data['sku'],
-                'amount'=>$data['amount'],
+                'user_id'=>$user_id,
+             //   'sku'=>$data['sku'],
+                'amount'=>$goods['goods_price'],
                 'num'=>1,
                 'created_at'=>time()
             ]);
             
             if($res){
-                return json(['status'=>1,'message'=>'添加购物车成功!']);
+                return json(['status'=>200,'message'=>'添加购物车成功!']);
             }else{
                 return json(['status'=>0,'message'=>'添加购物车失败!']);
             }
@@ -155,21 +169,29 @@ class Cart extends  Base
      //购物车删除一条记录
      public function delete_to_cart(){
 
-        $userSessionData = $this->isLogin();
+         //$userSessionData = $this->isLogin();
+         //  $id = input('request.id',0);
+         $url = Request::url();
+         if (preg_match('/\/delete_to_cart\/(\d+)$/', $url, $matches)) {
+             $goods_id = $matches[1];
+         }
 
-        $id = input('request.id',0);
+         $user_id = 47;
+         $id = $goods_id;
+
+
 
         if($id == 0){
             return json(['status'=>0,'message'=>'非法数据!']);
         }
 
-        $res = Db::name("cart")->where("id={$id} and user_id={$userSessionData['id']}")->delete();
+        $res = Db::name("cart")->where("id={$id} and user_id={$user_id}")->delete();
 
         if($res){
-            return json(['status'=>1,'message'=>'操作成功!']);
+            return json(['status'=>200,'message'=>'操作成功!']);
 
         }else{
-            return json(['status'=>0,'message'=>'操作失败!']);
+            return json(['status'=>200,'message'=>'操作失败!']);
         }
 
     }

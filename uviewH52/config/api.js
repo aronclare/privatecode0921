@@ -27,6 +27,6 @@ export const apiPayStatus = (orderId) => http.get(`/mobile/order/${orderId}/get_
 //地址模块
 export const apiAddAddress = (params) => http.post('/mobile/order/address',params)// 添加地址
 export const apiDeleteAddress = (address) => http.delete(`/mobile/order/addressDelete/${address}`)// 删除地址
-export const apiGetAddress = () => http.get('/api/address')// 获取地址列表
-export const apiUpdateAddress = (id,params) => http.put(`/mobile/order/addressUpdate/${id}`,params)// 更新地址信息
+export const apiGetAddress = () => http.get('/mobile/order/address')// 获取地址列表
+export const apiUpdateAddress = (id,params) => http.put(`/mobile/order/address/${id}`,params)// 更新地址信息
 

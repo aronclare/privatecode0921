@@ -56,6 +56,9 @@
 			async getAddress(){
 				let result = await apiGetAddress()
 				this.addressList = result.data
+				console.log(result.data)
+				
+				
 				this.accomplish = true
 			},
 			// 去添加地址页
