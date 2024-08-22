@@ -65,9 +65,15 @@
 		methods: {
 			// 获取订单列表
 			async getTradeList(status){
-				try{
-					let res = await apiTradeList({status,include:'orderDetails.goods'})
+				
+				try{                              //status   1 2 3 4 5
+					//let res = await apiTradeList({status,include:'orderDetails.goods'})
+					let res = (await apiTradeList({status}))
+					
+					console.log(res)
+					
 					this.tradeList = res.data.reverse()
+										
 				}catch(e){}
 			},
 			click(item) {
@@ -75,6 +81,7 @@
 				if(++item.index == this.status) return
 				this.status = item.index
 				this.getTradeList(this.status)
+				
 			},
 			// 去订单详情页
 			orderDetail(orderId){

@@ -97,9 +97,9 @@ class Order extends Base
         $addressData = Request::post();
 
         $url = Request::url();
-      if (preg_match('/\/address\/(\d+)$/', $url, $matches)) {
-          $update_id = $matches[1];
-      }
+        if (preg_match('/\/address\/(\d+)$/', $url, $matches)) {
+            $update_id = $matches[1];
+        }
 
         if (!empty($addressData)) {
             $data['shou_name'] = $addressData['name'];
@@ -137,7 +137,6 @@ class Order extends Base
             } else {
 
 
-
                 //添加地址
                 $data['user_id'] = $sessionUserData['id'];
                 $data['created_at'] = time();
@@ -145,7 +144,7 @@ class Order extends Base
 
                 //如果用户首次添加地址自动设为默认地址
                 $addressData = Db::name('address')->where('user_id', $sessionUserData['id'])->find();
-                if (!$addressData){
+                if (!$addressData) {
                     $data['isdefault'] = 1;
                 }
 
@@ -155,10 +154,10 @@ class Order extends Base
                 }
 
                 //更新地址
-                if (!empty($update_id)){
-                    unset($data['created_at'] );
-                    $addressData = Db::name('address')->where('id',$update_id)->where('user_id', $sessionUserData['id'])->update($data);
-                }else{
+                if (!empty($update_id)) {
+                    unset($data['created_at']);
+                    $addressData = Db::name('address')->where('id', $update_id)->where('user_id', $sessionUserData['id'])->update($data);
+                } else {
 
 
                     $addressData = Db::name('address')->insert($data);
@@ -188,7 +187,7 @@ class Order extends Base
     //地址删除
     public function addressDelete()
     {
-       // $id = input('id');
+        // $id = input('id');
         $url = Request::url();
         if (preg_match('/\/addressDelete\/(\d+)$/', $url, $matches)) {
             $id = $matches[1];
@@ -204,7 +203,15 @@ class Order extends Base
     //提交订单
     function order_create()
     {
-        $sessionUserData = session('sessionUserData');
+        $postdata = Request::post();
+        //   $data = json_encode($data,true);
+        // var_dump($data);die;
+        // 确定保存文件的路径，当前路径下的 post_data.txt 文件
+        //   $filePath = app()->getRootPath() . 'post_data.txt';
+        //  file_put_contents($filePath, $data);die;
+        //  $sessionUserData = session('sessionUserData');
+        $sessionUserData['id'] = 47;
+
         /*  if(empty($sessionUserData)){
               return json(['msg'=>'请登录','status'=>-2]);
           }
@@ -213,24 +220,19 @@ class Order extends Base
           if(!intval($data['address_id'])){
               return json(['msg'=>'请完善收货地址信息','status'=>0]);
           }*/
-        $data['address_id'] = 2;
+        $data['address_id'] = $postdata['address_id'];
+        $data['pay_method'] = $postdata['pay_method'];//支付方式   input('post.pay_method')
         $data['user_id'] = $sessionUserData['id'];
         $data['time'] = time();
-        $data['pay_method'] = input('post.pay_method');//支付方式
-        $data['content'] = input('post.content'); //留言
+        $data['content'] = '留言类容'; //留言
         $data['out_trade_no'] = md5(time() . 'ab'); //订单号
-
         //order_goods $data2
         $total_price = 0;
         $cartDataTmp = Db::name('cart')->where('user_id', $sessionUserData['id'])->where('status', 1)->order('id desc')->select()->toArray();
-
-
-        //   var_dump($cartDataTmp);die;
+        //var_dump($cartDataTmp);die;
         if (empty($cartDataTmp)) {
-            return json(['msg' => '订单异常', 'status' => -1]);
+            return json(['status' => 400,'message' => '订单异常']);
         }
-
-
         foreach ($cartDataTmp as $k => $v) {
             $data2[$k]['goods_id'] = $v['goods_id'];
             $data2[$k]['amount'] = $v['amount'];  //商品数量
@@ -242,15 +244,11 @@ class Order extends Base
             } else {
                 $data2[$k]['goods_price'] = Db::name('goods_standard')->where('goods_id', $v['goods_id'])->where('sku', $v['sku'])->value('goods_price');
             }
-
-            $price = $data2[$k]['goods_price'] * $v['amount'];
+            $price = $data2[$k]['goods_price'] * $v['num'];
             $total_price = $total_price + $price + $goodsData['post_money'];
-
         }
         $data['total_price'] = $total_price;  //总金额
-
-
-        // var_dump($data);die;
+        //var_dump($data2);die;
         //入库
         Db::startTrans();
         try {
@@ -259,7 +257,7 @@ class Order extends Base
             if ($order_id) {
                 foreach ($data2 as $k => $v) {
                     $v['order_id'] = $order_id;
-                    $res = Db::name('order_goods')->insertGetId($v);
+                    $res = Db::name('order_goods')->insertGetId($v);  //写入订单商品数据
                 }
             }
             //删除购物车信息
@@ -268,12 +266,15 @@ class Order extends Base
             //提交事务
             Db::commit();
         } catch (\Exception $e) {
-
-            echo $e;
+            //echo $e;
             // 回滚事务
             Db::rollback();
             return json(['msg' => '订单异常', 'status' => -3]);
         }
+        //此处获得order_id 可根据order_id查询 订单号
+        $orderno = Db::name('order')->where('id',$order_id)->find();
+        return json(['orderno' =>$orderno['out_trade_no'],'pay_method' => 'USDT']);
+
 
         if ($order_id && $res) {
             //微信支付
@@ -286,6 +287,13 @@ class Order extends Base
             }
         }
     }
+
+    //订单USDT支付
+    public function orderpay(){
+
+
+    }
+
 
     /* 从商品详情页直接购买，方法提交到这里
     ** 提交过来参数：goods_id、amount、sku   sku为产品规格 例如产品颜色，大小，型号
@@ -463,6 +471,45 @@ class Order extends Base
         }
 
     }
+
+    //我的订单  //订单列表
+    public function myorder(){
+        // $sessionUserData = $this->isLogin();
+
+      /*  $url = Request::url();
+        if (preg_match('/\/myorder\/(\d+)$/', $url, $matches)) {
+            $status = $matches[1];
+        }*/
+      $status = Request::post('status');
+     // var_dump($status);die;
+
+      //  $this->clearOrderStatus0();
+        /*$sessionUserData['id']=*/ $user_id=47;
+        $orderData=Db::view('order', 'id,total_price,status,time,out_trade_no,pay_method,iscomment')
+            ->view('address', 'shou_name', 'address.id=order.address_id')
+            ->where('order.user_id', $user_id)
+            ->where('status',$status)
+            ->order('order.id desc')
+            ->paginate(['list_rows'=> 6,'query'=>request()->param()]);
+
+
+        //分页
+        $page = $orderData->render();
+        $orderData1=$orderData->items();
+        foreach($orderData1 as $k=>$v){
+            $orderData1[$k]['goods']=Db::name('order_goods')->alias('a')->field('a.*,b.goods_name,b.goods_thumb')->join('goods b','a.goods_id=b.goods_id')->where('a.order_id',$v['id'])->select()->toArray();
+        }
+
+        return json(['data'=>$orderData1]);
+        //halt($orderData1);
+        return view('',[
+            'left_menu'=>11,
+            'page'=>$page,
+            'orderData1'=>$orderData1,
+            'searchkey'=>''
+        ]);
+    }
+
 
     //查看订单物流信息
     public function showOrderPost()

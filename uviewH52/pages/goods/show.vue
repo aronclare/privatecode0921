@@ -151,13 +151,7 @@
 					success:async ()=>{
 						let token = uni.getStorageSync('token')
 						// 用户登录后才能获取购物车的商品数量
-						
-						console.log(this.goods.goods_id)
-						await apiAddCart({goods_id:this.goods.goods_id})
-						this.value = (await apiCartList()).data.length//获取购物车里商品的数量
 						if(token){
-							
-							console.log(this.goods.goods_id)
 							await apiAddCart({goods_id:this.goods.goods_id})
 							this.value = (await apiCartList()).data.length//获取购物车里商品的数量
 						}

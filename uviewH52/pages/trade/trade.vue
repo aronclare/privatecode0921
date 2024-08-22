@@ -92,9 +92,10 @@
 			async toPayment(){
 				// 提交订单
 				try{
-					let order = await apiSubmitTrade({address_id:this.addressInfo[0].id})
+					let order = await apiSubmitTrade({address_id:this.addressInfo[0].id,pay_method:'USDT'})
 					console.log(123)
-					let qrcode = await apiPay(order.id,{ type:'aliyun' })
+					          //http://code09211.cc/api/orders/b96668d26fdc91c07b90b20886a7d034/pay?type=usdt 
+					let qrcode = await apiPay(order.orderno,{ type:'usdt' })
 					this.qrcode = await QRCode.toDataURL(qrcode.qr_code)
 					// 显示支付二维码
 					this.showPay = true

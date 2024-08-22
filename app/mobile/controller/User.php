@@ -12,6 +12,7 @@ use think\facade\Cache;
 use think\exception\ValidateException;
 use app\common\lib\Alicms;
 use think\facade\Console;
+use think\facade\Request;
 
 class User extends Base
 
@@ -400,31 +401,6 @@ class User extends Base
         return true;
     }
 
-    //我的订单  //订单列表
-    public function myorder(){
-        $sessionUserData = $this->isLogin();
-        $this->clearOrderStatus0();
-
-        $orderData=Db::view('order', 'id,total_price,status,time,out_trade_no,pay_method,iscomment')
-            ->view('address', 'shou_name', 'address.id=order.address_id')
-            ->where('order.user_id', $sessionUserData['id'])->order('order.id desc')
-            ->paginate(['list_rows'=> 2,'query'=>request()->param()]);
-        //分页
-        $page = $orderData->render();
-        $orderData1=$orderData->items();
-        foreach($orderData1 as $k=>$v){
-            $orderData1[$k]['goods']=Db::name('order_goods')->alias('a')->field('a.*,b.goods_name,b.goods_thumb')->join('goods b','a.goods_id=b.goods_id')->where('a.order_id',$v['id'])->select()->toArray();
-        }
-
-        return json($orderData1);
-        //halt($orderData1);
-        return view('',[
-            'left_menu'=>11,
-            'page'=>$page,
-            'orderData1'=>$orderData1,
-            'searchkey'=>''
-        ]);
-    }
 
 
     //清除24小时过时待支付订单
