@@ -155,23 +155,67 @@ class Cart extends Base
     public function update_cart_status()
     {
         // $userSessionData = $this->isLogin();
+        $userId = 47;
 
-        $arrdata = Request::post();
+        $selectedCartIds = Request::post('cart_ids'); // 期望接收一个包含选中商品的购物车ID列表
 
-        $arrdata = json_encode($arrdata, true);
-
-        $cart = Db::name('cart')->where('user_id', 47)->
-
-
-        $id = input('request.id');
-        $status = intval(input('request.status'));
-        $res = Db::name("cart")->where('id', $id)->update(['status' => $status]);
-
-        if ($res == 1) {
-            return json(['status' => 1, 'message' => '操作成功!']);
-        } else {
-            return json(['status' => 0, 'message' => '操作失败!']);
+        if (!is_array($selectedCartIds)) {
+            return json(['status' => 'error', 'message' => '参数不是一个数组'], 400);
         }
+
+        Db::startTrans(); // 开启事务处理
+        try {
+            // 将该用户的所有购物车商品标记为未选中
+            Db::name('cart')
+                ->where('user_id', $userId)
+                ->update(['status' => 0]);
+
+            // 将选中的商品标记为选中
+            if (!empty($selectedCartIds)) {
+                Db::name('cart')
+                    ->where('user_id', $userId)
+                    ->whereIn('id', $selectedCartIds)
+                    ->update(['status' => 1]);
+            }
+
+            Db::commit(); // 提交事务
+            return json(['status' => 'success', 'message' => '购物车商品选中成功！']);
+        } catch (\Exception $e) {
+            Db::rollback(); // 回滚事务
+            return json(['status' => 'error', 'message' => '购物车商品选中失败！', 'error' => $e->getMessage()], 500);
+        }
+
+    }
+
+    //购物车数量增减
+    public function cart_num()
+    {
+      //  $userSessionData = $this->isLogin();
+        //传入购物车列表id    商品金额
+          $url = Request::url();
+        if (preg_match('/\/cart_num\/(\d+)$/', $url, $matches)) {
+            $cart_id = $matches[1];
+        }
+
+      /* $cartdata = Request::post();
+       $cart_id = $cartdata['cart_id'];*/
+      // var_dump($cart_id);die;
+
+
+
+        $num = Request::put('num');
+
+        $user_id = 47;
+        $id = input('request.id');
+        //更新数量
+      //  $num = intval(input('request.num'));
+        $res = Db::name("cart")->where('user_id',$user_id)->where('id', $cart_id)->update(['num' => $num]);
+        if ($res) {
+            return json(['status' => 'success', 'message' => '操作成功!']);
+        } else {
+            return json(['status' => 'error', 'message' => '操作失败!']);
+        }
+
     }
 
     //购物车删除一条记录
@@ -233,27 +277,6 @@ class Cart extends Base
         $res = Db::name("cart")->where("user_id={$userSessionData['id']}")->update(['status' => $status]);
 
 
-        if ($res) {
-            return json(['status' => 1, 'message' => '操作成功!']);
-        } else {
-            return json(['status' => 0, 'message' => '操作失败!']);
-        }
-
-    }
-
-    //购物车数量增减
-
-    public function update_cart_amount()
-    {
-
-        $userSessionData = $this->isLogin();
-        //传入购物车列表id    商品金额
-        $id = input('request.id');
-        //更新金额
-        $amount = intval(input('request.amount'));
-        //更新数量
-        $num = intval(input('request.num'));
-        $res = Db::name("cart")->where('id', $id)->update(['amount' => $amount, 'num' => $num]);
         if ($res) {
             return json(['status' => 1, 'message' => '操作成功!']);
         } else {

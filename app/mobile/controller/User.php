@@ -420,40 +420,7 @@ class User extends Base
     }
 
 
-    //我的订单详情
-    public function myorder_detail(){
-        //0 待付款 取消订单 立即支付  订单详情
-        //1 已经支付待发货  订单详情
-        //4 待确认收货  确认收货  订单详情
-        //2 已完成  商品评价  订单详情 联系客服  删除订单
-        $sessionUserData = $this->isLogin();
-        $id=input('id');
-        //订单数据
-        $orderData=Db::name('order')->find($id);
-       /* if(empty($orderData)){
-            return redirect('myorder');
-        }*/
-        //商品订单数据
-        $orderGoodsData=Db::name('order_goods')->alias('a')->field('a.*,b.goods_name,b.goods_thumb')->join('goods b','a.goods_id=b.goods_id')->where('a.order_id',$orderData['id'])->select()->toArray();
-        $post_money=0;  $goods_price=0;
-        //caculate price计算价格
-        foreach($orderGoodsData as $k=>$v){
-            $post_money=$v['post_money']+$post_money;
-            $goods_price=$goods_price+$v['goods_price']*$v['amount'];
-        }
-        //post_money 每件商品省下的钱   累加得到总共省下的钱
-        //收货信息
-        $addressData=Db::name('address')->find($orderData['address_id']);
-        return json(['Goods'=>$orderGoodsData,'addressData'=>$addressData,'goods_price'=>$goods_price,'post_money'=>$post_money]);
-       /* return view('',[
-            'left_menu'=>11,
-            'orderData'=>$orderData,
-            'orderGoodsData'=>$orderGoodsData,
-            'addressData'=>$addressData,
-            'post_money'=>$post_money,
-            'goods_price'=>$goods_price
-        ]);*/
-    }
+
 
     //我的订单--待收货4
     //前端  0待付款 1已支付 2待收货 3已完成 4已过期

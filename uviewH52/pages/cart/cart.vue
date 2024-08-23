@@ -98,7 +98,6 @@
 			async getData(){
 				//let res = (await apiCartList({include:'goods'})).data
 				let res = (await apiCartList()).data
-				
 			  //  let res = (await apiCartList())				
 				this.goodsList = res
 				
@@ -140,7 +139,11 @@
 				// 如果Arr的长度跟goodsList的长度不一致（有库存为0的商品）
 				// 发送更改选中的请求
 				if(this.Arr.length !== this.goodsList)
+				
+				
 				await apiCartChecked({cart_ids:this.Arr})
+				
+				
 			},
 			// 商品勾点击勾选时触发
 			async handleCartChecked(id){

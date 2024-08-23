@@ -68,7 +68,7 @@
 				
 				try{                              //status   1 2 3 4 5
 					//let res = await apiTradeList({status,include:'orderDetails.goods'})
-					let res = (await apiTradeList({status}))
+					let res = await apiTradeList({status})
 					
 					console.log(res)
 					
@@ -85,8 +85,10 @@
 			},
 			// 去订单详情页
 			orderDetail(orderId){
+				
+				console.log(orderId)
 				this.$u.route({
-					url:'pages/order/order',
+					url:`pages/order/order?order_id=${orderId}`,//id=${item.goods_id}
 					params:{
 						orderId
 					}

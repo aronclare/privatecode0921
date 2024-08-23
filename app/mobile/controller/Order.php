@@ -472,17 +472,19 @@ class Order extends Base
 
     }
 
-    //我的订单  //订单列表
+    //我的订单//订单列表
     public function myorder(){
         // $sessionUserData = $this->isLogin();
 
-      /*  $url = Request::url();
+       /* $url = Request::url();
         if (preg_match('/\/myorder\/(\d+)$/', $url, $matches)) {
             $status = $matches[1];
         }*/
-      $status = Request::post('status');
-     // var_dump($status);die;
 
+
+         $status = Request::get('status');// get只能接收get发来的请求
+
+     // $status = Request::post('status');
       //  $this->clearOrderStatus0();
         /*$sessionUserData['id']=*/ $user_id=47;
         $orderData=Db::view('order', 'id,total_price,status,time,out_trade_no,pay_method,iscomment')
@@ -491,16 +493,21 @@ class Order extends Base
             ->where('status',$status)
             ->order('order.id desc')
             ->paginate(['list_rows'=> 6,'query'=>request()->param()]);
-
-
         //分页
         $page = $orderData->render();
         $orderData1=$orderData->items();
         foreach($orderData1 as $k=>$v){
             $orderData1[$k]['goods']=Db::name('order_goods')->alias('a')->field('a.*,b.goods_name,b.goods_thumb')->join('goods b','a.goods_id=b.goods_id')->where('a.order_id',$v['id'])->select()->toArray();
-        }
 
-        return json(['data'=>$orderData1]);
+            // 获取当前域名
+            $domain = Request::domain();
+            foreach ($orderData1[$k]['goods'] as $slide){
+                $slide['goods_thumb'] = $domain.$slide['goods_thumb'];
+                $orderData2[$k]['goods'][] = $slide;
+            }
+
+        }
+        return json(['data'=>$orderData2]);
         //halt($orderData1);
         return view('',[
             'left_menu'=>11,
@@ -508,6 +515,54 @@ class Order extends Base
             'orderData1'=>$orderData1,
             'searchkey'=>''
         ]);
+    }
+
+    //我的订单详情
+    public function myorder_detail(){
+        //0 待付款 取消订单 立即支付  订单详情
+        //1 已经支付待发货  订单详情
+        //4 待确认收货  确认收货  订单详情
+        //2 已完成  商品评价  订单详情 联系客服  删除订单
+        $sessionUserData = $this->isLogin();
+        $order_id=input('order_id');
+        //订单数据
+        $orderData=Db::name('order')->find($order_id);
+        /* if(empty($orderData)){
+             return redirect('myorder');
+         }*/
+
+       // var_dump($orderData);die;
+        //商品订单数据
+        $orderGoodsData=Db::name('order_goods')->alias('a')
+            ->join('goods b','a.goods_id=b.goods_id')
+            ->field('a.*,b.goods_name,b.goods_thumb')
+            ->where('a.order_id',$orderData['id'])
+            ->select()->toArray();
+        $post_money=0;  $goods_price=0;
+        //caculate price计算价格
+        foreach($orderGoodsData as $k=>$v){
+            $post_money=$v['post_money']+$post_money;
+            $goods_price=$goods_price+$v['goods_price']*$v['amount'];
+        }
+        //post_money 每件商品省下的钱   累加得到总共省下的钱
+        //收货信息
+        $addressData=Db::name('address')->find($orderData['address_id']);
+        // 获取当前域名
+        $domain = Request::domain();
+        foreach ($orderGoodsData as $slide){
+            $slide['goods_thumb'] = $domain.$slide['goods_thumb'];
+            $newgoods[] = $slide;
+        }
+
+        return json(['goods'=>$newgoods,'addressData'=>$addressData,'goods_price'=>$goods_price,'post_money'=>$post_money]);
+        /* return view('',[
+             'left_menu'=>11,
+             'orderData'=>$orderData,
+             'orderGoodsData'=>$orderGoodsData,
+             'addressData'=>$addressData,
+             'post_money'=>$post_money,
+             'goods_price'=>$goods_price
+         ]);*/
     }
 
 
@@ -563,5 +618,58 @@ class Order extends Base
 
         ajaxmsg('true', 1, $info);
     }
+
+
+    /*namespace app\controller;
+
+use think\Request;
+use think\facade\Db;
+
+class Cart
+{
+    public function updateSelection(Request $request)
+    {
+        // 获取请求中的用户ID和选中的购物车商品ID列表
+        $userId = $request->post('user_id');
+        $selectedCartIds = $request->post('selected_cart_ids'); // 期望接收一个包含选中商品的购物车ID列表
+
+        if (empty($userId) || !is_array($selectedCartIds)) {
+            return json(['status' => 'error', 'message' => 'Invalid user_id or selected_cart_ids'], 400);
+        }
+
+        Db::startTrans(); // 开启事务处理
+        try {
+            // 将该用户的所有购物车商品标记为未选中
+            Db::name('cart')
+                ->where('user_id', $userId)
+                ->update(['selected' => 0]);
+
+            // 将选中的商品标记为选中
+            if (!empty($selectedCartIds)) {
+                Db::name('cart')
+                    ->where('user_id', $userId)
+                    ->whereIn('id', $selectedCartIds)
+                    ->update(['selected' => 1]);
+            }
+
+            Db::commit(); // 提交事务
+            return json(['status' => 'success', 'message' => 'Cart selection updated successfully']);
+        } catch (\Exception $e) {
+            Db::rollback(); // 回滚事务
+            return json(['status' => 'error', 'message' => 'Failed to update cart selection', 'error' => $e->getMessage()], 500);
+        }
+    }
+}
+*/
+
+    /*前端请求接口数据显示
+
+            $postdata = Request::post();
+            //   $data = json_encode($data,true);
+            // var_dump($data);die;
+            // 确定保存文件的路径，当前路径下的 post_data.txt 文件
+            //   $filePath = app()->getRootPath() . 'post_data.txt';
+            //  file_put_contents($filePath, $data);die;
+    */
 
 }

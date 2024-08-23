@@ -2,13 +2,13 @@
 	<!-- 订单列表 -->
 	<view>
 		<view class="unpaid" v-for="item1 in tradeList" :key="item1.id">
-			<view>共计 {{item1.orderDetails.data.length}} 件商品</view>
+			<view>共计 {{item1.goods.length}} 件商品</view>
 			<!-- 待支付订单信息 -->
-			<view class="goodsInfo" v-for="item2 in item1.orderDetails.data" :key="item2.id">
-				<image :src="item2.goods.cover_url"></image>
+			<view class="goodsInfo" v-for="item2 in item1.goods" :key="item2.goods_id">
+				<image :src="item2.goods_thumb"></image>
 				<view class="goodsInfo-right">
-					<view>{{item2.goods.title}}</view>
-					<view>{{item2.goods.description}}</view>
+					<view>{{item2.goods_name}}</view>
+					<view>{{item2.description}}</view>
 					<view>
 						￥<text>{{item2.price}}</text>
 						<view>x{{item2.num}}</view>

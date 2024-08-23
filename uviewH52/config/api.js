@@ -15,15 +15,15 @@ export const apiCollectsGoods = (id) => http.post(`/mobile/goods/collect/${id}`)
 export const apiCartList = params => http.get('/mobile/cart/index',params)// 购物车列表  //{params}参数格式为id=76
 export const apiAddCart = params => http.post('/mobile/cart/add_to_cart',params)// 加入购物车
 export const apiCartChecked = params => http.patch('/mobile/cart/update_cart_status',params)// 购物车改变选中     //is_checked=1   1选中0未选中
-export const apiCartNum = (id,params) => http.put(`/mobile/carts/cart_num/${id}`,params)// 购物车某个商品的数量  api/carts/29136//设置id=29136商品的数量为1num=1
+export const apiCartNum = (id,params) => http.post(`/mobile/cart/cart_num/${id}`,params)// 购物车某个商品的数量  api/carts/29136//设置id=29136商品的数量为1num=1
 export const apiCartDelete = id => http.delete(`/mobile/cart/delete_to_cart/${id}`)// 移出购物车
 //以下五个接口需要实际支付场景
 export const apiTrade = () => http.get('/mobile/order/index')   //preview 订单预览
 export const apiSubmitTrade = params => http.post(`/mobile/order/order_create`,params)// 提交订单
 export const apiTradeList = params => http.get(`/mobile/order/myorder`,{params})// 订单列表
-export const apiorderDetail = (order,params) => http.get(`/mobile/user/myorder_detail/${order}`,{params})// 订单详细
+export const apiorderDetail = (order,params) => http.get(`/mobile/order/myorder_detail/${order}`,{params})// 订单详细
 
-export const apiPay = (orderId,params) => http.get(`/api/orders/${orderId}/pay`,{params})// 订单支付
+export const apiPay = (orderId,params) => http.get(`/mobile/orders/${orderId}/pay`,{params})// 订单支付
 export const apiPayStatus = (orderId) => http.get(`/mobile/order/${orderId}/get_pay_status`)// 查询支付状态
 //地址模块
 export const apiAddAddress = (params) => http.post('/mobile/order/address',params)// 添加地址
