@@ -23,7 +23,7 @@ export const apiSubmitTrade = params => http.post(`/mobile/order/order_create`,p
 export const apiTradeList = params => http.get(`/mobile/order/myorder`,{params})// 订单列表
 export const apiorderDetail = (order,params) => http.get(`/mobile/order/myorder_detail/${order}`,{params})// 订单详细
 
-export const apiPay = (orderId,params) => http.get(`/mobile/orders/${orderId}/pay`,{params})// 订单支付
+export const apiPay = params => http.post(`/mobile/order/orderpay`,{params})// 订单支付
 export const apiPayStatus = (orderId) => http.get(`/mobile/order/${orderId}/get_pay_status`)// 查询支付状态
 //地址模块
 export const apiAddAddress = (params) => http.post('/mobile/order/address',params)// 添加地址

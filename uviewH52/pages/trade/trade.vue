@@ -45,6 +45,7 @@
 <script>
 	import { apiTrade, apiSubmitTrade, apiPay } from '../../config/api.js'
 	import QRCode from 'qrcode'
+import { login } from '../../config/utils.js'
 	export default {
 		data() {
 			return {
@@ -95,7 +96,9 @@
 					let order = await apiSubmitTrade({address_id:this.addressInfo[0].id,pay_method:'USDT'})
 					console.log(123)
 					          //http://code09211.cc/api/orders/b96668d26fdc91c07b90b20886a7d034/pay?type=usdt 
-					let qrcode = await apiPay(order.orderno,{ type:'usdt' })
+					let qrcode = (await apiPay({orderno:order.orderno,type:'usdt'}))
+					
+					console.log(qrcode)
 					this.qrcode = await QRCode.toDataURL(qrcode.qr_code)
 					// 显示支付二维码
 					this.showPay = true
@@ -105,7 +108,7 @@
 			},
 			// 稍后支付
 			confirm(){
-				this.showPay = false
+				this.showPay = true
 				this.$u.route({
 					type:'navigateBack'
 				})

@@ -44,7 +44,7 @@
 			return {
 				// tabs标签
 				list: [{
-					name: '待付款',
+					name: '待付款', 
 				}, {
 					name: '已支付',
 				}, {
@@ -70,7 +70,7 @@
 					//let res = await apiTradeList({status,include:'orderDetails.goods'})
 					let res = await apiTradeList({status})
 					
-					console.log(res)
+					//console.log(res)
 					
 					this.tradeList = res.data.reverse()
 										

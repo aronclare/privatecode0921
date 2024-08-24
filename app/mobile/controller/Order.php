@@ -290,9 +290,89 @@ class Order extends Base
 
     //订单USDT支付
     public function orderpay(){
+        //接收订单号
+        /* $url = Request::url();
+          if (preg_match('/\/orderpay\/(\d+)$/', $url, $matches)) {
+              $orderno = $matches[1];
+          }*/
+        $getdata = Request::post();
+
+        $data = json_encode($getdata,true);
+        // var_dump($data);die;
+        // 确定保存文件的路径，当前路径下的 post_data.txt 文件
+        $filePath = app()->getRootPath() . 'post_data.txt';
+        file_put_contents($filePath,$data);
+
+        $orderdata = Db::name('order')->where('out_trade_no',$getdata['params']['orderno'])->find();
 
 
+        $total_price = $orderdata['total_price'];
+       //   return json(['getdata'=>$orderdata]);
+        //echo token(10);//测试随机数生成功能
+//$amount = (double)$_GET["n"];//从URL参数中的n=*获取amount数据
+        $amount = (double)$total_price;
+        //echo $amount;
+        $notify_url='https://your.domain';//Epusdt的异步回调地址，随便，无需管理的话
+        $redirect_url='https://your.domain';//Epusdt的同步跳转地址,付款成功后跳转到这里
+         $order_id=(string)$getdata['params']['orderno'];//生成随机数用于订单号
+        //$order_id=(string)token(10);//生成随机数用于订单号
+        $key='a005ce95dd';//Epusdt的自定义密钥
+        $str = 'amount='.$amount.'&notify_url='.$notify_url.'&order_id='.$order_id.'&redirect_url='.$redirect_url.$key;//拼接字符串用于MD5计算
+        $signature = md5($str);//用MD5算法计算签名
+        $data=json_encode(array(
+            'order_id' => $order_id,//生成数据包，用到了的数组转json的jsonencode
+            'amount' => $amount,
+            'notify_url' => $notify_url,
+            'redirect_url' => $redirect_url,
+            'signature' => $signature));
+        $res= $this->curl_request('http://upay.ioom.life/api/v1/order/create-transaction',$data,'post');//发起Curl请求并获取返回数据到变量
+       // return json(['qr_code'=>$res]);
+        /*string(379) "{"status_code":200,"message":"success","data":{"trade_id":"202408241724484414658662","order_id":"b5022fcf064c9414309a0e4772a2b46e","amount":99,"actual_amount":13.562,"token":"TCwDa3eXn68kZwx59vhB8MBXzdYT1PyH4c","expiration_time":1724485014,"payment_url":"https://upay.vook.life/pay/checkout-counter/202408241724484414658662"},"request_id":"b4ad0c43-3fee-46ab-97c7-98e38d1c6966"}
+"
+
+
+*/
+        return json(['qr_code'=>$res['data']['payment_url']]);
+//var_dump($res);die;
+//echo '<br/>换行符<br/>';
+//echo $data;
+//echo '<br/>换行符<br/>';
+//echo $res;
+        $arr = json_decode($res, true);//对返回数据进行json到数组的转换，用到了jsondecode
     }
+
+  public function curl_request($url, $data=null, $method='post', $header = array("content-type: application/json"), $https=true, $timeout = 5){
+        $method = strtoupper($method);
+        $ch = curl_init();//初始化
+        curl_setopt($ch, CURLOPT_URL, $url);//访问的URL
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);//只获取页面内容，但不输出
+        if($https){
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);//https请求 不验证证书
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);//https请求 不验证HOST
+        }
+        if ($method != "GET") {
+            if($method == 'POST'){
+                curl_setopt($ch, CURLOPT_POST, true);//请求方式为post请求
+            }
+            if ($method == 'PUT' || strtoupper($method) == 'DELETE') {
+                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method); //设置请求方式
+            }
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $data);//请求数据
+        }
+        curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $header); //模拟的header头
+        //curl_setopt($ch, CURLOPT_HEADER, false);//设置不需要头信息
+        $result = curl_exec($ch);//执行请求
+        curl_close($ch);//关闭curl，释放资源
+        return $result;
+    }
+    //随机数生成函数
+   public function token($length){
+        $str = md5(time());
+        $token = substr($str,15,$length);
+        return $token;
+    }
+
 
 
     /* 从商品详情页直接购买，方法提交到这里
@@ -480,11 +560,8 @@ class Order extends Base
         if (preg_match('/\/myorder\/(\d+)$/', $url, $matches)) {
             $status = $matches[1];
         }*/
-
-
-         $status = Request::get('status');// get只能接收get发来的请求
-
-     // $status = Request::post('status');
+         $status = Request::get('status');  //get只能接收get发来的请求
+     //  $status = Request::post('status');
       //  $this->clearOrderStatus0();
         /*$sessionUserData['id']=*/ $user_id=47;
         $orderData=Db::view('order', 'id,total_price,status,time,out_trade_no,pay_method,iscomment')
@@ -498,14 +575,12 @@ class Order extends Base
         $orderData1=$orderData->items();
         foreach($orderData1 as $k=>$v){
             $orderData1[$k]['goods']=Db::name('order_goods')->alias('a')->field('a.*,b.goods_name,b.goods_thumb')->join('goods b','a.goods_id=b.goods_id')->where('a.order_id',$v['id'])->select()->toArray();
-
             // 获取当前域名
             $domain = Request::domain();
             foreach ($orderData1[$k]['goods'] as $slide){
                 $slide['goods_thumb'] = $domain.$slide['goods_thumb'];
                 $orderData2[$k]['goods'][] = $slide;
             }
-
         }
         return json(['data'=>$orderData2]);
         //halt($orderData1);

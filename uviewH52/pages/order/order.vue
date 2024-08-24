@@ -78,8 +78,7 @@
 		},
 		methods: {
 			async getData(orderId){
-				
-				
+
 				console.log(this.orderId)
 				//let res = await apiorderDetail(orderId,{include: 'orderDetails.goods,address'})
 				let res = await apiorderDetail(orderId)
