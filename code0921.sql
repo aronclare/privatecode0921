@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50726
 File Encoding         : 65001
 
-Date: 2024-08-24 19:02:18
+Date: 2024-08-26 15:16:38
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -184,7 +184,7 @@ CREATE TABLE `qing_cart` (
   `updated_at` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `member_id` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=138 DEFAULT CHARSET=utf8 COMMENT='购物车';
+) ENGINE=MyISAM AUTO_INCREMENT=154 DEFAULT CHARSET=utf8 COMMENT='购物车';
 
 -- ----------------------------
 -- Records of qing_cart
@@ -634,16 +634,16 @@ CREATE TABLE `qing_goods` (
 -- Records of qing_goods
 -- ----------------------------
 INSERT INTO `qing_goods` VALUES ('1', '小米11', '享12期分期免息，赠小米129元双动圈耳机', '/public/upload/20200812/ee3efe2b59b4f924b27f3939c74348bc.jpg', '1600', '1', '16', '1800', '', '', '1597200669', '1', '1', '1', '1', null, '0', '14_18_16', '0', '1', '10', '100', '1', '175', null, null, '1', null, null);
-INSERT INTO `qing_goods` VALUES ('2', '小米22', ' 4500mAh+33W闪充', '/public/upload/20200625/cd4055e97782ef3b2d60fea5076c1572.jpg', '1600', '1', '16', '1800', '', '', '1600656761', '1', '1', '1', '1', null, '1', '14_18_16', '0', '1', '10', '100', '5', '91', null, null, '1', null, null);
-INSERT INTO `qing_goods` VALUES ('3', '华为111', '120Hz弹出全面屏', '/public/upload/20200625/d4df8f952223634d1fec851dd0522107.jpg', '0.01', '1', '28', '0.02', '', '', '1600656726', '1', '0', '1', '1', null, '2', '14_18_28', '0', '1', '0', '100', '0', '81', null, null, '1', null, null);
+INSERT INTO `qing_goods` VALUES ('2', '小米22', ' 4500mAh+33W闪充', '/public/upload/20200625/cd4055e97782ef3b2d60fea5076c1572.jpg', '1600', '1', '16', '1800', '', '', '1600656761', '1', '1', '1', '1', null, '1', '14_18_16', '0', '1', '10', '100', '5', '93', null, null, '1', null, null);
+INSERT INTO `qing_goods` VALUES ('3', '华为111', '120Hz弹出全面屏', '/public/upload/20200625/d4df8f952223634d1fec851dd0522107.jpg', '0.01', '1', '28', '0.02', '', '', '1600656726', '1', '0', '1', '1', null, '2', '14_18_28', '0', '1', '0', '100', '0', '86', null, null, '1', null, null);
 INSERT INTO `qing_goods` VALUES ('4', '电视机11', '', '/public/upload/20200625/0759f34f3c05e3e800fe811f8d94c2e6.jpg', '5888', '1', '156', '8000', '', '', '1593080663', '3', '1', '1', '1', null, '0', '4_155_156', '0', '1', '0', '100', '12', '99', null, null, '1', null, null);
-INSERT INTO `qing_goods` VALUES ('5', '智睿LED灯泡 10只装', '', '/public/upload/20200625/b014f074c410cd1f72b2c05e5dc37d04.jpg', '99', '1', '158', '199', '', '', '1593080706', '0', '1', '1', '1', null, '1', '4_157_158', '0', '1', '0', '100', '2', '407', null, null, '1', null, null);
+INSERT INTO `qing_goods` VALUES ('5', '智睿LED灯泡 10只装', '', '/public/upload/20200625/b014f074c410cd1f72b2c05e5dc37d04.jpg', '99', '1', '158', '199', '', '', '1593080706', '0', '1', '1', '1', null, '1', '4_157_158', '0', '1', '0', '100', '2', '413', null, null, '1', null, null);
 INSERT INTO `qing_goods` VALUES ('6', '小米33', '「6GB+128GB到手价仅1399元；8GB+128GB到手价仅1599元；8GB+256GB到手价仅1799元」', '/public/upload/20200810/7c2921c04fda2943e8b4d41011ea99d1.jpg', '1900', '1', '16', '2100', '', '5000mAh长循环大电量 / 6.53\"超大护眼屏幕 / G25八核处理器 / 大音量扬声器 / 1300万 AI相机 / 人脸解锁 / 最高支持512GB存储扩展', '1597049554', '1', '1', '1', '1', null, '0', '14_18_16', '0', '1', '10', '100', '4', '74', null, null, '1', null, null);
-INSERT INTO `qing_goods` VALUES ('7', 'Redmi手环', '', '/public/upload/20200904/bc87fb6becf47e9afabfc0ee61a6c3bd.jpg', '99', '1', '33', '149', '', '1.08英寸大屏彩显 / 14天续航，快拆直插充电 / 腕上信息提醒，一目了然 / 科学算法，守护你的健康', '1599181773', '0', '1', '1', '1', null, '0', '14_30_33', '0', '1', '10', '100', '0', '38', null, null, '1', null, null);
+INSERT INTO `qing_goods` VALUES ('7', 'Redmi手环', '', '/public/upload/20200904/bc87fb6becf47e9afabfc0ee61a6c3bd.jpg', '99', '1', '33', '149', '', '1.08英寸大屏彩显 / 14天续航，快拆直插充电 / 腕上信息提醒，一目了然 / 科学算法，守护你的健康', '1599181773', '0', '1', '1', '1', null, '0', '14_30_33', '0', '1', '10', '100', '0', '40', null, null, '1', null, null);
 INSERT INTO `qing_goods` VALUES ('8', '小米户外蓝牙音箱', '', '/public/upload/20200904/d0aa10a258d17ec93e6bd03ea5d80719.jpg', '0.02', '1', '59', '199', '', '大音量 / 长续航 / 轻盈便携 / 360°环绕立体声 / IP55防尘防水 / 双麦克风降噪通话 / 蓝牙5.0 / type-c接口', '1600508382', '0', '1', '1', '1', null, '0', '14_56_59', '0', '1', '0', '100', '0', '16', null, null, '1', null, null);
-INSERT INTO `qing_goods` VALUES ('9', '2020鼠年卡通创意滴胶小老鼠可爱钥匙扣挂件钥匙链情侣网红包挂件', '', '/public/upload/20200919/324f03e92af57a6f1dbbec0e04f29870.jpg', '1', '1', '2', '6', '', '', '1600509569', '0', '1', '1', '1', null, '0', '11_150_160', '0', '1', '0', '100', '0', '77', null, null, '1', null, null);
+INSERT INTO `qing_goods` VALUES ('9', '2020鼠年卡通创意滴胶小老鼠可爱钥匙扣挂件钥匙链情侣网红包挂件', '', '/public/upload/20200919/324f03e92af57a6f1dbbec0e04f29870.jpg', '1', '1', '2', '6', '', '', '1600509569', '0', '1', '1', '1', null, '0', '11_150_160', '0', '1', '0', '100', '0', '78', null, null, '1', null, null);
 INSERT INTO `qing_goods` VALUES ('10', '洋气网红上衣春秋季2020新款秋装短款针织开衫粗线很仙的毛衣外套', '', '/public/upload/20200919/702a1b47fd2d89863efb072179c9d4d3.jpg', '2', '1', '2', '5', '', '', '1600510090', '2', '0', '1', '1', null, '0', '1_63_74', '0', '1', '0', '100', '0', '15', null, null, '1', null, null);
-INSERT INTO `qing_goods` VALUES ('11', 'MLB官方 男女卫衣复古老花系列长袖宽松运动休闲潮流圆领秋季MTM1', '', '/public/upload/20200919/3ab5ae38ba4b52b26bddb09f5d32c2ea.jpg', '1.5', '1', '2', '2', '', '', '1600659603', '2', '0', '1', '1', null, '0', '1_63_76', '0', '1', '0', '100', '0', '158', null, null, '1', null, null);
+INSERT INTO `qing_goods` VALUES ('11', 'MLB官方 男女卫衣复古老花系列长袖宽松运动休闲潮流圆领秋季MTM1', '', '/public/upload/20200919/3ab5ae38ba4b52b26bddb09f5d32c2ea.jpg', '1.5', '1', '2', '2', '', '', '1600659603', '2', '0', '1', '1', null, '0', '1_63_76', '0', '1', '0', '100', '0', '159', null, null, '1', null, null);
 INSERT INTO `qing_goods` VALUES ('12', '全面屏电视E43K', '全面屏设计，海量内容', '/public/upload/20200921/266ea6ccc529110760cb3b238b8528da.jpg', '1300', '1', '156', '1500', '', '', '1600657906', '3', '0', '1', '1', null, '0', '4_155_156', '0', '1', '0', '100', '0', '20', null, null, '0', null, null);
 INSERT INTO `qing_goods` VALUES ('13', '高腰打底裤女裤外穿春秋冬款紧身显瘦百搭小脚黑色铅笔魔术小黑裤', '高腰收腹版型显瘦/显腿长+定制不抽丝不起球', '/public/upload/20200921/0f857bc7876c24ab07aabb5589b8b716.jpg', '65', '1', '2', '88', '', '', '1600660630', '2', '0', '1', '1', null, '0', '1_64_111', '0', '1', '10', '100', '0', '64', null, null, '0', null, null);
 
@@ -999,7 +999,7 @@ CREATE TABLE `qing_order` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `out_trade_no` (`out_trade_no`),
   KEY `out_trade_no_2` (`out_trade_no`)
-) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8 COMMENT='定单基本信息';
+) ENGINE=InnoDB AUTO_INCREMENT=117 DEFAULT CHARSET=utf8 COMMENT='定单基本信息';
 
 -- ----------------------------
 -- Records of qing_order
@@ -1088,6 +1088,22 @@ INSERT INTO `qing_order` VALUES ('97', '47', '1724490977', '49', '留言类容',
 INSERT INTO `qing_order` VALUES ('98', '47', '1724491010', '49', '留言类容', '99', '0', 'USDT', null, null, '0', 'd3a94a51ba45556550cd9cb70aa0d086', null, '0');
 INSERT INTO `qing_order` VALUES ('99', '47', '1724494199', '49', '留言类容', '1610', '0', 'USDT', null, null, '0', '56e28611106a392a2d0a942dda90de2f', null, '0');
 INSERT INTO `qing_order` VALUES ('100', '47', '1724494568', '49', '留言类容', '0.01', '0', 'USDT', null, null, '0', 'fc849532a61a2217aad372b4b9b5e9d4', null, '0');
+INSERT INTO `qing_order` VALUES ('101', '47', '1724647831', '49', '留言类容', '99', '0', 'USDT', null, null, '0', '7e999078f6eadc2ec1b5b289180d35a8', null, '0');
+INSERT INTO `qing_order` VALUES ('102', '47', '1724647880', '49', '留言类容', '1610', '0', 'USDT', null, null, '0', '3c485f80c6ed379980061d105bcf9917', null, '0');
+INSERT INTO `qing_order` VALUES ('103', '47', '1724648020', '49', '留言类容', '99', '0', 'USDT', null, null, '0', '02547385008f3ebc36466274efd9a386', null, '0');
+INSERT INTO `qing_order` VALUES ('104', '47', '1724648857', '49', '留言类容', '0.01', '0', 'USDT', null, null, '0', 'c985ccccaa9fe1c76678b0b97ca873ad', null, '0');
+INSERT INTO `qing_order` VALUES ('105', '47', '1724650307', '49', '留言类容', '99', '0', 'USDT', null, null, '0', '16948c1b53c0b1a1e7f5b5154fb5a477', null, '0');
+INSERT INTO `qing_order` VALUES ('106', '47', '1724650407', '49', '留言类容', '99', '0', 'USDT', null, null, '0', '08cba1a8611d9078938f61fa62ff102b', null, '0');
+INSERT INTO `qing_order` VALUES ('107', '47', '1724650451', '49', '留言类容', '109', '0', 'USDT', null, null, '0', '2cc07304e8568c94fcdafb4c79f70750', null, '0');
+INSERT INTO `qing_order` VALUES ('108', '47', '1724651615', '49', '留言类容', '99', '0', 'USDT', null, null, '0', '4f5248236801edf1071299ebd5cc95a4', null, '0');
+INSERT INTO `qing_order` VALUES ('109', '47', '1724651796', '49', '留言类容', '109', '0', 'USDT', null, null, '0', 'ea92999dbb04b9dfedd7f0334a69e54a', null, '0');
+INSERT INTO `qing_order` VALUES ('110', '47', '1724651959', '49', '留言类容', '99', '0', 'USDT', null, null, '0', 'd812e2781c9f9e10a6696b4356c34e43', null, '0');
+INSERT INTO `qing_order` VALUES ('111', '47', '1724652009', '49', '留言类容', '0.01', '0', 'USDT', null, null, '0', 'b2eedc572229beb1c0107c97c3646e4e', null, '0');
+INSERT INTO `qing_order` VALUES ('112', '47', '1724652048', '49', '留言类容', '0.01', '0', 'USDT', null, null, '0', 'd8d76d147ce282bbe594ced6342be85e', null, '0');
+INSERT INTO `qing_order` VALUES ('113', '47', '1724652161', '49', '留言类容', '0.01', '0', 'USDT', null, null, '0', 'c4dfca665e1cf273fd203d7b04d4799c', null, '0');
+INSERT INTO `qing_order` VALUES ('114', '47', '1724652201', '49', '留言类容', '1610', '0', 'USDT', null, null, '0', '674f63171d8989def104ebb2054a351c', null, '0');
+INSERT INTO `qing_order` VALUES ('115', '47', '1724652518', '49', '留言类容', '0.01', '0', 'USDT', null, null, '0', '9fb44ce517dd4ed4244aed8288c1fa84', null, '0');
+INSERT INTO `qing_order` VALUES ('116', '47', '1724652814', '49', '留言类容', '1', '0', 'USDT', null, null, '0', '087de24362d0771d73374a94c2d74a7a', null, '0');
 
 -- ----------------------------
 -- Table structure for qing_order_goods
@@ -1103,7 +1119,7 @@ CREATE TABLE `qing_order_goods` (
   `post_money` float NOT NULL DEFAULT '0' COMMENT '邮费',
   `iscomment` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0未评论 1已评论',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=126 DEFAULT CHARSET=utf8 COMMENT='用户订单商品表';
+) ENGINE=InnoDB AUTO_INCREMENT=142 DEFAULT CHARSET=utf8 COMMENT='用户订单商品表';
 
 -- ----------------------------
 -- Records of qing_order_goods
@@ -1213,6 +1229,22 @@ INSERT INTO `qing_order_goods` VALUES ('97', '3', '0', '0.01', '', '122', '0', '
 INSERT INTO `qing_order_goods` VALUES ('98', '5', '0', '99', '', '123', '0', '0');
 INSERT INTO `qing_order_goods` VALUES ('99', '1', '0', '1600', '', '124', '10', '0');
 INSERT INTO `qing_order_goods` VALUES ('100', '3', '0', '0.01', '', '125', '0', '0');
+INSERT INTO `qing_order_goods` VALUES ('101', '5', '0', '99', '', '126', '0', '0');
+INSERT INTO `qing_order_goods` VALUES ('102', '2', '0', '1600', '', '127', '10', '0');
+INSERT INTO `qing_order_goods` VALUES ('103', '5', '0', '99', '', '128', '0', '0');
+INSERT INTO `qing_order_goods` VALUES ('104', '3', '0', '0.01', '', '129', '0', '0');
+INSERT INTO `qing_order_goods` VALUES ('105', '5', '0', '99', '', '130', '0', '0');
+INSERT INTO `qing_order_goods` VALUES ('106', '5', '0', '99', '', '131', '0', '0');
+INSERT INTO `qing_order_goods` VALUES ('107', '7', '0', '99', '', '132', '10', '0');
+INSERT INTO `qing_order_goods` VALUES ('108', '5', '0', '99', '', '133', '0', '0');
+INSERT INTO `qing_order_goods` VALUES ('109', '7', '0', '99', '', '134', '10', '0');
+INSERT INTO `qing_order_goods` VALUES ('110', '5', '0', '99', '', '135', '0', '0');
+INSERT INTO `qing_order_goods` VALUES ('111', '3', '0', '0.01', '', '136', '0', '0');
+INSERT INTO `qing_order_goods` VALUES ('112', '3', '0', '0.01', '', '137', '0', '0');
+INSERT INTO `qing_order_goods` VALUES ('113', '3', '0', '0.01', '', '138', '0', '0');
+INSERT INTO `qing_order_goods` VALUES ('114', '2', '0', '1600', '', '139', '10', '0');
+INSERT INTO `qing_order_goods` VALUES ('115', '3', '0', '0.01', '', '140', '0', '0');
+INSERT INTO `qing_order_goods` VALUES ('116', '9', '0', '1', '', '141', '0', '0');
 
 -- ----------------------------
 -- Table structure for qing_page
@@ -1802,7 +1834,7 @@ INSERT INTO `qing_user` VALUES ('43', 'admintest', null, 'a8a5c404e3927315ccb6e0
 INSERT INTO `qing_user` VALUES ('44', '15100000002', null, 'a8a5c404e3927315ccb6e028d4372ac8', null, null, null, null, null, null, null, null, '1711787327', null, '1', '1710915525', null, null, '3', null, '0', 'YJ1710915525', null, null, '1710915525', null, '0', null, null, null, null, null, '0', null);
 INSERT INTO `qing_user` VALUES ('45', 'admin23@gmail.com', null, 'a8a5c404e3927315ccb6e028d4372ac8', null, null, null, null, null, null, null, null, '0', null, '1', '1723646135', null, null, '3', null, '0', 'YJ1723646135', null, null, '1723646135', null, '0', null, null, null, null, null, '0', null);
 INSERT INTO `qing_user` VALUES ('46', 'admin42@gmail.com', null, 'a8a5c404e3927315ccb6e028d4372ac8', null, null, null, null, null, null, null, null, '0', null, '1', '1723646607', null, null, '3', null, '0', 'YJ1723646607', null, null, '1723646607', '1723648045', '0', null, null, null, '127.0.0.1', null, '0', null);
-INSERT INTO `qing_user` VALUES ('47', 'admin@gmail.com', 'admin8888', 'a8a5c404e3927315ccb6e028d4372ac8', 'admin@gmail.com', null, null, null, null, null, null, null, '1724478906', null, '1', '1723885529', null, null, '3', null, '0', 'YJ1723885529', null, null, '1723885529', '1723993687', '0', null, null, null, '127.0.0.1', null, '0', null);
+INSERT INTO `qing_user` VALUES ('47', 'admin@gmail.com', 'admin8888', 'a8a5c404e3927315ccb6e028d4372ac8', 'admin@gmail.com', null, null, null, null, null, null, null, '1724650295', null, '1', '1723885529', null, null, '3', null, '0', 'YJ1723885529', null, null, '1723885529', '1723993687', '0', null, null, null, '127.0.0.1', null, '0', null);
 
 -- ----------------------------
 -- Table structure for qing_user_trace

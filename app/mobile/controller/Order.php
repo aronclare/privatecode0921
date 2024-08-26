@@ -231,7 +231,7 @@ class Order extends Base
         $cartDataTmp = Db::name('cart')->where('user_id', $sessionUserData['id'])->where('status', 1)->order('id desc')->select()->toArray();
         //var_dump($cartDataTmp);die;
         if (empty($cartDataTmp)) {
-            return json(['status' => 400,'message' => '订单异常']);
+            return json(['status' => 400, 'message' => '订单异常']);
         }
         foreach ($cartDataTmp as $k => $v) {
             $data2[$k]['goods_id'] = $v['goods_id'];
@@ -272,8 +272,8 @@ class Order extends Base
             return json(['msg' => '订单异常', 'status' => -3]);
         }
         //此处获得order_id 可根据order_id查询 订单号
-        $orderno = Db::name('order')->where('id',$order_id)->find();
-        return json(['orderno' =>$orderno['out_trade_no'],'pay_method' => 'USDT']);
+        $orderno = Db::name('order')->where('id', $order_id)->find();
+        return json(['orderno' => $orderno['out_trade_no'], 'pay_method' => 'USDT']);
 
 
         if ($order_id && $res) {
@@ -289,50 +289,67 @@ class Order extends Base
     }
 
     //订单USDT支付
-    public function orderpay(){
+    public function orderpay()
+    {
+
+
+
+
         //接收订单号
         /* $url = Request::url();
           if (preg_match('/\/orderpay\/(\d+)$/', $url, $matches)) {
               $orderno = $matches[1];
           }*/
+
+
         $getdata = Request::post();
+        /* $data = json_encode($getdata,true);
+         // var_dump($data);die;
+         // 确定保存文件的路径，当前路径下的 post_data.txt 文件
+         $filePath = app()->getRootPath() . 'post_data.txt';
+         file_put_contents($filePath,$data);*/
 
-        $data = json_encode($getdata,true);
-        // var_dump($data);die;
-        // 确定保存文件的路径，当前路径下的 post_data.txt 文件
-        $filePath = app()->getRootPath() . 'post_data.txt';
-        file_put_contents($filePath,$data);
-
-        $orderdata = Db::name('order')->where('out_trade_no',$getdata['params']['orderno'])->find();
+        $orderdata = Db::name('order')->where('out_trade_no', $getdata['params']['orderno'])->find();
 
 
         $total_price = $orderdata['total_price'];
-       //   return json(['getdata'=>$orderdata]);
+        //   return json(['getdata'=>$orderdata]);
         //echo token(10);//测试随机数生成功能
 //$amount = (double)$_GET["n"];//从URL参数中的n=*获取amount数据
         $amount = (double)$total_price;
         //echo $amount;
-        $notify_url='https://your.domain';//Epusdt的异步回调地址，随便，无需管理的话
-        $redirect_url='https://your.domain';//Epusdt的同步跳转地址,付款成功后跳转到这里
-         $order_id=(string)$getdata['params']['orderno'];//生成随机数用于订单号
+        $notify_url = 'https://your.domain';//Epusdt的异步回调地址，随便，无需管理的话
+        $redirect_url = 'https://your.domain';//Epusdt的同步跳转地址,付款成功后跳转到这里
+        $order_id = (string)$getdata['params']['orderno'];//生成随机数用于订单号
         //$order_id=(string)token(10);//生成随机数用于订单号
-        $key='a005ce95dd';//Epusdt的自定义密钥
-        $str = 'amount='.$amount.'&notify_url='.$notify_url.'&order_id='.$order_id.'&redirect_url='.$redirect_url.$key;//拼接字符串用于MD5计算
+        $key = 'a005ce95dd';//Epusdt的自定义密钥
+        $str = 'amount=' . $amount . '&notify_url=' . $notify_url . '&order_id=' . $order_id . '&redirect_url=' . $redirect_url . $key;//拼接字符串用于MD5计算
         $signature = md5($str);//用MD5算法计算签名
-        $data=json_encode(array(
+        $data = json_encode(array(
             'order_id' => $order_id,//生成数据包，用到了的数组转json的jsonencode
             'amount' => $amount,
             'notify_url' => $notify_url,
             'redirect_url' => $redirect_url,
             'signature' => $signature));
-        $res= $this->curl_request('http://upay.ioom.life/api/v1/order/create-transaction',$data,'post');//发起Curl请求并获取返回数据到变量
-       // return json(['qr_code'=>$res]);
+        $res = $this->curl_request('http://upay.ioom.life/api/v1/order/create-transaction', $data, 'post');//发起Curl请求并获取返回数据到变量
+        // return json(['qr_code'=>$res]);
         /*string(379) "{"status_code":200,"message":"success","data":{"trade_id":"202408241724484414658662","order_id":"b5022fcf064c9414309a0e4772a2b46e","amount":99,"actual_amount":13.562,"token":"TCwDa3eXn68kZwx59vhB8MBXzdYT1PyH4c","expiration_time":1724485014,"payment_url":"https://upay.vook.life/pay/checkout-counter/202408241724484414658662"},"request_id":"b4ad0c43-3fee-46ab-97c7-98e38d1c6966"}
 "
-
+{"status_code":200,"message":"success","data":
+        {"trade_id":"202408261724650454809376","order_id":"2cc07304e8568c94fcdafb4c79f70750",
+        "amount":109,"actual_amount":14.932,
+        "token":"TCwDa3eXn68kZwx59vhB8MBXzdYT1PyH4c","expiration_time":1724651054,
+        "payment_url":"https://upay.vook.life/pay/checkout-counter/202408261724650454809376"},
+        "request_id":"a88d8365-2873-41b8-9599-198f1cae9f0d"}\n' }
 
 */
-        return json(['qr_code'=>$res['data']['payment_url']]);
+
+        $str =  '{"status_code":200,"message":"success","data":{"trade_id":"202408261724652204553544","order_id":"674f63171d8989def104ebb2054a351c","amount":1610,"actual_amount":220.548,"token":"TCwDa3eXn68kZwx59vhB8MBXzdYT1PyH4c","expiration_time":1724652804,"payment_url":"https://upay.vook.life/pay/checkout-counter/202408261724652204553544"},"request_id":"ca117950-b5ee-4575-87dd-6d1fc9f0a657"}';
+        $res_url = json_decode($res,true);
+      //  var_dump($res_url['data']['payment_url']);die;
+
+
+        return json(['qr_code' =>$res_url['data']['payment_url']]);
 //var_dump($res);die;
 //echo '<br/>换行符<br/>';
 //echo $data;
@@ -341,17 +358,18 @@ class Order extends Base
         $arr = json_decode($res, true);//对返回数据进行json到数组的转换，用到了jsondecode
     }
 
-  public function curl_request($url, $data=null, $method='post', $header = array("content-type: application/json"), $https=true, $timeout = 5){
+    public function curl_request($url, $data = null, $method = 'post', $header = array("content-type: application/json"), $https = true, $timeout = 5)
+    {
         $method = strtoupper($method);
         $ch = curl_init();//初始化
         curl_setopt($ch, CURLOPT_URL, $url);//访问的URL
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);//只获取页面内容，但不输出
-        if($https){
+        if ($https) {
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);//https请求 不验证证书
             curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);//https请求 不验证HOST
         }
         if ($method != "GET") {
-            if($method == 'POST'){
+            if ($method == 'POST') {
                 curl_setopt($ch, CURLOPT_POST, true);//请求方式为post请求
             }
             if ($method == 'PUT' || strtoupper($method) == 'DELETE') {
@@ -366,13 +384,14 @@ class Order extends Base
         curl_close($ch);//关闭curl，释放资源
         return $result;
     }
+
     //随机数生成函数
-   public function token($length){
+    public function token($length)
+    {
         $str = md5(time());
-        $token = substr($str,15,$length);
+        $token = substr($str, 15, $length);
         return $token;
     }
-
 
 
     /* 从商品详情页直接购买，方法提交到这里
@@ -553,83 +572,87 @@ class Order extends Base
     }
 
     //我的订单//订单列表
-    public function myorder(){
+    public function myorder()
+    {
         // $sessionUserData = $this->isLogin();
 
-       /* $url = Request::url();
-        if (preg_match('/\/myorder\/(\d+)$/', $url, $matches)) {
-            $status = $matches[1];
-        }*/
-         $status = Request::get('status');  //get只能接收get发来的请求
-     //  $status = Request::post('status');
-      //  $this->clearOrderStatus0();
-        /*$sessionUserData['id']=*/ $user_id=47;
-        $orderData=Db::view('order', 'id,total_price,status,time,out_trade_no,pay_method,iscomment')
+        /* $url = Request::url();
+         if (preg_match('/\/myorder\/(\d+)$/', $url, $matches)) {
+             $status = $matches[1];
+         }*/
+        $status = Request::get('status');  //get只能接收get发来的请求
+        //  $status = Request::post('status');
+        //  $this->clearOrderStatus0();
+        /*$sessionUserData['id']=*/
+        $user_id = 47;
+        $orderData = Db::view('order', 'id,total_price,status,time,out_trade_no,pay_method,iscomment')
             ->view('address', 'shou_name', 'address.id=order.address_id')
             ->where('order.user_id', $user_id)
-            ->where('status',$status)
+            ->where('status', $status)
             ->order('order.id desc')
-            ->paginate(['list_rows'=> 6,'query'=>request()->param()]);
+            ->paginate(['list_rows' => 6, 'query' => request()->param()]);
         //分页
         $page = $orderData->render();
-        $orderData1=$orderData->items();
-        foreach($orderData1 as $k=>$v){
-            $orderData1[$k]['goods']=Db::name('order_goods')->alias('a')->field('a.*,b.goods_name,b.goods_thumb')->join('goods b','a.goods_id=b.goods_id')->where('a.order_id',$v['id'])->select()->toArray();
+        $orderData1 = $orderData->items();
+        foreach ($orderData1 as $k => $v) {
+            $orderData1[$k]['goods'] = Db::name('order_goods')->alias('a')->field('a.*,b.goods_name,b.goods_thumb')->join('goods b', 'a.goods_id=b.goods_id')->where('a.order_id', $v['id'])->select()->toArray();
             // 获取当前域名
             $domain = Request::domain();
-            foreach ($orderData1[$k]['goods'] as $slide){
-                $slide['goods_thumb'] = $domain.$slide['goods_thumb'];
+            foreach ($orderData1[$k]['goods'] as $slide) {
+                $slide['goods_thumb'] = $domain . $slide['goods_thumb'];
                 $orderData2[$k]['goods'][] = $slide;
             }
         }
-        return json(['data'=>$orderData2]);
+        return json(['data' => $orderData2]);
         //halt($orderData1);
-        return view('',[
-            'left_menu'=>11,
-            'page'=>$page,
-            'orderData1'=>$orderData1,
-            'searchkey'=>''
+        return view('', [
+            'left_menu' => 11,
+            'page' => $page,
+            'orderData1' => $orderData1,
+            'searchkey' => ''
         ]);
     }
 
     //我的订单详情
-    public function myorder_detail(){
+    public function myorder_detail()
+    {
         //0 待付款 取消订单 立即支付  订单详情
         //1 已经支付待发货  订单详情
         //4 待确认收货  确认收货  订单详情
         //2 已完成  商品评价  订单详情 联系客服  删除订单
         $sessionUserData = $this->isLogin();
-        $order_id=input('order_id');
+        $order_id = input('order_id');
         //订单数据
-        $orderData=Db::name('order')->find($order_id);
+        $orderData = Db::name('order')->find($order_id);
         /* if(empty($orderData)){
              return redirect('myorder');
          }*/
 
-       // var_dump($orderData);die;
+        // var_dump($orderData);die;
         //商品订单数据
-        $orderGoodsData=Db::name('order_goods')->alias('a')
-            ->join('goods b','a.goods_id=b.goods_id')
+        $orderGoodsData = Db::name('order_goods')->alias('a')
+            ->join('goods b', 'a.goods_id=b.goods_id')
             ->field('a.*,b.goods_name,b.goods_thumb')
-            ->where('a.order_id',$orderData['id'])
+            ->where('a.order_id', $orderData['id'])
             ->select()->toArray();
-        $post_money=0;  $goods_price=0;
+        $post_money = 0;
+        $goods_price = 0;
         //caculate price计算价格
-        foreach($orderGoodsData as $k=>$v){
-            $post_money=$v['post_money']+$post_money;
-            $goods_price=$goods_price+$v['goods_price']*$v['amount'];
+        foreach ($orderGoodsData as $k => $v) {
+            $post_money = $v['post_money'] + $post_money;
+            $goods_price = $goods_price + $v['goods_price'] * $v['amount'];
         }
         //post_money 每件商品省下的钱   累加得到总共省下的钱
         //收货信息
-        $addressData=Db::name('address')->find($orderData['address_id']);
+        $addressData = Db::name('address')->find($orderData['address_id']);
         // 获取当前域名
         $domain = Request::domain();
-        foreach ($orderGoodsData as $slide){
-            $slide['goods_thumb'] = $domain.$slide['goods_thumb'];
+        foreach ($orderGoodsData as $slide) {
+            $slide['goods_thumb'] = $domain . $slide['goods_thumb'];
             $newgoods[] = $slide;
         }
 
-        return json(['goods'=>$newgoods,'addressData'=>$addressData,'goods_price'=>$goods_price,'post_money'=>$post_money]);
+        return json(['goods' => $newgoods, 'addressData' => $addressData, 'goods_price' => $goods_price, 'post_money' => $post_money]);
         /* return view('',[
              'left_menu'=>11,
              'orderData'=>$orderData,
