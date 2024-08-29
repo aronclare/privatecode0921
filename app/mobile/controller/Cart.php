@@ -192,10 +192,8 @@ class Cart extends Base
     {
       //  $userSessionData = $this->isLogin();
         //传入购物车列表id    商品金额
-          $url = Request::url();
-        if (preg_match('/\/cart_num\/(\d+)$/', $url, $matches)) {
-            $cart_id = $matches[1];
-        }
+
+
 
       /* $cartdata = Request::post();
        $cart_id = $cartdata['cart_id'];*/

@@ -30,9 +30,9 @@ class ExceptionHandle extends Handle
     /**
      * 记录异常信息（包括日志或者其它方式记录）
      *
-     * @access public
-     * @param  Throwable $exception
-     * @return void
+     * @access   public
+     * @param   Throwable $exception
+     * @return  void
      */
     public function report(Throwable $exception): void
     {

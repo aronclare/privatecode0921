@@ -1,0 +1,12 @@
+[2024-08-29T13:50:32+08:00][sql] CONNECT:[ UseTime:0.015779s ] mysql:host=127.0.0.1;port=3306;dbname=code0921;charset=utf8
+[2024-08-29T13:50:32+08:00][sql] SHOW FULL COLUMNS FROM `qing_config` [ RunTime:0.017499s ]
+[2024-08-29T13:50:32+08:00][sql] SELECT `value` FROM `qing_config` [ RunTime:0.003566s ]
+[2024-08-29T13:50:32+08:00][sql] SHOW FULL COLUMNS FROM `qing_search` [ RunTime:0.001044s ]
+[2024-08-29T13:50:32+08:00][sql] SELECT * FROM `qing_search` ORDER BY `id` DESC LIMIT 10 [ RunTime:0.001640s ]
+[2024-08-29T13:50:32+08:00][sql] SHOW FULL COLUMNS FROM `qing_cart` [ RunTime:0.000975s ]
+[2024-08-29T13:50:32+08:00][sql] SELECT COUNT(*) AS think_count FROM `qing_cart` WHERE  `user_id` IS NULL [ RunTime:0.003615s ]
+[2024-08-29T13:50:32+08:00][sql] SHOW FULL COLUMNS FROM `qing_ad` [ RunTime:0.001866s ]
+[2024-08-29T13:50:32+08:00][sql] SELECT * FROM `qing_ad` WHERE  `type_id` = 1 [ RunTime:0.001719s ]
+[2024-08-29T13:50:32+08:00][sql] SHOW FULL COLUMNS FROM `qing_goods` [ RunTime:0.002082s ]
+[2024-08-29T13:50:32+08:00][sql] SELECT `goods_id`,`goods_name`,`goods_price`,`stock`,`selnumber`,`goods_thumb`,`description`,`collects_count`,`cover_url` FROM `qing_goods` `p` [ RunTime:0.000745s ]
+[2024-08-29T13:50:32+08:00][sql] SELECT `id`,`title`,`url`,`thumb`,`status`,`seq`,`created_at`,`updated_at`,`img_url` FROM `qing_ad` [ RunTime:0.000312s ]

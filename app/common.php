@@ -2,8 +2,6 @@
 use think\facade\Db;
 // 应用公共文件
 
-
-
 /**
 
  * $msg 待提示的消息

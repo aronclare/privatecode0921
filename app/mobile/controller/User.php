@@ -17,12 +17,9 @@ use think\facade\Request;
 class User extends Base
 
 {
-
-
     //会员主页
     public function index()
     {
-
         $userSessionData = $this->isLogin();
         $user_id = $userSessionData['id'];
         //获取有没有搜索关键字，用于填充
@@ -30,7 +27,6 @@ class User extends Base
         $domain = $this->request->domain();
         //http://code0921.com/index/user/register?code=YJ1596269352
         $recommend_link = $domain . '/mobile/user/register?code=' . $userSessionData['code'];
-
         //  json_encode($userSessionData);
         //链接生成二维码并在新窗口打开
         /*echo "<!DOCTYPE html>
@@ -65,8 +61,6 @@ class User extends Base
 
 </body>
 </html>";*/
-
-
         //点击按钮复制按钮内容
         /*<!DOCTYPE html>
 <html lang="en">
@@ -195,17 +189,13 @@ class User extends Base
             return redirect('index');
         }
         if (request()->isPost()) {
-
             $data = input('post.');
-
-
             if (!$data) {
                 return json(['status' => 0, 'message' => '请输入用户名!']);
 
             }
             // mobile 15100000002   password 1234567
             //  var_dump($this->password_salt($data['password']));die;//admin123456    a8a5c404e3927315ccb6e028d4372ac8
-
             /*    try {
                     validate(UserValidate::class)
                         ->scene('login')
@@ -214,62 +204,39 @@ class User extends Base
                     // 验证失败 输出错误信息
                     return alert($e->getError(),'login',5);
                 }*/
-
-
-            //  var_dump($data);die;
             //验证码用户名
             $userData = Db::name('user')->where('username', $data['email'])->find();
             if (!$userData) {
-
-
                 return json(['status' => 0, 'message' => '用户名不存在或者错误']);
-                //  return alert('用户名不存在或者错误','login',5);
             }
-
             //如果管理员有状态，status=1合法  0禁止
             if ($userData['status'] != 1) {
-
                 return json(['status' => 0, 'message' => '您的账号被禁止登录']);
-
-                //return alert('您的账号被禁止登录','login',5);
             }
-
-
             //密码校验
             if ($userData['password'] != $this->password_salt($data['password'])) {
-
                 return json(['status' => 0, 'message' => '密码错误']);
-
-                //   return alert('密码错误','login',5);
             }
 
             Db::name('user')->where('id', $userData['id'])->update(['last_login_time' => time()]);
             session('sessionUserData', $userData);
-
-
             /*
              * {
-"access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5zaG9wLmVkdXdvcmsuY24vYXBpL2F1dGgvbG9naW4iLCJpYXQiOjE3MjI5MTY0NjIsImV4cCI6MTcyMzI3NjQ2MiwibmJmIjoxNzIyOTE2NDYyLCJqdGkiOiJBTERRRldmMVJMU3R3Z2duIiwic3ViIjoiMjI0OTMiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.FipkiSlC-bDqqm2_p9FnWGQfsAvmS4HBsmxAzWg4V4E",
-"token_type": "Bearer",
-"expires_in": 360000
-}*/
+            "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5zaG9wLmVkdXdvcmsuY24vYXBpL2F1dGgvbG9naW4iLCJpYXQiOjE3MjI5MTY0NjIsImV4cCI6MTcyMzI3NjQ2MiwibmJmIjoxNzIyOTE2NDYyLCJqdGkiOiJBTERRRldmMVJMU3R3Z2duIiwic3ViIjoiMjI0OTMiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.FipkiSlC-bDqqm2_p9FnWGQfsAvmS4HBsmxAzWg4V4E",
+            "token_type": "Bearer",
+            "expires_in": 360000
+            }*/
             return json(['code' =>200, 'message' => '登录成功!', 'access_token' => '123456', 'token_type' => 'Bearer', 'expires_in' => '360000']);
-            //  return alert('登录成功','index',6);
         } else {
             return json(['status' => 0, 'message' => '请使用正确的请求方式!']);
-            // return view('login_username');
         }
     }
 
     //退出登录
     public function loginOut()
     {
-
         session('sessionUserData', null);
-
         return json(['status' => 1, 'message' => '您已成功退出!']);
-
-        //   $this->redirect('/mobile/user/login');
     }
 
     //微信授权登录
@@ -302,21 +269,17 @@ class User extends Base
         //     "scope" => "snsapi_userinfo"
         //     "unionid" => "oO0Bhv6ZSw4ZYV60CMzi2p4eUO7s"
         // ]
-
         //拉取用户信息(需scope为 snsapi_userinfo)
         $user_url = "https://api.weixin.qq.com/sns/userinfo?access_token=" . $res['access_token'] . "&openid=" . $res['openid'] . "&lang=zh_CN";
         $userData = json_decode(file_get_contents($user_url), true);//json转数组
         halt($userData);
     }
-
     //用户注册
     public function register()
     {
         if (request()->isPost()) {
             $data = input('post.');
             $code = input('get.code');//推荐码
-
-
             /*array(3) {
                       ["name"]=>
                       string(5) "admin"
@@ -331,11 +294,9 @@ class User extends Base
             if (empty($data['email'])) {
                 return json(['status' => 0, 'message' => '邮箱不能为空，请输入用邮箱!']);
             }
-
             if (empty($data['password'])) {
                 return json(['status' => 0, 'message' => '密码不能为空,请输入密码!']);
             }
-
             //判断该用户状态
             $userData = Db::name('user')->where('username', $data['email'])->find();
             if ($userData['status'] == 1) {
@@ -344,43 +305,33 @@ class User extends Base
             if ($userData['status'] == -1) {
                 return json(['status' => 0, 'message' => '该账户已经封号，请更换其他账号!']);
             }
-
             //密码加密
             $data['password'] = $this->password_salt($data['password']);
             $data['created_at'] = time();
             $data['time'] = time();
             $data['submit_ip'] = $this->request->ip();
             $data['username'] = $data['email'];
-
             $data['code'] = 'YJ' . time();
             if ($code) {
                 $data['recommender'] = $code;
             }
             //  var_dump($data);die;
             $newUserId = Db::name('user')->insertGetId($data);  //获取最后一条插入数据的id
-
             if ($newUserId) {
                 return json(['status' => 1, 'message' => '注册成功，请登录!']);
-
             } else {
                 return json(['status' => 0, 'message' => '注册失败!']);
             }
-
         } else {
             return json(['status' => 0, 'message' => '请输入用户名和密码!']);
         }
-
     }
-
-
     public function fenyongScore($newUserId, $code)
     {
         //推荐人数据
         $userDataT = Db::name('user')->where('code', $code)->find();
-
         //更新新用户的parent_id
         Db::name('user')->where('id', $newUserId)->update(['parent_id' => $userDataT['id']]);
-
         //添加新用户积分
         Db::name('score')->insert([
             'user_id' => $newUserId,
@@ -389,7 +340,6 @@ class User extends Base
             'source' => 2,
             'info' => '新用户奖励'
         ]);
-
         //推荐人积分
         Db::name('score')->insert([
             'user_id' => $userDataT['id'],
@@ -400,9 +350,6 @@ class User extends Base
         ]);
         return true;
     }
-
-
-
     //清除24小时过时待支付订单
     public function clearOrderStatus0(){
         $sessionUserData = $this->isLogin();
@@ -418,20 +365,13 @@ class User extends Base
             Db::name('order_goods')->where('order_id',$v['id'])->delete();
         }
     }
-
-
-
-
     //我的订单--待收货4
     //前端  0待付款 1已支付 2待收货 3已完成 4已过期
     //后端  0待付款 1支付完成，待发货，2：已完成，4：已发货未签收
-
     //双层循环   外层订单列表数据   内层商品数据
     //外层参数 item1   id  orderDetails.data.length总共商品件数   created_at
     //内层参数 item2   id  cover_url  title description  price num
-
     public function myorder4(){
-
         $status = input('status');
         $sessionUserData = $this->isLogin();
         //清除过期未支付的订单
@@ -441,48 +381,36 @@ class User extends Base
             ->where('order.user_id', $sessionUserData['id'])
             ->where('order.status',$status)->order('order.id desc')
             ->paginate(['list_rows'=> 1,'query'=>request()->param()]);
-
         //分页
         $page = $orderData->render();
-
         $orderData1=$orderData->items();
-
         foreach($orderData1 as $k=>$v){
             $orderData1[$k]['goods']=Db::name('order_goods')->alias('a')
                 ->join('goods b','a.goods_id=b.goods_id')->field('a.*,b.goods_name,b.goods_thumb, b.description')
                 ->where('a.order_id',$v['id'])->select()->toArray();
         }
-
         //  halt($orderData1);die;
         //   var_dump($sessionUserData['id']);die;
-
         return json($orderData1);
-
         return view('',[
             'left_menu'=>12,
             'page'=>$page,
             'orderData1'=>$orderData1
         ]);
     }
-
     //我的订单--待支付0
     public function myorder0(){
         $sessionUserData = $this->isLogin();
-
         //清除24小时过时待支付订单
         $this->clearOrderStatus0();
-
         $orderData=Db::view('order', 'id,total_price,status,time,out_trade_no,pay_method')
             ->view('address', 'shou_name', 'address.id=order.address_id')
             ->where('order.user_id', $sessionUserData['id'])
             ->where('order.status',0)->order('order.id desc')
             ->paginate(['list_rows'=> 1,'query'=>request()->param()]);
-
         //分页
         $page = $orderData->render();
-
         $orderData1=$orderData->items();
-
         foreach($orderData1 as $k=>$v){
             $orderData1[$k]['goods']=Db::name('order_goods')->alias('a')->field('a.*,b.goods_name,b.goods_thumb')->join('goods b','a.goods_id=b.goods_id')->where('a.order_id',$v['id'])->select()->toArray();
         }
@@ -493,7 +421,6 @@ class User extends Base
             'orderData1'=>$orderData1
         ]);
     }
-
     //我的订单-确认收货
     public function order_status2(){
         $id=input('id');
@@ -504,7 +431,6 @@ class User extends Base
             return alert('操作失败','myorder',5);
         }
     }
-
     //我的订单-取消订单-删除订单
     public function order_delete(){
         $id=input('id');
@@ -516,7 +442,6 @@ class User extends Base
             return alert('操作失败','myorder',5);
         }
     }
-
     //用户订单搜索
     public function myorder_search(){
         $sessionUserData = $this->isLogin();
@@ -545,14 +470,11 @@ class User extends Base
 
         //分页
         $page = $orderData->render();
-
         $orderData1=$orderData->items();
-
         foreach($orderData1 as $k=>$v){
             $orderData1[$k]['goods']=Db::name('order_goods')->alias('a')->field('a.*,b.goods_name,b.goods_thumb')->join('goods b','a.goods_id=b.goods_id')->where('a.order_id',$v['id'])->select()->toArray();
         }
         //halt($orderData1);
-
         return view('user/myorder',[
             'left_menu'=>11,
             'page'=>$page,
@@ -560,27 +482,22 @@ class User extends Base
             'searchkey'=>$searchkey
         ]);
     }
-
     //我的订单发表评价
     public function myorder_comment(){
         $sessionUserData = $this->isLogin();
         $id=input('id');
         $orderData=Db::name('order')->find($id);
-
         //做下判断
         if(empty($orderData) || $orderData['status']!=2){
             return redirect('myorder');
         }
-
         //获取商品数据
         $orderGoodsData=Db::name('order_goods')->alias('a')->field('a.order_id,b.goods_id,b.goods_thumb')->join('goods b','a.goods_id=b.goods_id')->where('order_id',$id)->where('a.iscomment',0)->select();
-
         return view('',[
             'left_menu'=>11,
             'orderGoodsData'=>$orderGoodsData
         ]);
     }
-
     //我的评论-发布评论
     public function myorder_comment_add(){
         $sessionUserData = $this->isLogin();
@@ -597,17 +514,12 @@ class User extends Base
             if(empty($orderGoods)){
                 Db::name('order')->where('id',$data['order_id'])->update(['iscomment'=>1]);
             }
-
             return alert('操作成功','myorder',6);
         }else{
             return alert('操作失败','myorder',5);
         }
-
-
         halt($data);
-
     }
-
     //我的评论列表
     public function comment_list(){
         $sessionUserData = $this->isLogin();
@@ -623,7 +535,6 @@ class User extends Base
             'commentData'=>$commentData
         ]);
     }
-
     //sleep
     //默认好评 默认收货
     //现在有1万个会员，自动判断到期，而且会给用户发消息
@@ -637,12 +548,10 @@ class User extends Base
             //order status 2 没有评论的，
             $this->comment_add_auto();
             //order status 4 已经发货的，15天用户也没有确认收货按钮，处理成已经收货完成，默认好评
-
             $this->order_status_auto();
             sleep(1);
         }
     }
-
     //已经确认收货，没有评论，默认添加评论
     public function comment_add_auto(){
         $time=time()-60*60*24;//一天24小时
