@@ -1,0 +1,8 @@
+[2024-08-31T11:55:43+08:00][sql] CONNECT:[ UseTime:0.117685s ] mysql:host=127.0.0.1;port=3306;dbname=code0921;charset=utf8
+[2024-08-31T11:55:43+08:00][sql] SHOW FULL COLUMNS FROM `qing_config` [ RunTime:0.078953s ]
+[2024-08-31T11:55:43+08:00][sql] SELECT `value` FROM `qing_config` [ RunTime:0.011104s ]
+[2024-08-31T11:55:43+08:00][sql] SHOW FULL COLUMNS FROM `qing_search` [ RunTime:0.003974s ]
+[2024-08-31T11:55:43+08:00][sql] SELECT * FROM `qing_search` ORDER BY `id` DESC LIMIT 10 [ RunTime:0.003661s ]
+[2024-08-31T11:55:43+08:00][sql] SHOW FULL COLUMNS FROM `qing_cart` [ RunTime:0.004237s ]
+[2024-08-31T11:55:43+08:00][sql] SELECT COUNT(*) AS think_count FROM `qing_cart` WHERE  `user_id` IS NULL LIMIT 1 [ RunTime:0.009514s ]
+[2024-08-31T11:55:43+08:00][error] [8]未定义数组索引: params

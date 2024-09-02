@@ -91,7 +91,6 @@ class Order extends Base
     //地址列表、添加地址
     public function address()
     {
-
         //   $sessionUserData = $this->isLogin();
         $sessionUserData['id'] = 47;
         $addressData = Request::post();
@@ -169,7 +168,7 @@ class Order extends Base
             }
         }
         //地址列表
-        $addressDatas = Db::name('address')->where('user_id', $sessionUserData['id'])->limit(3)->order('id desc')->select();
+        $addressDatas = Db::name('address')->where('user_id', $sessionUserData['id'])->limit(3)->order('isdefault desc')->select();
         foreach ($addressDatas as $addressData) {
             $addressData['name'] = $addressData['shou_name'];
             $addressData['county'] = $addressData['district'];
@@ -292,16 +291,11 @@ class Order extends Base
     public function orderpay()
     {
 
-
-
-
         //接收订单号
         /* $url = Request::url();
           if (preg_match('/\/orderpay\/(\d+)$/', $url, $matches)) {
               $orderno = $matches[1];
           }*/
-
-
         $getdata = Request::post();
         /* $data = json_encode($getdata,true);
          // var_dump($data);die;
@@ -310,8 +304,6 @@ class Order extends Base
          file_put_contents($filePath,$data);*/
 
         $orderdata = Db::name('order')->where('out_trade_no', $getdata['params']['orderno'])->find();
-
-
         $total_price = $orderdata['total_price'];
         //   return json(['getdata'=>$orderdata]);
         //echo token(10);//测试随机数生成功能

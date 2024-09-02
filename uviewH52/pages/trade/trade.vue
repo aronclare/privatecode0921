@@ -36,7 +36,9 @@
 		<!-- 支付二维码 -->
 		<u-modal :show="showPay"  title="支付" confirmText="稍后支付" @confirm="confirm">
 			<view class="slot-content">
-				<image :src="qrcode"></image>
+				 <!-- 确保 canvas 元素存在 -->
+				    <canvas class="myCanvas" ref="qrcodeCanvas"><image :src="qrcode" class="qrc_img"></image></canvas>
+				
 			</view>
 		</u-modal>
 	</view>
@@ -98,7 +100,7 @@ import { login } from '../../config/utils.js'
 					          //http://code09211.cc/api/orders/b96668d26fdc91c07b90b20886a7d034/pay?type=usdt 
 					let qrcode = (await apiPay({orderno:order.orderno,type:'usdt'}))
 					
-					console.log(qrcode)
+					//console.log(qrcode)
 					this.qrcode = await QRCode.toDataURL(qrcode.qr_code)
 					// 显示支付二维码
 					this.showPay = true
@@ -118,6 +120,34 @@ import { login } from '../../config/utils.js'
 </script>
 
 <style lang='scss' scoped>
+	.u-modal__content{
+		padding: 0px 0px 50px 0px;
+	}
+	
+	.u-modal{
+		width: 300px;
+		padding: 0;
+	}
+	
+	.slot-content{
+		width: 60%;
+		height: 110%;
+/* 		background-color: blueviolet;
+ */		    background-repeat: no-repeat; /* 不重复背景图像 */
+	
+	}
+	
+	.myCanvas{
+		max-width: 100%;
+		max-height: 100%;
+	}
+	.qrc_img{
+		width: 100%;
+		height: 100%;
+	}
+	
+
+	
 	/* 地址容器 */
 	.address {
 		position: relative;
@@ -234,4 +264,6 @@ import { login } from '../../config/utils.js'
 		justify-content: center;
 		height: 100%;
 	}
+	
+
 </style>
